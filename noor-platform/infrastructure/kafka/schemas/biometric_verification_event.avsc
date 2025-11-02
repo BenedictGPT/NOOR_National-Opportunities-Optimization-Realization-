@@ -1,0 +1,116 @@
+{
+  "type": "record",
+  "name": "BiometricVerificationEvent",
+  "namespace": "ae.gov.noor.events.biometric",
+  "doc": "Event emitted during biometric verification attempts (SECURITY CRITICAL)",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "doc": "Unique identifier for this event (UUID)"
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "BiometricEventType",
+        "symbols": ["VERIFICATION_ATTEMPTED", "VERIFICATION_SUCCEEDED", "VERIFICATION_FAILED", "SUSPICIOUS_ACTIVITY"]
+      },
+      "doc": "Type of biometric event"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "doc": "UUID of the user attempting verification"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "doc": "Session ID for tracking related attempts"
+    },
+    {
+      "name": "modality",
+      "type": {
+        "type": "enum",
+        "name": "BiometricModality",
+        "symbols": ["FACIAL", "VOICE", "MULTIMODAL"]
+      },
+      "doc": "Biometric modality used"
+    },
+    {
+      "name": "verification_result",
+      "type": {
+        "type": "record",
+        "name": "BiometricVerificationResult",
+        "fields": [
+          {"name": "verified", "type": "boolean"},
+          {"name": "confidence_score", "type": "double", "doc": "Similarity score 0.0 to 1.0"},
+          {"name": "threshold_used", "type": "double", "doc": "Threshold for acceptance"},
+          {"name": "distance_metric", "type": {"type": "enum", "name": "DistanceMetric", "symbols": ["EUCLIDEAN", "COSINE"]}, "default": "EUCLIDEAN"},
+          {"name": "liveness_check_passed", "type": "boolean", "default": true},
+          {"name": "quality_score", "type": ["null", "double"], "default": null, "doc": "Quality of biometric sample"}
+        ]
+      },
+      "doc": "Verification result details"
+    },
+    {
+      "name": "device_info",
+      "type": {
+        "type": "record",
+        "name": "DeviceInfo",
+        "fields": [
+          {"name": "device_id", "type": ["null", "string"], "default": null},
+          {"name": "device_type", "type": {"type": "enum", "name": "DeviceType", "symbols": ["MOBILE", "TABLET", "DESKTOP", "KIOSK", "OTHER"]}, "default": "MOBILE"},
+          {"name": "os", "type": ["null", "string"], "default": null},
+          {"name": "browser", "type": ["null", "string"], "default": null},
+          {"name": "ip_address", "type": ["null", "string"], "default": null},
+          {"name": "geolocation", "type": ["null", "string"], "default": null}
+        ]
+      },
+      "doc": "Device information for security analysis"
+    },
+    {
+      "name": "security_flags",
+      "type": {
+        "type": "record",
+        "name": "SecurityFlags",
+        "fields": [
+          {"name": "is_suspicious", "type": "boolean", "default": false},
+          {"name": "failed_attempt_count", "type": "int", "default": 0},
+          {"name": "risk_score", "type": "double", "default": 0.0, "doc": "0.0 (low) to 1.0 (high)"},
+          {"name": "anomaly_detected", "type": "boolean", "default": false},
+          {"name": "anomaly_reasons", "type": {"type": "array", "items": "string"}, "default": []}
+        ]
+      },
+      "doc": "Security flags for fraud detection"
+    },
+    {
+      "name": "action_taken",
+      "type": {
+        "type": "enum",
+        "name": "SecurityAction",
+        "symbols": ["NONE", "LOGGED", "ALERT_SENT", "ACCOUNT_LOCKED", "SECURITY_TEAM_NOTIFIED"]
+      },
+      "default": "LOGGED",
+      "doc": "Action taken based on verification result"
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "EventMetadata",
+        "fields": [
+          {"name": "source_service", "type": "string"},
+          {"name": "correlation_id", "type": ["null", "string"], "default": null},
+          {"name": "data_zone", "type": {"type": "enum", "name": "DataZone", "symbols": ["L1_PERSONAL", "L2_INSTITUTIONAL", "L3_FEDERAL"]}, "default": "L1_PERSONAL"}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "type": "record",
+  "name": "CompetencyVerificationEvent",
+  "namespace": "ae.gov.noor.events.competencies",
+  "doc": "Event emitted during competency verification process",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "doc": "Unique identifier for this event (UUID)"
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "VerificationEventType",
+        "symbols": ["REQUESTED", "IN_PROGRESS", "COMPLETED", "FAILED", "EXPIRED"]
+      },
+      "doc": "Type of verification event"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp"
+    },
+    {
+      "name": "verification_id",
+      "type": "string",
+      "doc": "UUID of the verification request"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "doc": "UUID of the user being verified"
+    },
+    {
+      "name": "competency_id",
+      "type": "string",
+      "doc": "UUID of the competency being verified"
+    },
+    {
+      "name": "competency_name",
+      "type": "string",
+      "doc": "Name of the competency"
+    },
+    {
+      "name": "verification_method",
+      "type": {
+        "type": "enum",
+        "name": "VerificationMethod",
+        "symbols": ["CERTIFICATION", "EXAM", "PRACTICAL_TEST", "PEER_REVIEW", "MANAGER_ENDORSEMENT", "AI_ASSESSMENT", "PORTFOLIO_REVIEW"]
+      },
+      "doc": "Method used for verification"
+    },
+    {
+      "name": "proficiency_level",
+      "type": {
+        "type": "enum",
+        "name": "ProficiencyLevel",
+        "symbols": ["NOVICE", "BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT"]
+      },
+      "doc": "Claimed or verified proficiency level"
+    },
+    {
+      "name": "verification_result",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "VerificationResult",
+          "fields": [
+            {"name": "verified", "type": "boolean"},
+            {"name": "confidence_score", "type": "double", "doc": "0.0 to 1.0"},
+            {"name": "verified_proficiency", "type": "ProficiencyLevel"},
+            {"name": "evidence_url", "type": ["null", "string"], "default": null},
+            {"name": "certificate_url", "type": ["null", "string"], "default": null},
+            {"name": "verifier_id", "type": ["null", "string"], "default": null},
+            {"name": "verifier_type", "type": {"type": "enum", "name": "VerifierType", "symbols": ["HUMAN", "AI_AGENT", "SYSTEM"]}, "default": "SYSTEM"},
+            {"name": "verification_date", "type": "long", "logicalType": "timestamp-millis"},
+            {"name": "expiry_date", "type": ["null", "long"], "default": null, "logicalType": "timestamp-millis"},
+            {"name": "notes", "type": ["null", "string"], "default": null}
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Verification result (null for REQUESTED/IN_PROGRESS)"
+    },
+    {
+      "name": "evidence_submitted",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "Evidence",
+          "fields": [
+            {"name": "type", "type": {"type": "enum", "name": "EvidenceType", "symbols": ["CERTIFICATE", "PORTFOLIO", "PROJECT", "REFERENCE", "TEST_RESULT", "OTHER"]}},
+            {"name": "url", "type": "string"},
+            {"name": "description", "type": ["null", "string"], "default": null}
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Evidence submitted for verification"
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "EventMetadata",
+        "fields": [
+          {"name": "source_service", "type": "string"},
+          {"name": "correlation_id", "type": ["null", "string"], "default": null},
+          {"name": "triggered_by", "type": ["null", "string"], "default": null}
+        ]
+      }
+    }
+  ]
+}
