@@ -1,0 +1,89 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: high-sensitivity-pool-policy
+  namespace: noor-high-sensitivity
+spec:
+  podSelector:
+    matchLabels:
+      pool: high-sensitivity
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # ONLY allow ingress from authenticated API gateway
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: noor-platform
+          podSelector:
+            matchLabels:
+              app: api-gateway
+      ports:
+        - protocol: TCP
+          port: 8005  # Health Certification Service
+        - protocol: TCP
+          port: 8006  # Biometric Identity Service
+        - protocol: TCP
+          port: 8002  # Payroll & Pensions Service
+    # Allow ingress from other high-sensitivity pods
+    - from:
+        - podSelector:
+            matchLabels:
+              pool: high-sensitivity
+  egress:
+    # Allow egress to PostgreSQL ONLY (for payroll/health data)
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: noor-platform
+          podSelector:
+            matchLabels:
+              app: postgres
+      ports:
+        - protocol: TCP
+          port: 5432
+    # Allow egress to vector database (for biometric embeddings ONLY)
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: noor-platform
+          podSelector:
+            matchLabels:
+              app: vector-db
+      ports:
+        - protocol: TCP
+          port: 8080
+    # Allow egress to Redis (for session management)
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: noor-platform
+          podSelector:
+            matchLabels:
+              app: redis
+      ports:
+        - protocol: TCP
+          port: 6379
+    # Allow egress to external health APIs (SEHA, DHA, MOHAP) via secure gateway
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 443
+    # Allow egress to external pension APIs (GPSSA, ADPF) via secure gateway
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 443
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+    # BLOCK all other egress (including general and GPU pools)
+    # (no explicit rule = denied by default)

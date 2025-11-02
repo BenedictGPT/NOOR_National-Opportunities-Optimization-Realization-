@@ -1,0 +1,85 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: general-pool-policy
+  namespace: noor-platform
+spec:
+  podSelector:
+    matchLabels:
+      pool: general-purpose
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow ingress from Nginx Ingress Controller
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+        - podSelector:
+            matchLabels:
+              pool: general-purpose
+      ports:
+        - protocol: TCP
+          port: 8000
+        - protocol: TCP
+          port: 3000
+  egress:
+    # Allow egress to GPU pool
+    - to:
+        - podSelector:
+            matchLabels:
+              pool: gpu-inference
+      ports:
+        - protocol: TCP
+          port: 8001
+        - protocol: TCP
+          port: 8002
+        - protocol: TCP
+          port: 8003
+    # Allow egress to databases
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+        - podSelector:
+            matchLabels:
+              app: mongodb
+        - podSelector:
+            matchLabels:
+              app: neo4j
+        - podSelector:
+            matchLabels:
+              app: redis
+        - podSelector:
+            matchLabels:
+              app: kafka
+      ports:
+        - protocol: TCP
+          port: 5432
+        - protocol: TCP
+          port: 27017
+        - protocol: TCP
+          port: 7687
+        - protocol: TCP
+          port: 6379
+        - protocol: TCP
+          port: 9092
+    # Allow egress to internet (for external APIs)
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 443
+        - protocol: TCP
+          port: 80
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+    # BLOCK egress to high-sensitivity pool
+    # (no explicit rule = denied by default)
