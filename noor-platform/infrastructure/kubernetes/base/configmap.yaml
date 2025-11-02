@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: noor-config
+  namespace: noor-platform
+data:
+  # API Configuration
+  API_HOST: "0.0.0.0"
+  API_PORT: "8000"
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  LOG_FORMAT: "json"
+
+  # Database Hosts
+  POSTGRES_HOST: "postgres-service.noor-platform.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "noor_db"
+
+  MONGO_HOST: "mongodb-service.noor-platform.svc.cluster.local"
+  MONGO_PORT: "27017"
+  MONGO_DB: "noor_mongo"
+
+  NEO4J_URI: "bolt://neo4j-service.noor-platform.svc.cluster.local:7687"
+
+  REDIS_HOST: "redis-service.noor-platform.svc.cluster.local"
+  REDIS_PORT: "6379"
+
+  KAFKA_BOOTSTRAP_SERVERS: "kafka-service.noor-platform.svc.cluster.local:9092"
+  KAFKA_GROUP_ID: "noor-platform"
+
+  # JWT Configuration
+  JWT_ALGORITHM: "HS256"
+  JWT_ACCESS_TOKEN_EXPIRE_MINUTES: "30"
+  JWT_REFRESH_TOKEN_EXPIRE_DAYS: "7"
+
+  # Biometric Configuration
+  BIOMETRIC_SIMILARITY_THRESHOLD: "0.95"
+  BIOMETRIC_FAR_TARGET: "0.001"
+
+  # Data Privacy Configuration
+  DIFFERENTIAL_PRIVACY_EPSILON: "1.0"
+  K_ANONYMITY_THRESHOLD: "100"
+
+  # Monitoring
+  PROMETHEUS_ENABLED: "true"
+  PROMETHEUS_PORT: "9090"
+
+  # UAE Pass URLs (Production)
+  UAE_PASS_AUTHORIZATION_URL: "https://id.uaepass.ae/idshub/authorize"
+  UAE_PASS_TOKEN_URL: "https://id.uaepass.ae/idshub/token"
+  UAE_PASS_USERINFO_URL: "https://id.uaepass.ae/idshub/userinfo"

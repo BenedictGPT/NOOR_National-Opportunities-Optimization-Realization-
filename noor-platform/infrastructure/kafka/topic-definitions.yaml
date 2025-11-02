@@ -1,0 +1,601 @@
+# NOOR Platform - Kafka Topic Definitions
+# Version: 7.1.0
+# Purpose: Event streaming configuration for microservices communication
+
+# =============================================================================
+# TOPIC NAMING CONVENTION
+# =============================================================================
+# Format: noor.<domain>.<entity>.<event-type>
+# Examples:
+#   - noor.users.profile.updated
+#   - noor.competencies.verification.requested
+#   - noor.learning.progress.completed
+
+# =============================================================================
+# USER LIFECYCLE EVENTS
+# =============================================================================
+
+topics:
+  # User profile events
+  - name: noor.users.profile.created
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000  # 7 days
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: user_profile_event.avsc
+    description: "Fired when a new user profile is created"
+
+  - name: noor.users.profile.updated
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: user_profile_event.avsc
+    description: "Fired when user profile is updated"
+
+  - name: noor.users.profile.deleted
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000  # 30 days (compliance)
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: user_profile_event.avsc
+    description: "Fired when user profile is deleted (GDPR compliance)"
+
+  # Employment status events
+  - name: noor.users.employment.hired
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: employment_event.avsc
+    description: "Fired when user is hired by a company"
+
+  - name: noor.users.employment.terminated
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: employment_event.avsc
+    description: "Fired when employment is terminated"
+
+# =============================================================================
+# COMPETENCY & SKILL EVENTS
+# =============================================================================
+
+  # Competency verification
+  - name: noor.competencies.verification.requested
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: competency_verification_event.avsc
+    description: "Fired when competency verification is requested"
+
+  - name: noor.competencies.verification.completed
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: competency_verification_event.avsc
+    description: "Fired when competency verification is completed"
+
+  - name: noor.competencies.skill.acquired
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: skill_event.avsc
+    description: "Fired when user acquires a new skill"
+
+  # Skill gap analysis
+  - name: noor.competencies.gap.identified
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: skill_gap_event.avsc
+    description: "Fired when skill gaps are identified for a user"
+
+# =============================================================================
+# LEARNING & DEVELOPMENT EVENTS
+# =============================================================================
+
+  # Learning progress
+  - name: noor.learning.course.enrolled
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: learning_progress_event.avsc
+    description: "Fired when user enrolls in a course"
+
+  - name: noor.learning.course.completed
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: learning_progress_event.avsc
+    description: "Fired when user completes a course"
+
+  - name: noor.learning.certification.earned
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: certification_event.avsc
+    description: "Fired when user earns a certification"
+
+  - name: noor.learning.progress.updated
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: learning_progress_event.avsc
+    description: "Fired when learning progress is updated"
+
+# =============================================================================
+# BIOMETRIC IDENTITY EVENTS
+# =============================================================================
+
+  # Biometric enrollment
+  - name: noor.biometric.enrollment.requested
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: biometric_event.avsc
+    description: "Fired when biometric enrollment is requested"
+    security: high_sensitivity
+
+  - name: noor.biometric.enrollment.completed
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: biometric_event.avsc
+    description: "Fired when biometric enrollment is completed"
+    security: high_sensitivity
+
+  # Biometric verification
+  - name: noor.biometric.verification.attempted
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000  # Compliance/audit trail
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: biometric_verification_event.avsc
+    description: "Fired when biometric verification is attempted"
+    security: high_sensitivity
+
+  - name: noor.biometric.verification.succeeded
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: biometric_verification_event.avsc
+    description: "Fired when biometric verification succeeds"
+    security: high_sensitivity
+
+  - name: noor.biometric.verification.failed
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: biometric_verification_event.avsc
+    description: "Fired when biometric verification fails (security alert)"
+    security: high_sensitivity
+
+# =============================================================================
+# JOB MATCHING & RECRUITMENT EVENTS
+# =============================================================================
+
+  # Job postings
+  - name: noor.jobs.posting.created
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: job_posting_event.avsc
+    description: "Fired when a new job posting is created"
+
+  - name: noor.jobs.posting.updated
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: job_posting_event.avsc
+    description: "Fired when job posting is updated"
+
+  # Job applications
+  - name: noor.jobs.application.submitted
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: job_application_event.avsc
+    description: "Fired when job application is submitted"
+
+  - name: noor.jobs.application.status_changed
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: job_application_event.avsc
+    description: "Fired when job application status changes"
+
+  # AI-powered matching
+  - name: noor.jobs.match.calculated
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: job_match_event.avsc
+    description: "Fired when AI calculates job-user match scores"
+
+# =============================================================================
+# AI AGENT EVENTS
+# =============================================================================
+
+  # Agent interactions
+  - name: noor.agents.interaction.started
+    partitions: 12
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: agent_interaction_event.avsc
+    description: "Fired when AI agent interaction starts"
+
+  - name: noor.agents.interaction.completed
+    partitions: 12
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: agent_interaction_event.avsc
+    description: "Fired when AI agent interaction completes"
+
+  # Agent decisions
+  - name: noor.agents.decision.made
+    partitions: 12
+    replication_factor: 3
+    retention_ms: 2592000000  # Audit trail
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: agent_decision_event.avsc
+    description: "Fired when AI agent makes a decision"
+
+  # MCP (Model Context Protocol) messages
+  - name: noor.agents.mcp.message
+    partitions: 12
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: mcp_message_event.avsc
+    description: "Inter-agent communication via MCP"
+
+  # Agent performance metrics
+  - name: noor.agents.metrics.recorded
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: agent_metrics_event.avsc
+    description: "Fired when agent performance metrics are recorded"
+
+# =============================================================================
+# NOTIFICATION EVENTS
+# =============================================================================
+
+  # Multi-channel notifications
+  - name: noor.notifications.email.requested
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: notification_event.avsc
+    description: "Fired when email notification is requested"
+
+  - name: noor.notifications.sms.requested
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: notification_event.avsc
+    description: "Fired when SMS notification is requested"
+
+  - name: noor.notifications.push.requested
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: notification_event.avsc
+    description: "Fired when push notification is requested"
+
+  - name: noor.notifications.delivered
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 604800000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: notification_event.avsc
+    description: "Fired when notification is successfully delivered"
+
+# =============================================================================
+# ANALYTICS & REPORTING EVENTS
+# =============================================================================
+
+  # EQI calculations
+  - name: noor.analytics.eqi.calculated
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: eqi_event.avsc
+    description: "Fired when EQI (Emiratization Quality Index) is calculated"
+
+  # Emiratization metrics
+  - name: noor.analytics.emiratization.updated
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: emiratization_event.avsc
+    description: "Fired when emiratization metrics are updated"
+
+  # Workforce insights
+  - name: noor.analytics.insights.generated
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: insights_event.avsc
+    description: "Fired when AI-generated workforce insights are created"
+
+# =============================================================================
+# AUDIT TRAIL EVENTS
+# =============================================================================
+
+  # Security audits
+  - name: noor.audit.security.access_granted
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 7776000000  # 90 days (compliance)
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: audit_event.avsc
+    description: "Fired when user accesses protected resource"
+    security: high_sensitivity
+
+  - name: noor.audit.security.access_denied
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 7776000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: audit_event.avsc
+    description: "Fired when access to protected resource is denied"
+    security: high_sensitivity
+
+  - name: noor.audit.data.modified
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 7776000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: audit_event.avsc
+    description: "Fired when sensitive data is modified"
+    security: high_sensitivity
+
+  # Compliance events
+  - name: noor.audit.compliance.gdpr_request
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 31536000000  # 1 year (legal requirement)
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: compliance_event.avsc
+    description: "Fired when GDPR data request is made"
+    security: high_sensitivity
+
+# =============================================================================
+# HEALTH & WELLNESS EVENTS
+# =============================================================================
+
+  - name: noor.health.certification.issued
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: health_certification_event.avsc
+    description: "Fired when health certification is issued"
+    security: high_sensitivity
+
+  - name: noor.health.certification.expired
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: health_certification_event.avsc
+    description: "Fired when health certification expires"
+    security: high_sensitivity
+
+# =============================================================================
+# PAYROLL & PENSIONS EVENTS
+# =============================================================================
+
+  - name: noor.payroll.salary.processed
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 7776000000  # 90 days (compliance)
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: payroll_event.avsc
+    description: "Fired when salary payment is processed"
+    security: high_sensitivity
+
+  - name: noor.pensions.contribution.recorded
+    partitions: 3
+    replication_factor: 3
+    retention_ms: 7776000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: pension_event.avsc
+    description: "Fired when pension contribution is recorded"
+    security: high_sensitivity
+
+# =============================================================================
+# DEAD LETTER QUEUES
+# =============================================================================
+
+  # Failed events for retry/debugging
+  - name: noor.system.dlq.failed_events
+    partitions: 6
+    replication_factor: 3
+    retention_ms: 2592000000
+    config:
+      cleanup.policy: delete
+      compression.type: lz4
+      min.insync.replicas: 2
+    schema: dlq_event.avsc
+    description: "Dead letter queue for failed event processing"
+
+# =============================================================================
+# TOPIC SUMMARY
+# =============================================================================
+# Total Topics: 49
+# Categories:
+#   - User Lifecycle: 5 topics
+#   - Competencies: 4 topics
+#   - Learning: 4 topics
+#   - Biometric: 5 topics
+#   - Job Matching: 5 topics
+#   - AI Agents: 5 topics
+#   - Notifications: 4 topics
+#   - Analytics: 3 topics
+#   - Audit: 4 topics
+#   - Health: 2 topics
+#   - Payroll: 2 topics
+#   - System: 1 topic
+#
+# Total Partitions: 283
+# Estimated Throughput: 100,000+ events/sec
+# Storage Estimate: ~500GB/day compressed

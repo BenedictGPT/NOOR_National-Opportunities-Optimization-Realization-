@@ -1,0 +1,192 @@
+{
+  "type": "record",
+  "name": "AgentInteractionEvent",
+  "namespace": "ae.gov.noor.events.agents",
+  "doc": "Event emitted when AI agents interact with users or other agents",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "doc": "Unique identifier for this event (UUID)"
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "AgentInteractionEventType",
+        "symbols": ["INTERACTION_STARTED", "MESSAGE_SENT", "MESSAGE_RECEIVED", "TOOL_EXECUTED", "INTERACTION_COMPLETED", "INTERACTION_FAILED"]
+      },
+      "doc": "Type of agent interaction event"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp"
+    },
+    {
+      "name": "interaction_id",
+      "type": "string",
+      "doc": "UUID of the interaction session"
+    },
+    {
+      "name": "agent_id",
+      "type": "string",
+      "doc": "ID of the agent involved"
+    },
+    {
+      "name": "agent_type",
+      "type": {
+        "type": "enum",
+        "name": "AgentType",
+        "symbols": [
+          "MASTER_ORCHESTRATOR",
+          "TALENT_ORCHESTRATOR",
+          "LEARNING_ORCHESTRATOR",
+          "OPERATIONS_ORCHESTRATOR",
+          "COMPLIANCE_ORCHESTRATOR",
+          "ENGAGEMENT_ORCHESTRATOR",
+          "INSIGHTS_ORCHESTRATOR",
+          "CAREER_ADVISOR",
+          "SKILL_GAP_ANALYST",
+          "JOB_MATCHER",
+          "LEARNING_CURATOR",
+          "VERIFICATION_AGENT",
+          "BIOMETRIC_SECURITY",
+          "PAYROLL_PROCESSOR",
+          "COMPLIANCE_MONITOR",
+          "EMIRATIZATION_ADVISOR",
+          "WELLNESS_COACH",
+          "PERFORMANCE_ANALYST",
+          "ONBOARDING_GUIDE",
+          "OFFBOARDING_SPECIALIST",
+          "BENEFITS_ADVISOR",
+          "TRAINING_COORDINATOR",
+          "MENTOR_MATCHER",
+          "GUILD_FACILITATOR",
+          "REPORT_GENERATOR",
+          "ANOMALY_DETECTOR",
+          "NOTIFICATION_DISPATCHER",
+          "FEEDBACK_ANALYZER",
+          "POLICY_INTERPRETER",
+          "SUCCESSION_PLANNER",
+          "CREDENTIAL_VERIFIER",
+          "HEALTH_CERTIFIER"
+        ]
+      },
+      "doc": "Type of agent (one of 31 NOOR agents)"
+    },
+    {
+      "name": "user_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "UUID of the user interacting with agent (null for agent-to-agent)"
+    },
+    {
+      "name": "target_agent_id",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Target agent ID for inter-agent communication"
+    },
+    {
+      "name": "conversation",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "Message",
+          "fields": [
+            {"name": "role", "type": {"type": "enum", "name": "MessageRole", "symbols": ["USER", "AGENT", "SYSTEM", "TOOL"]}},
+            {"name": "content", "type": "string"},
+            {"name": "timestamp", "type": "long", "logicalType": "timestamp-millis"},
+            {"name": "tokens_used", "type": ["null", "int"], "default": null}
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Conversation messages in this interaction"
+    },
+    {
+      "name": "tools_used",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "ToolExecution",
+          "fields": [
+            {"name": "tool_name", "type": "string"},
+            {"name": "parameters", "type": {"type": "map", "values": "string"}},
+            {"name": "result", "type": ["null", "string"], "default": null},
+            {"name": "execution_time_ms", "type": ["null", "int"], "default": null},
+            {"name": "success", "type": "boolean"}
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Tools executed during interaction"
+    },
+    {
+      "name": "interaction_metrics",
+      "type": {
+        "type": "record",
+        "name": "InteractionMetrics",
+        "fields": [
+          {"name": "duration_seconds", "type": ["null", "int"], "default": null},
+          {"name": "total_tokens", "type": "int", "default": 0},
+          {"name": "message_count", "type": "int", "default": 0},
+          {"name": "user_satisfaction", "type": ["null", "double"], "default": null, "doc": "0.0 to 1.0"},
+          {"name": "resolution_status", "type": {"type": "enum", "name": "ResolutionStatus", "symbols": ["RESOLVED", "PARTIALLY_RESOLVED", "UNRESOLVED", "ESCALATED", "IN_PROGRESS"]}, "default": "IN_PROGRESS"}
+        ]
+      },
+      "doc": "Metrics for this interaction"
+    },
+    {
+      "name": "intent_classification",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Intent",
+          "fields": [
+            {"name": "primary_intent", "type": "string"},
+            {"name": "confidence", "type": "double", "doc": "0.0 to 1.0"},
+            {"name": "entities_extracted", "type": {"type": "map", "values": "string"}, "default": {}}
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Classified user intent"
+    },
+    {
+      "name": "sentiment_analysis",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "Sentiment",
+          "fields": [
+            {"name": "overall_sentiment", "type": {"type": "enum", "name": "SentimentType", "symbols": ["VERY_NEGATIVE", "NEGATIVE", "NEUTRAL", "POSITIVE", "VERY_POSITIVE"]}, "default": "NEUTRAL"},
+            {"name": "sentiment_score", "type": "double", "default": 0.0, "doc": "-1.0 to 1.0"},
+            {"name": "emotion_detected", "type": ["null", "string"], "default": null}
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Sentiment analysis of user messages"
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "EventMetadata",
+        "fields": [
+          {"name": "source_service", "type": "string"},
+          {"name": "correlation_id", "type": ["null", "string"], "default": null},
+          {"name": "session_id", "type": ["null", "string"], "default": null},
+          {"name": "model_used", "type": ["null", "string"], "default": null},
+          {"name": "model_version", "type": ["null", "string"], "default": null}
+        ]
+      }
+    }
+  ]
+}

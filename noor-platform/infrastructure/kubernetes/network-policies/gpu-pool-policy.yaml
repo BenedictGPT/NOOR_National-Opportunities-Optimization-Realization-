@@ -1,0 +1,85 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gpu-pool-policy
+  namespace: noor-platform
+spec:
+  podSelector:
+    matchLabels:
+      pool: gpu-inference
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow ingress from general pool
+    - from:
+        - podSelector:
+            matchLabels:
+              pool: general-purpose
+      ports:
+        - protocol: TCP
+          port: 8001
+        - protocol: TCP
+          port: 8002
+        - protocol: TCP
+          port: 8003
+        - protocol: TCP
+          port: 8004
+    # Allow ingress from other GPU pool pods
+    - from:
+        - podSelector:
+            matchLabels:
+              pool: gpu-inference
+  egress:
+    # Allow egress to general pool
+    - to:
+        - podSelector:
+            matchLabels:
+              pool: general-purpose
+    # Allow egress to databases (for model training and inference)
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+        - podSelector:
+            matchLabels:
+              app: mongodb
+        - podSelector:
+            matchLabels:
+              app: neo4j
+        - podSelector:
+            matchLabels:
+              app: redis
+      ports:
+        - protocol: TCP
+          port: 5432
+        - protocol: TCP
+          port: 27017
+        - protocol: TCP
+          port: 7687
+        - protocol: TCP
+          port: 6379
+    # Allow egress to vector database
+    - to:
+        - podSelector:
+            matchLabels:
+              app: vector-db
+      ports:
+        - protocol: TCP
+          port: 8080
+    # Allow egress to AI APIs (OpenAI, Anthropic)
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 443
+    # Allow DNS
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+    # BLOCK egress to high-sensitivity pool
+    # (no explicit rule = denied by default)
