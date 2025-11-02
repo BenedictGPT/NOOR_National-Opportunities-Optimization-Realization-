@@ -1,0 +1,343 @@
+# Kubernetes Deployment Manifest
+# Biometric Identity Service - NOOR Platform v7.1
+# SECURITY CRITICAL - L1 Personal Zone
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: biometric-identity-config
+  namespace: noor-services
+data:
+  SERVICE_NAME: "biometric-identity"
+  SERVICE_VERSION: "7.1.0"
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  SECURITY_LEVEL: "CRITICAL"
+
+  # Database hosts
+  POSTGRES_HOST: "postgresql.noor-data.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "noor_db"
+
+  MONGODB_HOST: "mongodb.noor-data.svc.cluster.local"
+  MONGODB_PORT: "27017"
+  MONGODB_DB: "noor_operational"
+
+  REDIS_HOST: "redis.noor-data.svc.cluster.local"
+  REDIS_PORT: "6379"
+
+  # Kafka
+  KAFKA_BOOTSTRAP_SERVERS: "kafka.noor-messaging.svc.cluster.local:9092"
+
+  # Pinecone
+  PINECONE_ENVIRONMENT: "us-west1-gcp"
+  PINECONE_INDEX_NAME: "noor-biometric-embeddings"
+
+  # Biometric thresholds
+  FACIAL_VERIFICATION_THRESHOLD: "0.95"
+  VOICE_VERIFICATION_THRESHOLD: "0.92"
+  LIVENESS_CONFIDENCE_THRESHOLD: "0.90"
+  MAX_FAILED_ATTEMPTS: "3"
+  LOCKOUT_DURATION_MINUTES: "30"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: biometric-identity-secrets
+  namespace: noor-services
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  MONGODB_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  REDIS_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  JWT_SECRET_KEY: "CHANGE_ME_IN_PRODUCTION_MINIMUM_32_CHARS"
+  PINECONE_API_KEY: "CHANGE_ME_IN_PRODUCTION"
+  BIOMETRIC_MASTER_KEY: "CHANGE_ME_IN_PRODUCTION_FOR_ENCRYPTION"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: biometric-identity
+  namespace: noor-services
+  labels:
+    app: biometric-identity
+    tier: backend
+    component: microservice
+    security-level: critical
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: biometric-identity
+  template:
+    metadata:
+      labels:
+        app: biometric-identity
+        tier: backend
+        component: microservice
+        security-level: critical
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        seccomp.security.alpha.kubernetes.io/pod: "runtime/default"
+    spec:
+      # Deploy to high-sensitivity node pool with GPU for ML models
+      nodeSelector:
+        node-pool: gpu-inference
+        data-zone: l1-personal
+
+      # Pod security
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+
+      # Init container to download ML models
+      initContainers:
+      - name: model-downloader
+        image: python:3.11-slim
+        command: ['sh', '-c']
+        args:
+          - |
+            pip install torch torchvision facenet-pytorch && \
+            python -c "from facenet_pytorch import MTCNN, InceptionResnetV1; MTCNN(); InceptionResnetV1(pretrained='vggface2').eval()" && \
+            echo "Models downloaded successfully"
+        volumeMounts:
+        - name: models
+          mountPath: /root/.cache/torch
+
+      containers:
+      - name: biometric-identity
+        image: noor-registry.azurecr.io/biometric-identity:7.1.0
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 8003
+          name: http
+        - containerPort: 9090
+          name: metrics
+
+        envFrom:
+        - configMapRef:
+            name: biometric-identity-config
+        - secretRef:
+            name: biometric-identity-secrets
+
+        # GPU resource allocation
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "1000m"
+            nvidia.com/gpu: 1  # Request 1 GPU for ML inference
+          limits:
+            memory: "8Gi"
+            cpu: "2000m"
+            nvidia.com/gpu: 1
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8003
+          initialDelaySeconds: 60  # Longer for ML model loading
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8003
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        # Enhanced security
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /app/.cache
+        - name: models
+          mountPath: /app/models
+          readOnly: true
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      - name: models
+        emptyDir: {}
+
+      imagePullSecrets:
+      - name: acr-secret
+
+      # Pod anti-affinity for high availability
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: biometric-identity
+              topologyKey: kubernetes.io/hostname
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: biometric-identity
+  namespace: noor-services
+  labels:
+    app: biometric-identity
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8003
+    protocol: TCP
+    name: http
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: metrics
+  selector:
+    app: biometric-identity
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: biometric-identity-hpa
+  namespace: noor-services
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: biometric-identity
+  minReplicas: 3
+  maxReplicas: 6  # Limited due to GPU availability
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: nvidia.com/gpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: biometric-identity-pdb
+  namespace: noor-services
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: biometric-identity
+
+---
+# Network Policy - Enhanced security for biometric data
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: biometric-identity-netpol
+  namespace: noor-services
+spec:
+  podSelector:
+    matchLabels:
+      app: biometric-identity
+  policyTypes:
+  - Ingress
+  - Egress
+
+  ingress:
+  # Only allow from API Gateway
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-gateway
+    ports:
+    - protocol: TCP
+      port: 8003
+
+  # Allow from Prometheus (metrics)
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-monitoring
+    ports:
+    - protocol: TCP
+      port: 9090
+
+  egress:
+  # Database connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-data
+    ports:
+    - protocol: TCP
+      port: 5432
+    - protocol: TCP
+      port: 27017
+    - protocol: TCP
+      port: 6379
+
+  # Kafka
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-messaging
+    ports:
+    - protocol: TCP
+      port: 9092
+
+  # Pinecone (external)
+  - to:
+    - podSelector: {}
+    ports:
+    - protocol: TCP
+      port: 443  # HTTPS to Pinecone API
+
+  # DNS
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
