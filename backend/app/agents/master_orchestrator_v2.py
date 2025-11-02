@@ -23,6 +23,7 @@ class MasterOrchestratorV2(BaseAgent):
     
     def __init__(self):
         super().__init__(
+            agent_id="master-orchestrator-001",
             name="Master Orchestrator",
             description="AI-powered master orchestrator for NOOR Platform",
             capabilities=[
