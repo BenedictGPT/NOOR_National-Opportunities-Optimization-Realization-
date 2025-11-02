@@ -17,7 +17,8 @@ from app.api.v1.endpoints import (
     employees,
     jobs,
     applications,
-    ai_agents
+    ai_agents,
+    ai_features
 )
 
 api_router = APIRouter()
@@ -101,7 +102,13 @@ api_router.include_router(
 # AI Agents
 api_router.include_router(
     ai_agents.router,
-    prefix="/ai",
+    prefix="/agents",
     tags=["AI Agents"]
+)
+
+# AI Features
+api_router.include_router(
+    ai_features.router,
+    tags=["AI Features"]
 )
 

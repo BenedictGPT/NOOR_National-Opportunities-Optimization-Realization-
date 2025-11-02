@@ -94,9 +94,18 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: Optional[str] = None
     OPENAI_MODEL: str = "gpt-4"
     
-    # Anthropic
+    # Anthropic AI
     ANTHROPIC_API_KEY: Optional[str] = None
-    ANTHROPIC_MODEL: str = "claude-3-opus-20240229"
+    AI_MODEL: str = "claude-3-5-sonnet-20241022"
+    AI_MAX_TOKENS: int = 4096
+    AI_TEMPERATURE: float = 0.7
+    MASTER_ORCHESTRATOR_MODEL: str = "claude-3-5-sonnet-20241022"
+    
+    # Agent Configuration
+    AGENT_MAX_RETRIES: int = 3
+    AGENT_TIMEOUT_SECONDS: int = 300
+    ENABLE_AGENT_LOGGING: bool = True
+    ENABLE_AI_FEATURES: bool = True
     
     # UAE Pass Integration
     UAE_PASS_CLIENT_ID: Optional[str] = None
