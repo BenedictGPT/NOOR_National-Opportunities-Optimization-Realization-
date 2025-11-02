@@ -1,0 +1,140 @@
+graph TB
+    subgraph "NOOR MVP - Infrastructure & Deployment"
+        subgraph "CI/CD Pipeline - GitHub Actions"
+            GH[GitHub Repository<br/>Source Code]
+            CI[GitHub Actions<br/>Automated Testing]
+            BUILD[Docker Build<br/>Multi-stage Build]
+            PUSH[Push to Registry<br/>Docker Hub/ECR]
+        end
+        
+        subgraph "Kubernetes Cluster - Production"
+            subgraph "Namespace: noor-production"
+                subgraph "Frontend Pods"
+                    FE1[Frontend Pod 1<br/>Next.js<br/>512MB RAM]
+                    FE2[Frontend Pod 2<br/>Next.js<br/>512MB RAM]
+                    FE3[Frontend Pod 3<br/>Next.js<br/>512MB RAM]
+                end
+                
+                subgraph "Backend Pods"
+                    BE1[Backend Pod 1<br/>FastAPI<br/>1GB RAM]
+                    BE2[Backend Pod 2<br/>FastAPI<br/>1GB RAM]
+                    BE3[Backend Pod 3<br/>FastAPI<br/>1GB RAM]
+                    BE4[Backend Pod 4<br/>FastAPI<br/>1GB RAM]
+                end
+                
+                subgraph "Agent Pods"
+                    AG1[Agent Pod 1<br/>8 Agents<br/>2GB RAM]
+                    AG2[Agent Pod 2<br/>8 Agents<br/>2GB RAM]
+                end
+                
+                LB[Load Balancer<br/>AWS ALB/Azure LB]
+                ING[Ingress Controller<br/>NGINX]
+            end
+        end
+        
+        subgraph "Data Layer - Managed Services"
+            PG[PostgreSQL<br/>AWS RDS/Azure DB<br/>Primary + Replica<br/>100GB SSD]
+            MONGO[MongoDB Atlas<br/>3-Node Replica<br/>50GB Storage]
+            REDIS[Redis Cluster<br/>ElastiCache/Azure Cache<br/>6GB Memory]
+        end
+        
+        subgraph "External Services"
+            CLAUDE[Anthropic Claude<br/>API Endpoint]
+            SENDGRID[SendGrid<br/>Email Service]
+            TWILIO[Twilio<br/>SMS Service]
+            UAE_PASS[UAE Pass<br/>OAuth Provider]
+        end
+        
+        subgraph "Monitoring & Logging"
+            PROM[Prometheus<br/>Metrics Collection]
+            GRAF[Grafana<br/>Dashboards]
+            LOKI[Loki<br/>Log Aggregation]
+            ALERT[AlertManager<br/>Notifications]
+        end
+        
+        subgraph "Security"
+            CERT[Cert Manager<br/>SSL/TLS Certificates]
+            VAULT[HashiCorp Vault<br/>Secrets Management]
+            WAF[Web Application Firewall<br/>AWS WAF/Cloudflare]
+        end
+    end
+    
+    %% CI/CD Flow
+    GH --> CI
+    CI --> BUILD
+    BUILD --> PUSH
+    PUSH --> K8S_DEPLOY[Kubernetes Deployment]
+    K8S_DEPLOY --> FE1
+    K8S_DEPLOY --> BE1
+    K8S_DEPLOY --> AG1
+    
+    %% Traffic Flow
+    WAF --> LB
+    LB --> ING
+    ING --> FE1
+    ING --> FE2
+    ING --> FE3
+    ING --> BE1
+    ING --> BE2
+    ING --> BE3
+    ING --> BE4
+    
+    %% Backend to Agents
+    BE1 --> AG1
+    BE2 --> AG1
+    BE3 --> AG2
+    BE4 --> AG2
+    
+    %% Agents to Data Layer
+    AG1 --> PG
+    AG1 --> MONGO
+    AG1 --> REDIS
+    AG2 --> PG
+    AG2 --> REDIS
+    
+    %% Agents to External Services
+    AG1 --> CLAUDE
+    AG1 --> SENDGRID
+    AG1 --> TWILIO
+    AG2 --> CLAUDE
+    
+    %% Authentication
+    BE1 --> UAE_PASS
+    BE2 --> UAE_PASS
+    
+    %% Monitoring
+    FE1 -.-> PROM
+    BE1 -.-> PROM
+    AG1 -.-> PROM
+    PROM --> GRAF
+    PROM --> ALERT
+    
+    %% Logging
+    BE1 -.-> LOKI
+    AG1 -.-> LOKI
+    
+    %% Security
+    CERT -.-> ING
+    VAULT -.-> BE1
+    VAULT -.-> AG1
+    
+    %% Styling
+    style GH fill:#f9ca24
+    style CI fill:#f9ca24
+    style LB fill:#a29bfe
+    style ING fill:#a29bfe
+    style FE1 fill:#74b9ff
+    style FE2 fill:#74b9ff
+    style FE3 fill:#74b9ff
+    style BE1 fill:#00b894
+    style BE2 fill:#00b894
+    style BE3 fill:#00b894
+    style BE4 fill:#00b894
+    style AG1 fill:#ff6b6b
+    style AG2 fill:#ff6b6b
+    style PG fill:#95e1d3
+    style REDIS fill:#95e1d3
+    style CLAUDE fill:#ffeaa7
+    style PROM fill:#dfe6e9
+    style GRAF fill:#dfe6e9
+

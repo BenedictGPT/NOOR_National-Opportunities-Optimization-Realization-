@@ -1,0 +1,99 @@
+graph LR
+    subgraph "NOOR MVP - API Flow Architecture"
+        subgraph "Client Layer"
+            WEB[Web Browser]
+            MOBILE[Mobile App]
+            ADMIN[Admin Portal]
+        end
+        
+        subgraph "API Gateway - Port 8000"
+            GATEWAY[FastAPI Gateway]
+            AUTH_MW[Authentication<br/>Middleware]
+            RATE_MW[Rate Limiting<br/>Middleware]
+            CORS_MW[CORS<br/>Middleware]
+            LOG_MW[Logging<br/>Middleware]
+        end
+        
+        subgraph "API Endpoints - 51 Total"
+            subgraph "Authentication - /api/v1/auth"
+                AUTH_EP[POST /register<br/>POST /login<br/>POST /refresh<br/>POST /logout]
+            end
+            
+            subgraph "Users - /api/v1/users"
+                USER_EP[GET /me<br/>PUT /me<br/>GET /:id<br/>DELETE /:id]
+            end
+            
+            subgraph "Skills - /api/v1/skills"
+                SKILL_EP[GET /<br/>POST /<br/>GET /:id<br/>PUT /:id<br/>DELETE /:id<br/>POST /user-skills<br/>GET /user-skills<br/>POST /match]
+            end
+            
+            subgraph "Work Experience - /api/v1/work-experience"
+                WORK_EP[GET /<br/>POST /<br/>GET /:id<br/>PUT /:id<br/>DELETE /:id<br/>POST /verify]
+            end
+            
+            subgraph "Jobs - /api/v1/jobs"
+                JOB_EP[GET /<br/>POST /<br/>GET /:id<br/>PUT /:id<br/>DELETE /:id<br/>POST /match<br/>GET /recommendations]
+            end
+            
+            subgraph "Applications - /api/v1/applications"
+                APP_EP[GET /<br/>POST /<br/>GET /:id<br/>PUT /:id/status]
+            end
+            
+            subgraph "AI Features - /api/v1/ai"
+                AI_EP[POST /skill-match<br/>POST /career-recommendations<br/>POST /resume-analysis<br/>POST /job-optimization]
+            end
+        end
+        
+        subgraph "Response Format"
+            SUCCESS[Success Response<br/>200-299<br/>data + metadata]
+            ERROR[Error Response<br/>400-599<br/>error + details]
+        end
+    end
+    
+    %% Client to Gateway
+    WEB --> GATEWAY
+    MOBILE --> GATEWAY
+    ADMIN --> GATEWAY
+    
+    %% Gateway Middleware Chain
+    GATEWAY --> CORS_MW
+    CORS_MW --> LOG_MW
+    LOG_MW --> AUTH_MW
+    AUTH_MW --> RATE_MW
+    
+    %% Middleware to Endpoints
+    RATE_MW --> AUTH_EP
+    RATE_MW --> USER_EP
+    RATE_MW --> SKILL_EP
+    RATE_MW --> WORK_EP
+    RATE_MW --> JOB_EP
+    RATE_MW --> APP_EP
+    RATE_MW --> AI_EP
+    
+    %% Endpoints to Responses
+    AUTH_EP --> SUCCESS
+    USER_EP --> SUCCESS
+    SKILL_EP --> SUCCESS
+    WORK_EP --> SUCCESS
+    JOB_EP --> SUCCESS
+    APP_EP --> SUCCESS
+    AI_EP --> SUCCESS
+    
+    AUTH_EP --> ERROR
+    USER_EP --> ERROR
+    SKILL_EP --> ERROR
+    
+    %% Styling
+    style GATEWAY fill:#a29bfe,stroke:#6c5ce7,stroke-width:3px
+    style AUTH_MW fill:#fdcb6e
+    style RATE_MW fill:#fdcb6e
+    style AUTH_EP fill:#00b894
+    style USER_EP fill:#00b894
+    style SKILL_EP fill:#00b894
+    style WORK_EP fill:#00b894
+    style JOB_EP fill:#00b894
+    style APP_EP fill:#00b894
+    style AI_EP fill:#ff6b6b
+    style SUCCESS fill:#55efc4
+    style ERROR fill:#ff7675
+

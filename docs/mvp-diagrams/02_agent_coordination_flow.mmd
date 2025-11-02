@@ -1,0 +1,94 @@
+sequenceDiagram
+    participant User as User/Client
+    participant API as FastAPI Gateway
+    participant MO as Master Orchestrator
+    participant REG as Agent Registry
+    participant DRA as Data Retrieval Agent
+    participant AIA as AI Analysis Agent
+    participant MA as Matching Agent
+    participant NA as Notification Agent
+    participant VA as Verification Agent
+    participant AA as Analytics Agent
+    participant DB as PostgreSQL
+    participant Cache as Redis
+    participant AI as Claude AI
+    
+    Note over User,AI: Job Matching Request Flow
+    
+    User->>API: POST /api/v1/jobs/match
+    activate API
+    API->>API: Validate JWT Token
+    API->>API: Check Rate Limit
+    API->>MO: Forward Request
+    activate MO
+    
+    MO->>MO: Analyze Task Complexity
+    MO->>MO: Decompose into Subtasks
+    MO->>REG: Get Available Agents
+    activate REG
+    REG-->>MO: Agent List + Health Status
+    deactivate REG
+    
+    Note over MO,DRA: Subtask 1: Fetch User Data
+    MO->>DRA: fetch_user_profile(user_id)
+    activate DRA
+    DRA->>Cache: Check Cache
+    Cache-->>DRA: Cache Miss
+    DRA->>DB: SELECT * FROM users
+    DB-->>DRA: User Data
+    DRA->>Cache: Store in Cache (TTL: 300s)
+    DRA-->>MO: User Profile
+    deactivate DRA
+    
+    Note over MO,DRA: Subtask 2: Fetch User Skills
+    MO->>DRA: fetch_user_skills(user_id)
+    activate DRA
+    DRA->>Cache: Check Cache
+    Cache-->>DRA: Cache Hit
+    DRA-->>MO: Skills List
+    deactivate DRA
+    
+    Note over MO,DRA: Subtask 3: Fetch Available Jobs
+    MO->>DRA: fetch_job_postings(filters)
+    activate DRA
+    DRA->>DB: SELECT * FROM job_postings
+    DB-->>DRA: 100 Jobs
+    DRA-->>MO: Jobs List
+    deactivate DRA
+    
+    Note over MO,AIA: Subtask 4: AI Skill Matching
+    MO->>AIA: analyze_skill_match(skills, jobs)
+    activate AIA
+    loop For Each Job
+        AIA->>AI: Analyze Match with Claude
+        activate AI
+        AI-->>AIA: Match Score + Analysis
+        deactivate AI
+    end
+    AIA-->>MO: Match Results (85% avg score)
+    deactivate AIA
+    
+    Note over MO,MA: Subtask 5: Calculate Final Scores
+    MO->>MA: match_jobs_to_user(user_id)
+    activate MA
+    MA->>MA: Apply Matching Algorithm
+    MA->>MA: Sort by Score
+    MA-->>MO: Top 10 Matches
+    deactivate MA
+    
+    Note over MO,NA: Subtask 6: Send Notification
+    MO->>NA: send_job_alert(user_email, jobs)
+    activate NA
+    NA->>NA: Format Email Template
+    NA->>NA: SendGrid API (Demo Mode)
+    NA-->>MO: Notification Sent
+    deactivate NA
+    
+    MO->>MO: Aggregate Results
+    MO-->>API: Complete Response
+    deactivate MO
+    API-->>User: JSON Response (Top 10 Jobs)
+    deactivate API
+    
+    Note over User,AI: Total Time: ~1.3 seconds
+

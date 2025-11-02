@@ -1,0 +1,178 @@
+graph TB
+    subgraph "NOOR MVP - System Architecture"
+        subgraph "User Layer"
+            U1[Citizens/Job Seekers]
+            U2[Employers/Institutions]
+            U3[Government/Federal]
+        end
+        
+        subgraph "Frontend Layer - Next.js + TypeScript"
+            FE1[Web Application<br/>Port 3000<br/>1,209 lines]
+            FE2[Mobile Responsive UI]
+            FE3[Admin Dashboard]
+            FE_API[API Client Layer<br/>437 lines]
+            FE_TYPES[TypeScript Types<br/>603 lines]
+        end
+        
+        subgraph "API Gateway Layer"
+            GW[FastAPI Gateway<br/>Port 8000]
+            AUTH[JWT Authentication<br/>+ UAE Pass OAuth]
+            RATE[Rate Limiter<br/>60/min, 1000/hr]
+            CORS[CORS Handler]
+        end
+        
+        subgraph "Agent Orchestration - 4,157 Lines"
+            MO[Master Orchestrator<br/>Agent ID: master-orchestrator-001<br/>401 lines<br/>✅ OPERATIONAL]
+            REG[Agent Registry<br/>147 lines<br/>Health Monitoring]
+        end
+        
+        subgraph "Specialized AI Agents"
+            A1[Data Retrieval Agent<br/>data-retrieval-001<br/>402 lines<br/>✅ OPERATIONAL]
+            A2[AI Analysis Agent<br/>ai-analysis-001<br/>514 lines<br/>✅ OPERATIONAL]
+            A3[Notification Agent<br/>notification-001<br/>475 lines<br/>✅ OPERATIONAL]
+            A4[Verification Agent<br/>verification-001<br/>483 lines<br/>✅ OPERATIONAL]
+            A5[Matching Agent<br/>matching-001<br/>447 lines<br/>✅ OPERATIONAL]
+            A6[Analytics Agent<br/>analytics-001<br/>530 lines<br/>✅ OPERATIONAL]
+        end
+        
+        subgraph "Business Logic - Services Layer"
+            SVC1[Skills Service<br/>488 lines]
+            SVC2[Work Experience Service<br/>488 lines]
+            SVC3[User Service]
+            SVC4[Job Service]
+            SVC5[Application Service]
+        end
+        
+        subgraph "Data Models - SQLAlchemy ORM"
+            MDL1[Skills Models<br/>344 lines]
+            MDL2[Work Experience Models<br/>344 lines]
+            MDL3[User Models]
+            MDL4[Job Models]
+        end
+        
+        subgraph "Data Layer - 6 Databases"
+            DB1[(PostgreSQL<br/>Primary Database<br/>Port 5432<br/>20+ tables)]
+            DB2[(MongoDB<br/>Document Store<br/>Port 27017<br/>Optional)]
+            DB3[(Redis<br/>Cache Layer<br/>Port 6379<br/>TTL: 300s)]
+            DB4[(Neo4j<br/>Graph DB<br/>Career Paths<br/>Future)]
+            DB5[(Elasticsearch<br/>Full-Text Search<br/>Future)]
+            DB6[(Kafka<br/>Event Stream<br/>Future)]
+        end
+        
+        subgraph "External AI Services"
+            AI1[Anthropic Claude<br/>claude-3-opus-20240229<br/>✅ CONFIGURED]
+            AI2[OpenAI GPT-4<br/>Backup Service<br/>Optional]
+        end
+        
+        subgraph "Communication Services"
+            COM1[SendGrid<br/>Email Notifications<br/>⏳ Demo Mode]
+            COM2[Twilio<br/>SMS + OTP<br/>⏳ Demo Mode]
+        end
+        
+        subgraph "Infrastructure & DevOps"
+            K8S[Kubernetes<br/>Deployment Ready]
+            DOCKER[Docker Containers<br/>Backend + Frontend]
+            CI[GitHub Actions<br/>CI/CD Pipeline<br/>✅ CONFIGURED]
+            MON[Monitoring<br/>Datadog/Sentry<br/>Optional]
+        end
+        
+        subgraph "Security Layer"
+            SEC1[JWT Tokens<br/>HS256 Algorithm]
+            SEC2[Encryption<br/>AES-256-GCM]
+            SEC3[Password Hashing<br/>bcrypt]
+            SEC4[Rate Limiting]
+        end
+    end
+    
+    %% User to Frontend
+    U1 --> FE1
+    U2 --> FE1
+    U3 --> FE3
+    FE1 --> FE_API
+    FE_API --> FE_TYPES
+    
+    %% Frontend to Gateway
+    FE_API --> GW
+    FE3 --> GW
+    
+    %% Gateway Security
+    GW --> AUTH
+    GW --> RATE
+    GW --> CORS
+    AUTH --> SEC1
+    
+    %% Gateway to Orchestrator
+    AUTH --> MO
+    RATE --> MO
+    
+    %% Orchestrator to Registry
+    MO --> REG
+    
+    %% Registry to Agents
+    REG --> A1
+    REG --> A2
+    REG --> A3
+    REG --> A4
+    REG --> A5
+    REG --> A6
+    
+    %% Agents to Services
+    A1 --> SVC1
+    A1 --> SVC2
+    A1 --> SVC3
+    A1 --> SVC4
+    A2 --> SVC1
+    A2 --> SVC2
+    A5 --> SVC4
+    A6 --> SVC5
+    
+    %% Services to Models
+    SVC1 --> MDL1
+    SVC2 --> MDL2
+    SVC3 --> MDL3
+    SVC4 --> MDL4
+    
+    %% Models to Databases
+    MDL1 --> DB1
+    MDL2 --> DB1
+    MDL3 --> DB1
+    MDL4 --> DB1
+    
+    %% Agents to Databases
+    A1 --> DB1
+    A1 --> DB3
+    A1 --> DB2
+    A6 --> DB5
+    
+    %% Agents to External Services
+    A2 --> AI1
+    A2 -.-> AI2
+    A3 --> COM1
+    A3 --> COM2
+    
+    %% Infrastructure
+    K8S -.-> DOCKER
+    CI -.-> K8S
+    MON -.-> MO
+    MON -.-> A1
+    
+    %% Security
+    SEC2 -.-> DB1
+    SEC3 -.-> AUTH
+    SEC4 -.-> RATE
+    
+    %% Styling
+    style MO fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px
+    style REG fill:#ff6b6b,stroke:#c92a2a,stroke-width:2px
+    style A1 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style A2 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style A3 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style A4 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style A5 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style A6 fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style DB1 fill:#95e1d3,stroke:#2d6a4f
+    style DB3 fill:#95e1d3,stroke:#2d6a4f
+    style AI1 fill:#f9ca24,stroke:#f39c12
+    style GW fill:#a29bfe,stroke:#6c5ce7
+    style K8S fill:#dfe6e9,stroke:#636e72
+

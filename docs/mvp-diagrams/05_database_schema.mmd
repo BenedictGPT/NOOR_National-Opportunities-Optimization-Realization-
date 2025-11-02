@@ -1,0 +1,175 @@
+erDiagram
+    USERS ||--o{ USER_SKILLS : has
+    USERS ||--o{ WORK_EXPERIENCE : has
+    USERS ||--o{ EDUCATION : has
+    USERS ||--o{ CERTIFICATIONS : has
+    USERS ||--o{ APPLICATIONS : submits
+    USERS ||--o{ HEALTH_RECORDS : has
+    
+    SKILLS ||--o{ USER_SKILLS : categorizes
+    SKILLS ||--o{ JOB_SKILLS : requires
+    
+    WORK_EXPERIENCE ||--o{ WORK_EXPERIENCE_SKILLS : uses
+    WORK_EXPERIENCE ||--o{ WORK_EXPERIENCE_VERIFICATIONS : verified_by
+    
+    INSTITUTIONS ||--o{ EMPLOYEES : employs
+    INSTITUTIONS ||--o{ JOB_POSTINGS : posts
+    
+    JOB_POSTINGS ||--o{ JOB_SKILLS : requires
+    JOB_POSTINGS ||--o{ APPLICATIONS : receives
+    
+    USERS {
+        uuid id PK
+        string email UK
+        string password_hash
+        string first_name
+        string last_name
+        string phone
+        string emirates_id UK
+        enum user_type
+        enum account_status
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    SKILLS {
+        uuid id PK
+        string name UK
+        string description
+        enum category
+        enum proficiency_level
+        timestamp created_at
+    }
+    
+    USER_SKILLS {
+        uuid id PK
+        uuid user_id FK
+        uuid skill_id FK
+        enum proficiency_level
+        float years_of_experience
+        date last_used_date
+        boolean is_verified
+        timestamp created_at
+    }
+    
+    WORK_EXPERIENCE {
+        uuid id PK
+        uuid user_id FK
+        string company_name
+        string job_title
+        enum employment_type
+        enum industry
+        date start_date
+        date end_date
+        boolean is_current
+        text description
+        jsonb achievements
+        timestamp created_at
+    }
+    
+    WORK_EXPERIENCE_SKILLS {
+        uuid id PK
+        uuid experience_id FK
+        uuid skill_id FK
+        timestamp created_at
+    }
+    
+    EDUCATION {
+        uuid id PK
+        uuid user_id FK
+        string institution_name
+        string degree
+        string field_of_study
+        date start_date
+        date end_date
+        float gpa
+        boolean is_verified
+        timestamp created_at
+    }
+    
+    CERTIFICATIONS {
+        uuid id PK
+        uuid user_id FK
+        string certification_name
+        string issuing_organization
+        string credential_id
+        date issue_date
+        date expiry_date
+        boolean is_verified
+        timestamp created_at
+    }
+    
+    INSTITUTIONS {
+        uuid id PK
+        string name
+        string trade_license
+        enum institution_type
+        string industry
+        string location
+        integer employee_count
+        timestamp created_at
+    }
+    
+    EMPLOYEES {
+        uuid id PK
+        uuid institution_id FK
+        uuid user_id FK
+        string employee_id
+        string department
+        string position
+        date hire_date
+        enum employment_status
+        timestamp created_at
+    }
+    
+    JOB_POSTINGS {
+        uuid id PK
+        uuid institution_id FK
+        string title
+        text description
+        string location
+        enum employment_type
+        decimal salary_min
+        decimal salary_max
+        enum status
+        date posted_date
+        date closing_date
+        timestamp created_at
+    }
+    
+    JOB_SKILLS {
+        uuid id PK
+        uuid job_id FK
+        uuid skill_id FK
+        enum required_level
+        boolean is_mandatory
+    }
+    
+    APPLICATIONS {
+        uuid id PK
+        uuid user_id FK
+        uuid job_id FK
+        enum status
+        text cover_letter
+        timestamp submitted_at
+        timestamp reviewed_at
+    }
+    
+    HEALTH_RECORDS {
+        uuid id PK
+        uuid user_id FK
+        string record_type
+        date record_date
+        jsonb encrypted_data
+        timestamp created_at
+    }
+    
+    WORK_EXPERIENCE_VERIFICATIONS {
+        uuid id PK
+        uuid experience_id FK
+        enum verification_status
+        string verified_by
+        text verification_notes
+        timestamp verified_at
+    }
+
