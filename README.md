@@ -1,4 +1,4 @@
-# NOOR Platform v7.1
+# NOOR Platform 
 
 **National Human Capital Intelligence System**  
 **Version:** 7.1 (Health Integration + Biometric Identity + 5-Tier Access Control + Target-State Architecture)  
