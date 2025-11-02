@@ -1,24 +1,34 @@
 # NOOR Platform: Prompt-by-Prompt Breakdown for AI Application Builder
 
-**Version:** 7.1  
+**Version:** 7.2 (Accelerated Timeline: 6 Weeks)  
 **Target:** AI Application Builders (Cursor, Replit, Claude, GPT-4, etc.)  
-**Purpose:** Step-by-step prompts to build the complete NOOR Platform  
+**Purpose:** Step-by-step prompts to build the complete NOOR Platform in 6 weeks  
 **Status:** Production-Ready Blueprint  
-**Date:** October 30, 2025
+**Date:** October 30, 2025  
+
+**REVISED IN v7.2:** Timeline accelerated from 23 weeks to **6 weeks** (42 days) based on true agentic AI capabilities with 31 agents working 24/7 in parallel.
 
 ---
 
 ## 📋 Table of Contents
 
 1. [Overview & Prerequisites](#overview--prerequisites)
-2. [Phase 1: Infrastructure Setup](#phase-1-infrastructure-setup)
-3. [Phase 2: Database Layer](#phase-2-database-layer)
-4. [Phase 3: Service Layer](#phase-3-service-layer)
-5. [Phase 4: Agent Orchestration Layer](#phase-4-agent-orchestration-layer)
-6. [Phase 5: Experience Layer (Frontend)](#phase-5-experience-layer-frontend)
-7. [Phase 6: Integration & Security](#phase-6-integration--security)
-8. [Phase 7: Testing & Deployment](#phase-7-testing--deployment)
-9. [Validation Checkpoints](#validation-checkpoints)
+
+1. [Phase 1: Infrastructure Setup](#phase-1-infrastructure-setup)
+
+1. [Phase 2: Database Layer](#phase-2-database-layer)
+
+1. [Phase 3: Service Layer](#phase-3-service-layer)
+
+1. [Phase 4: Agent Orchestration Layer](#phase-4-agent-orchestration-layer)
+
+1. [Phase 5: Experience Layer (Frontend)](#phase-5-experience-layer-frontend)
+
+1. [Phase 6: Integration & Security](#phase-6-integration--security)
+
+1. [Phase 7: Testing & Deployment](#phase-7-testing--deployment)
+
+1. [Validation Checkpoints](#validation-checkpoints)
 
 ---
 
@@ -27,8 +37,11 @@
 ### **What You're Building**
 
 The NOOR Platform is a national human capital intelligence system powered by 31 AI agents. It serves:
+
 - **5 million Emiratis** (Individual users - Skills Passport)
+
 - **Thousands of institutions** (HR departments - HCM Suite)
+
 - **UAE Federal Government** (National workforce analytics - Federal Canvas)
 
 ### **Architecture Summary**
@@ -48,36 +61,59 @@ Audit/Governance Plane (Blockchain, RBAC, Audit Logs)
 ### **Technology Stack**
 
 **Backend:**
+
 - Python 3.11+ (FastAPI, LangChain, Pydantic)
+
 - PostgreSQL 15+ (relational data)
+
 - MongoDB 7+ (document data)
+
 - Neo4j 5+ (graph data)
+
 - Redis 7+ (cache)
+
 - Pinecone/Weaviate (vector database)
+
 - Apache Kafka (event streaming)
 
 **Frontend:**
+
 - React 18+ with TypeScript
+
 - Next.js 14+ (SSR/SSG)
+
 - TailwindCSS (styling)
+
 - i18next (Arabic/English)
+
 - Recharts/D3.js (visualizations)
 
 **Infrastructure:**
+
 - Docker & Docker Compose
+
 - Kubernetes (3 node pools)
+
 - Nginx (API Gateway)
+
 - Prometheus + Grafana (monitoring)
 
 **AI/ML:**
+
 - OpenAI GPT-4 / Anthropic Claude
+
 - LangChain (agent framework)
+
 - Sentence Transformers (embeddings)
+
 - XGBoost/LightGBM (ML models)
 
 ---
 
 ## Phase 1: Infrastructure Setup
+
+**Duration:** Days 1-3 (3 days)  
+**Objective:** Set up Kubernetes, Docker, and project structure
 
 ### **Prompt 1.1: Initialize Project Structure**
 
@@ -123,13 +159,19 @@ Set up package managers (Poetry for Python, pnpm for Node.js).
 ```
 
 **Expected Output:**
+
 - Complete directory structure
+
 - Initial configuration files
+
 - Package manager setup
 
 **Validation:**
+
 - [ ] Directory structure matches specification
-- [ ] .gitignore includes node_modules, __pycache__, .env
+
+- [ ] .gitignore includes node_modules, **pycache**, .env
+
 - [ ] README.md contains project overview
 
 ---
@@ -170,13 +212,19 @@ Create .env.example file with all required environment variables.
 ```
 
 **Expected Output:**
+
 - docker-compose.yml with all services
+
 - .env.example file
+
 - Dockerfile for each custom service
 
 **Validation:**
+
 - [ ] `docker-compose up` starts all services
+
 - [ ] All health checks pass
+
 - [ ] Services can communicate via Docker network
 
 ---
@@ -222,19 +270,29 @@ Include:
 ```
 
 **Expected Output:**
+
 - kubernetes/ directory with all manifests
+
 - NetworkPolicy definitions
+
 - Ingress configuration with TLS
 
 **Validation:**
+
 - [ ] `kubectl apply -f kubernetes/` succeeds
+
 - [ ] All pods reach Running state
+
 - [ ] NetworkPolicies enforce isolation
+
 - [ ] Ingress routes traffic correctly
 
 ---
 
 ## Phase 2: Database Layer
+
+**Duration:** Days 4-7 (4 days)  
+**Objective:** Deploy and configure all 6 database systems
 
 ### **Prompt 2.1: Design PostgreSQL Schema**
 
@@ -284,14 +342,21 @@ Add row-level security policies for data zoning (L1/L2/L3).
 ```
 
 **Expected Output:**
+
 - SQL migration files (using Alembic)
+
 - Database schema diagram
+
 - Seed data for development
 
 **Validation:**
+
 - [ ] All tables created successfully
+
 - [ ] Foreign key constraints work
+
 - [ ] Indexes improve query performance
+
 - [ ] Row-level security policies enforce access control
 
 ---
@@ -322,13 +387,19 @@ Add validation schemas for data integrity.
 ```
 
 **Expected Output:**
+
 - MongoDB collection definitions
+
 - Index specifications
+
 - Validation schemas
 
 **Validation:**
+
 - [ ] Collections created with proper schemas
+
 - [ ] Indexes improve query performance
+
 - [ ] Validation schemas enforce data integrity
 
 ---
@@ -367,13 +438,19 @@ Include indexes on frequently queried properties.
 ```
 
 **Expected Output:**
+
 - Neo4j schema definition
+
 - Cypher query library
+
 - Index specifications
 
 **Validation:**
+
 - [ ] Graph schema created successfully
+
 - [ ] Sample queries return expected results
+
 - [ ] Indexes improve query performance
 
 ---
@@ -419,14 +496,21 @@ Create functions for:
 ```
 
 **Expected Output:**
+
 - Vector database configuration
+
 - Index definitions
+
 - Python SDK integration code
 
 **Validation:**
+
 - [ ] Indexes created successfully
+
 - [ ] Similarity search returns relevant results
+
 - [ ] Biometric verification achieves >95% accuracy
+
 - [ ] Encryption enabled
 
 ---
@@ -478,19 +562,29 @@ Create producers and consumers in Python using confluent-kafka.
 ```
 
 **Expected Output:**
+
 - Kafka topic configurations
+
 - Producer/consumer code templates
+
 - Schema definitions (Avro)
 
 **Validation:**
+
 - [ ] All topics created successfully
+
 - [ ] Producers can publish events
+
 - [ ] Consumers can subscribe and process events
+
 - [ ] Schema validation works
 
 ---
 
 ## Phase 3: Service Layer
+
+**Duration:** Days 8-17 (10 days)  
+**Objective:** Build all microservices and API endpoints
 
 ### **Prompt 3.1: Build Employee Lifecycle Service**
 
@@ -536,15 +630,23 @@ Include:
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - Database models
+
 - Kafka integration
+
 - Tests with >80% coverage
 
 **Validation:**
+
 - [ ] All endpoints return correct responses
+
 - [ ] Database operations succeed
+
 - [ ] Events published to Kafka
+
 - [ ] Tests pass
 
 ---
@@ -596,15 +698,23 @@ Include:
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - GPSSA/ADPF API integration
+
 - Compliance validation logic
+
 - Audit logging
 
 **Validation:**
+
 - [ ] Payroll calculations are accurate
+
 - [ ] Pension contributions match regulations
+
 - [ ] GPSSA submissions succeed
+
 - [ ] Audit logs capture all transactions
 
 ---
@@ -653,15 +763,23 @@ POST /api/v1/health/vaccinations/record
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - SEHA/DHA/MOHAP API integration (mock for development)
+
 - User-scoped encryption for health data
+
 - Strict access control (L1 only)
 
 **Validation:**
+
 - [ ] Certificate verification works
+
 - [ ] Health data encrypted at rest
+
 - [ ] Access control enforced (users can only access own data)
+
 - [ ] Audit logs capture all access
 
 ---
@@ -721,16 +839,25 @@ POST /api/v1/biometric/verify/voice
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - FaceNet/SpeechBrain integration for embedding generation
+
 - Vector database integration
+
 - Strict security controls
 
 **Validation:**
+
 - [ ] Enrollment succeeds and stores embeddings
+
 - [ ] Verification achieves >95% accuracy
+
 - [ ] No raw biometric data stored
+
 - [ ] FAR < 0.1%
+
 - [ ] Audit logs capture all attempts
 
 ---
@@ -792,15 +919,23 @@ Include:
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - Biometric verification integration
+
 - Neo4j graph queries
+
 - Vector database integration
 
 **Validation:**
+
 - [ ] Assessments require biometric verification
+
 - [ ] Scoring algorithms are accurate
+
 - [ ] Learning pathways identify correct skill gaps
+
 - [ ] Recommendations are relevant
 
 ---
@@ -852,20 +987,31 @@ GET /api/v1/emiratization/federal/dashboard
 ```
 
 **Expected Output:**
+
 - FastAPI service with all endpoints
+
 - EQI calculation algorithm
+
 - Differential privacy implementation for L3
+
 - Compliance validation
 
 **Validation:**
+
 - [ ] EQI calculations match specifications
+
 - [ ] Federal dashboard applies differential privacy
+
 - [ ] Compliance rules enforced
+
 - [ ] Audit logs capture all access
 
 ---
 
 ## Phase 4: Agent Orchestration Layer
+
+**Duration:** Days 18-24 (7 days)  
+**Objective:** Deploy all 31 AI agents and MCP communication
 
 ### **Prompt 4.1: Build Master Orchestrator Agent**
 
@@ -918,15 +1064,23 @@ Implement:
 ```
 
 **Expected Output:**
+
 - Master Orchestrator agent code
+
 - MCP protocol implementation
+
 - Task tracking system
+
 - Tests
 
 **Validation:**
+
 - [ ] Agent can decompose complex goals
+
 - [ ] MCP messages sent/received correctly
+
 - [ ] Task tracking works
+
 - [ ] Human-in-the-loop escalation works
 
 ---
@@ -982,15 +1136,23 @@ Implement using LangChain with custom tools for each category.
 ```
 
 **Expected Output:**
+
 - 6 Category Orchestrator agents
+
 - MCP integration for each
+
 - Category-specific tools
+
 - Tests
 
 **Validation:**
+
 - [ ] Each orchestrator can coordinate its agents
+
 - [ ] MCP communication works bidirectionally
+
 - [ ] Task assignment logic is correct
+
 - [ ] Tests pass
 
 ---
@@ -1076,15 +1238,23 @@ Implement using LangChain with tool-calling capabilities.
 ```
 
 **Expected Output:**
+
 - 11 Development execution agents
+
 - Tool integrations for each
+
 - MCP communication
+
 - Tests
 
 **Validation:**
+
 - [ ] Each agent can execute its specialized tasks
+
 - [ ] Tool integrations work
+
 - [ ] MCP communication works
+
 - [ ] Tests pass
 
 ---
@@ -1154,15 +1324,23 @@ Implement each with LangChain and appropriate tools.
 ```
 
 **Expected Output:**
+
 - 10 execution agents (Infrastructure, Intelligence, Content)
+
 - Tool integrations
+
 - MCP communication
+
 - Tests
 
 **Validation:**
+
 - [ ] Each agent performs specialized tasks correctly
+
 - [ ] Tool integrations work
+
 - [ ] MCP communication works
+
 - [ ] Tests pass
 
 ---
@@ -1227,21 +1405,33 @@ Implement with strict access controls for Federal Intelligence Agent.
 ```
 
 **Expected Output:**
+
 - 11 execution agents (Specialized, Strategic, Federal Intelligence)
+
 - Federal Intelligence Agent with activation controls
+
 - Tool integrations
+
 - MCP communication
+
 - Tests
 
 **Validation:**
+
 - [ ] Each agent performs tasks correctly
+
 - [ ] Federal Intelligence Agent is dormant and cannot be activated without authorization
+
 - [ ] Tool integrations work
+
 - [ ] Tests pass
 
 ---
 
 ## Phase 5: Experience Layer (Frontend)
+
+**Duration:** Days 25-31 (7 days)  
+**Objective:** Build web and mobile frontends with bilingual support
 
 ### **Prompt 5.1: Build Skills Passport (Individual Layer)**
 
@@ -1313,17 +1503,27 @@ Implement with NOOR brand colors and typography (Space Mono + Hammersmith One).
 ```
 
 **Expected Output:**
+
 - Complete Skills Passport web app
+
 - All pages implemented
+
 - Bilingual support
+
 - Responsive design
+
 - Tests (Jest + React Testing Library)
 
 **Validation:**
+
 - [ ] All pages render correctly
+
 - [ ] Bilingual switching works
+
 - [ ] Responsive on mobile/tablet/desktop
+
 - [ ] Accessibility standards met
+
 - [ ] Tests pass
 
 ---
@@ -1395,17 +1595,27 @@ Implement with NOOR brand design system.
 ```
 
 **Expected Output:**
+
 - Complete HCM Suite web app
+
 - All pages implemented
+
 - Access control enforced
+
 - MFA integration
+
 - Tests
 
 **Validation:**
+
 - [ ] All pages render correctly
+
 - [ ] Access control works (L2/L3)
+
 - [ ] MFA required for login
+
 - [ ] Approval workflows function
+
 - [ ] Tests pass
 
 ---
@@ -1466,18 +1676,29 @@ Implement with NOOR brand design system.
 ```
 
 **Expected Output:**
+
 - Complete Federal Canvas web app
+
 - All pages implemented
+
 - Differential privacy applied
+
 - Access control enforced
+
 - Tests
 
 **Validation:**
+
 - [ ] All pages render correctly
+
 - [ ] Differential privacy applied to all aggregates
+
 - [ ] k-anonymity enforced (k ≥ 100)
+
 - [ ] Access control works (L4)
+
 - [ ] Audit logs capture all access
+
 - [ ] Tests pass
 
 ---
@@ -1544,22 +1765,35 @@ Implement with NOOR brand design system (mobile-optimized).
 ```
 
 **Expected Output:**
+
 - Complete React Native mobile app
+
 - All screens implemented
+
 - Biometric enrollment
+
 - Offline mode
+
 - Tests (Jest + React Native Testing Library)
 
 **Validation:**
+
 - [ ] All screens render correctly
+
 - [ ] Biometric enrollment works
+
 - [ ] Offline mode functions
+
 - [ ] Push notifications work
+
 - [ ] Tests pass
 
 ---
 
 ## Phase 6: Integration & Security
+
+**Duration:** Days 32-36 (5 days)  
+**Objective:** Integrate external APIs and implement security measures
 
 ### **Prompt 6.1: Implement UAE Pass Authentication**
 
@@ -1606,15 +1840,23 @@ Include unit tests and integration tests.
 ```
 
 **Expected Output:**
+
 - UAE Pass OAuth integration (backend + frontend)
+
 - Token management
+
 - Tests
 
 **Validation:**
+
 - [ ] Login flow works end-to-end
+
 - [ ] User profile fetched from UAE Pass
+
 - [ ] JWT issued and stored securely
+
 - [ ] Token refresh works
+
 - [ ] Tests pass
 
 ---
@@ -1663,15 +1905,23 @@ Include unit tests and integration tests.
 ```
 
 **Expected Output:**
+
 - MFA implementation (backend + frontend)
+
 - SMS/Email OTP integration
+
 - TOTP support
+
 - Tests
 
 **Validation:**
+
 - [ ] MFA required for L2+ users
+
 - [ ] OTP sent and verified correctly
+
 - [ ] Account lockout works after 3 failed attempts
+
 - [ ] Tests pass
 
 ---
@@ -1702,7 +1952,8 @@ ALTER TABLE health_profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE payroll_records ENABLE ROW LEVEL SECURITY;
 ```
 
-2. Create policies for each access level:
+1. Create policies for each access level:
+
 ```sql
 -- L1: Personal Zone
 CREATE POLICY personal_zone ON employees
@@ -1730,7 +1981,8 @@ WHERE COUNT(*) >= 100  -- k-anonymity
 GROUP BY industry;
 ```
 
-3. Set current_user_id in application context:
+1. Set current_user_id in application context:
+
 ```python
 @app.middleware("http")
 async def set_user_context(request: Request, call_next):
@@ -1741,12 +1993,16 @@ async def set_user_context(request: Request, call_next):
     return response
 ```
 
-4. Test RLS policies:
+1. Test RLS policies:
+
 - Verify users can only access their own data (L1)
+
 - Verify HR Managers can access company data (L2)
+
 - Verify Federal Analysts can only access aggregates (L3)
 
 Include unit tests for each policy.
+
 ```
 
 **Expected Output:**
@@ -1763,23 +2019,28 @@ Include unit tests for each policy.
 ---
 
 ### **Prompt 6.4: Implement Differential Privacy for Federal Aggregates**
-
 ```
+
 Implement differential privacy for L3 (Federal) data aggregates:
 
 **Requirements:**
+
 - Privacy budget: ε ≤ 1.0 (epsilon)
+
 - K-anonymity: k ≥ 100 (minimum group size)
+
 - Laplace mechanism for noise addition
 
 **Implementation:**
 
 1. Install differential privacy library:
+
 ```bash
 pip install diffprivlib
 ```
 
-2. Create differential privacy utility functions:
+1. Create differential privacy utility functions:
+
 ```python
 from diffprivlib.mechanisms import Laplace
 from diffprivlib.tools import mean, count
@@ -1799,7 +2060,8 @@ def enforce_k_anonymity(df, group_by_cols, k=100):
     return df[df.set_index(group_by_cols).index.isin(valid_groups)]
 ```
 
-3. Apply to federal queries:
+1. Apply to federal queries:
+
 ```python
 @router.get("/api/v1/federal/workforce/industry-stats")
 async def get_industry_stats(db: Session = Depends(get_db)):
@@ -1821,12 +2083,16 @@ async def get_industry_stats(db: Session = Depends(get_db)):
     return df.to_dict('records')
 ```
 
-4. Test differential privacy:
+1. Test differential privacy:
+
 - Verify noise is added to aggregates
+
 - Verify k-anonymity is enforced
+
 - Verify privacy budget (ε) is not exceeded
 
 Include unit tests.
+
 ```
 
 **Expected Output:**
@@ -1843,19 +2109,24 @@ Include unit tests.
 ---
 
 ### **Prompt 6.5: Implement Audit Logging**
-
 ```
+
 Implement comprehensive audit logging for all data access:
 
 **Requirements:**
+
 - Log all user actions (login, data access, data modification)
+
 - Log all agent actions (task execution, data access)
+
 - Store logs in immutable append-only table
+
 - Retain logs for 7 years (compliance requirement)
 
 **Implementation:**
 
 1. Create audit_logs table:
+
 ```sql
 CREATE TABLE audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -1882,7 +2153,8 @@ CREATE INDEX idx_audit_logs_timestamp ON audit_logs(timestamp);
 CREATE INDEX idx_audit_logs_action ON audit_logs(action);
 ```
 
-2. Create audit logging middleware:
+1. Create audit logging middleware:
+
 ```python
 @app.middleware("http")
 async def audit_logging_middleware(request: Request, call_next):
@@ -1914,7 +2186,8 @@ async def audit_logging_middleware(request: Request, call_next):
     return response
 ```
 
-3. Create audit log viewer (admin only):
+1. Create audit log viewer (admin only):
+
 ```python
 @router.get("/api/v1/admin/audit-logs")
 async def get_audit_logs(
@@ -1946,12 +2219,16 @@ async def get_audit_logs(
     return results
 ```
 
-4. Test audit logging:
+1. Test audit logging:
+
 - Verify all actions are logged
+
 - Verify logs are immutable
+
 - Verify log retention policy
 
 Include unit tests.
+
 ```
 
 **Expected Output:**
@@ -1969,49 +2246,76 @@ Include unit tests.
 
 ## Phase 7: Testing & Deployment
 
-### **Prompt 7.1: Write Comprehensive Test Suite**
+**Duration:** Days 37-42 (6 days)  
+**Objective:** Test, validate, and deploy to production
 
+### **Prompt 7.1: Write Comprehensive Test Suite**
 ```
+
 Create a comprehensive test suite for the NOOR Platform:
 
 **Unit Tests (pytest):**
+
 - Test all service endpoints
+
 - Test all agent functions
+
 - Test database models
+
 - Test utility functions
+
 - Target: >80% code coverage
 
 **Integration Tests:**
+
 - Test end-to-end workflows (e.g., user onboarding, leave request approval)
+
 - Test service-to-service communication
+
 - Test agent coordination via MCP
+
 - Test database transactions
 
 **Security Tests:**
+
 - Test authentication and authorization
+
 - Test data access controls (L1/L2/L3)
+
 - Test MFA flows
+
 - Test biometric verification
+
 - Test differential privacy
 
 **Performance Tests (Locust):**
+
 - Load test API endpoints (target: 1000 req/s)
+
 - Stress test database queries
+
 - Test agent response times
 
 **Frontend Tests (Jest + React Testing Library):**
+
 - Test all React components
+
 - Test user interactions
+
 - Test accessibility
+
 - Test bilingual support
 
 **E2E Tests (Playwright):**
+
 - Test complete user journeys
+
 - Test cross-browser compatibility
+
 - Test mobile responsiveness
 
-Create test fixtures, mocks, and test data generators.
-Run tests in CI/CD pipeline.
+Create test fixtures, mocks, and test data generators. Run tests in CI/CD pipeline.
+
 ```
 
 **Expected Output:**
@@ -2028,53 +2332,54 @@ Run tests in CI/CD pipeline.
 ---
 
 ### **Prompt 7.2: Set Up CI/CD Pipeline**
-
 ```
+
 Create a CI/CD pipeline using GitHub Actions:
 
 **Pipeline Stages:**
 
 1. **Lint & Format**
-   - Python: black, flake8, mypy
-   - TypeScript: ESLint, Prettier
-   - Fail if code doesn't meet standards
+  - Python: black, flake8, mypy
+  - TypeScript: ESLint, Prettier
+  - Fail if code doesn't meet standards
 
-2. **Unit Tests**
-   - Run pytest for backend
-   - Run Jest for frontend
-   - Fail if coverage <80%
+1. **Unit Tests**
+  - Run pytest for backend
+  - Run Jest for frontend
+  - Fail if coverage <80%
 
-3. **Integration Tests**
-   - Spin up test database (Docker)
-   - Run integration tests
-   - Tear down test environment
+1. **Integration Tests**
+  - Spin up test database (Docker)
+  - Run integration tests
+  - Tear down test environment
 
-4. **Security Scan**
-   - Bandit (Python security)
-   - npm audit (Node.js dependencies)
-   - OWASP ZAP (web app security)
-   - Fail if critical vulnerabilities found
+1. **Security Scan**
+  - Bandit (Python security)
+  - npm audit (Node.js dependencies)
+  - OWASP ZAP (web app security)
+  - Fail if critical vulnerabilities found
 
-5. **Build Docker Images**
-   - Build images for all services
-   - Tag with commit SHA
-   - Push to container registry
+1. **Build Docker Images**
+  - Build images for all services
+  - Tag with commit SHA
+  - Push to container registry
 
-6. **Deploy to Staging**
-   - Deploy to Kubernetes staging cluster
-   - Run smoke tests
-   - Notify team
+1. **Deploy to Staging**
+  - Deploy to Kubernetes staging cluster
+  - Run smoke tests
+  - Notify team
 
-7. **E2E Tests (Staging)**
-   - Run Playwright tests against staging
-   - Fail if any test fails
+1. **E2E Tests (Staging)**
+  - Run Playwright tests against staging
+  - Fail if any test fails
 
-8. **Deploy to Production** (manual approval required)
-   - Deploy to Kubernetes production cluster
-   - Run smoke tests
-   - Notify team
+1. **Deploy to Production** (manual approval required)
+  - Deploy to Kubernetes production cluster
+  - Run smoke tests
+  - Notify team
 
 **GitHub Actions Workflow:**
+
 ```yaml
 name: NOOR Platform CI/CD
 
@@ -2162,6 +2467,7 @@ jobs:
 ```
 
 Include deployment scripts and rollback procedures.
+
 ```
 
 **Expected Output:**
@@ -2178,37 +2484,38 @@ Include deployment scripts and rollback procedures.
 ---
 
 ### **Prompt 7.3: Set Up Monitoring & Observability**
-
 ```
+
 Set up monitoring and observability using Prometheus and Grafana:
 
 **Metrics to Collect:**
 
 1. **Application Metrics:**
-   - Request rate (req/s)
-   - Response time (p50, p95, p99)
-   - Error rate (%)
-   - Active users
+  - Request rate (req/s)
+  - Response time (p50, p95, p99)
+  - Error rate (%)
+  - Active users
 
-2. **Database Metrics:**
-   - Query latency
-   - Connection pool usage
-   - Slow queries
-   - Database size
+1. **Database Metrics:**
+  - Query latency
+  - Connection pool usage
+  - Slow queries
+  - Database size
 
-3. **Agent Metrics:**
-   - Task completion rate
-   - Agent response time
-   - MCP message latency
-   - Agent errors
+1. **Agent Metrics:**
+  - Task completion rate
+  - Agent response time
+  - MCP message latency
+  - Agent errors
 
-4. **Infrastructure Metrics:**
-   - CPU usage
-   - Memory usage
-   - Disk I/O
-   - Network traffic
+1. **Infrastructure Metrics:**
+  - CPU usage
+  - Memory usage
+  - Disk I/O
+  - Network traffic
 
 **Prometheus Configuration:**
+
 ```yaml
 global:
   scrape_interval: 15s
@@ -2232,20 +2539,31 @@ scrape_configs:
 ```
 
 **Grafana Dashboards:**
+
 1. Application Overview (request rate, latency, errors)
-2. Database Performance (query latency, connections)
-3. Agent Coordination (task completion, MCP latency)
-4. Infrastructure Health (CPU, memory, disk)
-5. Business Metrics (user signups, assessments completed, EQI scores)
+
+1. Database Performance (query latency, connections)
+
+1. Agent Coordination (task completion, MCP latency)
+
+1. Infrastructure Health (CPU, memory, disk)
+
+1. Business Metrics (user signups, assessments completed, EQI scores)
 
 **Alerting Rules:**
+
 - Alert if error rate > 1%
+
 - Alert if p95 latency > 1s
+
 - Alert if database connections > 80% of pool
+
 - Alert if agent task failure rate > 5%
+
 - Alert if any pod is down
 
 Include Prometheus exporters for all services.
+
 ```
 
 **Expected Output:**
@@ -2364,4 +2682,5 @@ This prompt-by-prompt breakdown provides a complete blueprint for building the N
 **The future of national human capital intelligence begins now.** 🚀
 
 **نور - The Light of Knowledge** ✨
+```
 
