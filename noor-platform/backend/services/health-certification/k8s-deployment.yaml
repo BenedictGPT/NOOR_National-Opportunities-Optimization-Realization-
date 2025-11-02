@@ -1,0 +1,306 @@
+# Kubernetes Deployment Manifest
+# Health Certification Service - NOOR Platform v7.1
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: health-certification-config
+  namespace: noor-services
+data:
+  SERVICE_NAME: "health-certification"
+  SERVICE_VERSION: "7.1.0"
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+
+  # Database hosts
+  POSTGRES_HOST: "postgresql.noor-data.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "noor_db"
+
+  MONGODB_HOST: "mongodb.noor-data.svc.cluster.local"
+  MONGODB_PORT: "27017"
+  MONGODB_DB: "noor_operational"
+
+  REDIS_HOST: "redis.noor-data.svc.cluster.local"
+  REDIS_PORT: "6379"
+
+  # Kafka
+  KAFKA_BOOTSTRAP_SERVERS: "kafka.noor-messaging.svc.cluster.local:9092"
+  KAFKA_SCHEMA_REGISTRY_URL: "http://schema-registry.noor-messaging.svc.cluster.local:8081"
+
+  # JWT
+  JWT_ALGORITHM: "HS256"
+  JWT_EXPIRE_MINUTES: "60"
+
+  # Certificate defaults
+  DEFAULT_VALIDITY_MONTHS: "12"
+  EXPIRY_WARNING_DAYS: "30,14,7,1"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: health-certification-secrets
+  namespace: noor-services
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  MONGODB_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  REDIS_PASSWORD: "CHANGE_ME_IN_PRODUCTION"
+  JWT_SECRET_KEY: "CHANGE_ME_IN_PRODUCTION_MINIMUM_32_CHARS"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-certification
+  namespace: noor-services
+  labels:
+    app: health-certification
+    tier: backend
+    component: microservice
+    security-level: high-sensitivity
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: health-certification
+  template:
+    metadata:
+      labels:
+        app: health-certification
+        tier: backend
+        component: microservice
+        security-level: high-sensitivity
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+    spec:
+      # Deploy to high-sensitivity node pool
+      nodeSelector:
+        node-pool: high-sensitivity
+        data-zone: l1-personal
+
+      # Security context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
+      containers:
+      - name: health-certification
+        image: noor-registry.azurecr.io/health-certification:7.1.0
+        imagePullPolicy: Always
+
+        ports:
+        - containerPort: 8002
+          name: http
+        - containerPort: 9090
+          name: metrics
+
+        envFrom:
+        - configMapRef:
+            name: health-certification-config
+        - secretRef:
+            name: health-certification-secrets
+
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8002
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8002
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /app/.cache
+        - name: certificates-storage
+          mountPath: /app/storage/certificates
+          readOnly: false
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      - name: certificates-storage
+        persistentVolumeClaim:
+          claimName: health-certificates-pvc
+
+      imagePullSecrets:
+      - name: acr-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: health-certification
+  namespace: noor-services
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8002
+    protocol: TCP
+    name: http
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: metrics
+  selector:
+    app: health-certification
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: health-certification-hpa
+  namespace: noor-services
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: health-certification
+  minReplicas: 3
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: health-certification-pdb
+  namespace: noor-services
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: health-certification
+
+---
+# Persistent Volume Claim for certificate documents
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: health-certificates-pvc
+  namespace: noor-services
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: azure-files-premium
+  resources:
+    requests:
+      storage: 100Gi
+
+---
+# Network Policy - Enhanced security for health data
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: health-certification-netpol
+  namespace: noor-services
+spec:
+  podSelector:
+    matchLabels:
+      app: health-certification
+  policyTypes:
+  - Ingress
+  - Egress
+
+  ingress:
+  # Allow from API Gateway only
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-gateway
+    ports:
+    - protocol: TCP
+      port: 8002
+
+  # Allow from Prometheus
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-monitoring
+    ports:
+    - protocol: TCP
+      port: 9090
+
+  egress:
+  # Database connections
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-data
+    ports:
+    - protocol: TCP
+      port: 5432
+    - protocol: TCP
+      port: 27017
+    - protocol: TCP
+      port: 6379
+
+  # Kafka
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: noor-messaging
+    ports:
+    - protocol: TCP
+      port: 9092
+
+  # DNS
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
