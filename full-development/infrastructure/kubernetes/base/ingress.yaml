@@ -1,0 +1,144 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: noor-ingress
+  namespace: noor-platform
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/limit-rps: "100"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://noor.ae"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: SAMEORIGIN";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: no-referrer-when-downgrade";
+      more_set_headers "Strict-Transport-Security: max-age=31536000; includeSubDomains";
+spec:
+  tls:
+    - hosts:
+        - noor.ae
+        - api.noor.ae
+        - www.noor.ae
+      secretName: noor-tls-cert
+  rules:
+    # Main API endpoint
+    - host: api.noor.ae
+      http:
+        paths:
+          # Employee Lifecycle API
+          - path: /api/v1/employees
+            pathType: Prefix
+            backend:
+              service:
+                name: employee-lifecycle-service
+                port:
+                  number: 8001
+
+          # Learning & Assessment API
+          - path: /api/v1/learning
+            pathType: Prefix
+            backend:
+              service:
+                name: learning-assessment-service
+                port:
+                  number: 8003
+
+          - path: /api/v1/assessments
+            pathType: Prefix
+            backend:
+              service:
+                name: learning-assessment-service
+                port:
+                  number: 8003
+
+          # Emiratization Compliance API
+          - path: /api/v1/emiratization
+            pathType: Prefix
+            backend:
+              service:
+                name: emiratization-compliance-service
+                port:
+                  number: 8004
+
+          # Health Certification API (High-Sensitivity)
+          - path: /api/v1/health
+            pathType: Prefix
+            backend:
+              service:
+                name: health-certification-service
+                port:
+                  number: 8005
+
+          # Biometric Identity API (High-Sensitivity)
+          - path: /api/v1/biometric
+            pathType: Prefix
+            backend:
+              service:
+                name: biometric-identity-service
+                port:
+                  number: 8006
+
+          # Payroll & Pensions API (High-Sensitivity)
+          - path: /api/v1/payroll
+            pathType: Prefix
+            backend:
+              service:
+                name: payroll-pensions-service
+                port:
+                  number: 8002
+
+          - path: /api/v1/pensions
+            pathType: Prefix
+            backend:
+              service:
+                name: payroll-pensions-service
+                port:
+                  number: 8002
+
+          # AI Agents API
+          - path: /api/v1/agents/radiant
+            pathType: Prefix
+            backend:
+              service:
+                name: radiant-ai-service
+                port:
+                  number: 8101
+
+          - path: /api/v1/agents/mentor-matching
+            pathType: Prefix
+            backend:
+              service:
+                name: mentor-matching-service
+                port:
+                  number: 8102
+
+    # Frontend application
+    - host: noor.ae
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-web-service
+                port:
+                  number: 3000
+
+    - host: www.noor.ae
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-web-service
+                port:
+                  number: 3000

@@ -1,0 +1,46 @@
+# Master Orchestrator Agent - Python Dependencies
+# NOOR Platform v7.1
+
+# Anthropic Claude API
+anthropic==0.18.1
+
+# FastAPI for REST API endpoints
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Database drivers
+psycopg2-binary==2.9.9  # PostgreSQL
+pymongo==4.6.0  # MongoDB
+redis==5.0.1  # Redis for agent coordination
+
+# Kafka for MCP messages
+confluent-kafka==2.3.0
+avro-python3==1.11.3
+
+# HTTP client
+httpx==0.25.2
+aiohttp==3.9.1
+
+# Async support
+asyncio==3.4.3
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+pyyaml==6.0.1
+
+# Monitoring & Logging
+prometheus-client==0.19.0
+python-json-logger==2.0.7
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
+
+# Development
+black==23.12.0
+flake8==6.1.0
+mypy==1.7.1

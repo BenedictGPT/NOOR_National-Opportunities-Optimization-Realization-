@@ -1,0 +1,76 @@
+graph LR
+    subgraph "Agent Ecosystem - 7 Specialized Agents"
+        MO[Master Orchestrator<br/>401 lines<br/>Task Coordination]
+        
+        subgraph "Data & Retrieval"
+            DRA[Data Retrieval Agent<br/>402 lines<br/>8 Functions]
+        end
+        
+        subgraph "AI & Intelligence"
+            AIA[AI Analysis Agent<br/>514 lines<br/>7 AI Functions]
+            MA[Matching Agent<br/>447 lines<br/>7 Match Functions]
+            AA[Analytics Agent<br/>530 lines<br/>8 Analytics Functions]
+        end
+        
+        subgraph "Operations & Communication"
+            NA[Notification Agent<br/>475 lines<br/>10 Notification Types]
+            VA[Verification Agent<br/>483 lines<br/>7 Verification Types]
+        end
+        
+        subgraph "External Resources"
+            DB[(Databases<br/>PostgreSQL<br/>MongoDB<br/>Redis)]
+            AI_EXT[Claude AI<br/>Anthropic API]
+            COMM[Communications<br/>SendGrid<br/>Twilio]
+        end
+    end
+    
+    %% Master Orchestrator Connections
+    MO -->|Delegates Tasks| DRA
+    MO -->|Requests Analysis| AIA
+    MO -->|Requests Matching| MA
+    MO -->|Requests Analytics| AA
+    MO -->|Triggers Notifications| NA
+    MO -->|Initiates Verification| VA
+    
+    %% Data Retrieval Agent
+    DRA -->|Queries| DB
+    DRA -->|Provides Data| AIA
+    DRA -->|Provides Data| MA
+    DRA -->|Provides Data| AA
+    DRA -->|Provides Data| VA
+    
+    %% AI Analysis Agent
+    AIA -->|Calls| AI_EXT
+    AIA -->|Provides Insights| MA
+    AIA -->|Provides Insights| AA
+    
+    %% Matching Agent
+    MA -->|Requests Data| DRA
+    MA -->|Requests Analysis| AIA
+    MA -->|Triggers Alerts| NA
+    
+    %% Analytics Agent
+    AA -->|Queries| DB
+    AA -->|Requests Analysis| AIA
+    AA -->|Generates Reports| NA
+    
+    %% Notification Agent
+    NA -->|Sends| COMM
+    
+    %% Verification Agent
+    VA -->|Requests Analysis| AIA
+    VA -->|Stores Results| DB
+    VA -->|Notifies| NA
+    
+    %% Styling
+    style MO fill:#ff6b6b,stroke:#c92a2a,stroke-width:4px
+    style DRA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style AIA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style MA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style AA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style NA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style VA fill:#4ecdc4,stroke:#0a9396,stroke-width:2px
+    style DB fill:#95e1d3,stroke:#2d6a4f
+    style AI_EXT fill:#f9ca24,stroke:#f39c12
+    style COMM fill:#a29bfe,stroke:#6c5ce7
+

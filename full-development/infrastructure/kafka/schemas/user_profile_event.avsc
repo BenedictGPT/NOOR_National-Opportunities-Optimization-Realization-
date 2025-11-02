@@ -1,0 +1,95 @@
+{
+  "type": "record",
+  "name": "UserProfileEvent",
+  "namespace": "ae.gov.noor.events.users",
+  "doc": "Event emitted when user profile is created, updated, or deleted",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "doc": "Unique identifier for this event (UUID)"
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "UserEventType",
+        "symbols": ["CREATED", "UPDATED", "DELETED"]
+      },
+      "doc": "Type of event"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "Event timestamp in milliseconds since epoch"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "doc": "UUID of the user"
+    },
+    {
+      "name": "profile_data",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "UserProfile",
+          "fields": [
+            {"name": "email", "type": "string"},
+            {"name": "name", "type": "string"},
+            {"name": "name_ar", "type": ["null", "string"], "default": null},
+            {"name": "nationality", "type": "string"},
+            {"name": "is_emirati", "type": "boolean"},
+            {"name": "date_of_birth", "type": ["null", "string"], "default": null},
+            {"name": "gender", "type": ["null", {"type": "enum", "name": "Gender", "symbols": ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]}], "default": null},
+            {"name": "phone_number", "type": ["null", "string"], "default": null},
+            {"name": "emirates_id", "type": ["null", "string"], "default": null},
+            {"name": "preferred_language", "type": {"type": "enum", "name": "Language", "symbols": ["EN", "AR", "BOTH"]}, "default": "EN"},
+            {"name": "current_role", "type": ["null", "string"], "default": null},
+            {"name": "years_experience", "type": ["null", "int"], "default": null},
+            {"name": "location", "type": ["null", "string"], "default": null},
+            {"name": "bio", "type": ["null", "string"], "default": null},
+            {"name": "profile_picture_url", "type": ["null", "string"], "default": null}
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "User profile data (null for DELETE events)"
+    },
+    {
+      "name": "changed_fields",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "List of fields that changed (for UPDATE events)"
+    },
+    {
+      "name": "previous_values",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Previous values of changed fields"
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "EventMetadata",
+        "fields": [
+          {"name": "source_service", "type": "string"},
+          {"name": "correlation_id", "type": ["null", "string"], "default": null},
+          {"name": "caused_by_user_id", "type": ["null", "string"], "default": null},
+          {"name": "ip_address", "type": ["null", "string"], "default": null},
+          {"name": "user_agent", "type": ["null", "string"], "default": null}
+        ]
+      },
+      "doc": "Event metadata for tracing and auditing"
+    }
+  ]
+}

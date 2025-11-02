@@ -1,0 +1,68 @@
+sequenceDiagram
+    participant User
+    participant Device as Mobile/Web Device
+    participant UI as NOOR UI
+    participant Biometric as Biometric Service
+    participant Radiant as Radiant AI Agent
+    participant Assessment as Assessment Mgmt Agent
+    participant VectorDB as Vector Database
+    participant Audit as Audit Logs
+    
+    User->>Device: Open NOOR app (first time)
+    Device->>UI: Initialize onboarding
+    UI->>User: Request biometric enrollment
+    
+    Note over User,Device: Step 1: Facial Recognition
+    User->>Device: Capture facial scan
+    Device->>Device: Process locally<br/>(extract features)
+    Device->>Device: Generate encrypted embedding<br/>(no raw biometric stored)
+    Device->>Biometric: Send encrypted embedding
+    Biometric->>VectorDB: Store facial embedding (L1)
+    Biometric->>Audit: Log biometric enrollment
+    Biometric-->>UI: ✅ Facial scan complete
+    
+    Note over User,Device: Step 2: Voice Recognition
+    UI->>User: Request voice sample
+    User->>Device: Read verification script
+    Device->>Device: Process locally<br/>(extract voice features)
+    Device->>Device: Generate encrypted embedding<br/>(no raw audio stored)
+    Device->>Biometric: Send encrypted embedding
+    Biometric->>VectorDB: Store voice embedding (L1)
+    Biometric->>Audit: Log voice enrollment
+    Biometric-->>UI: ✅ Voice scan complete
+    
+    Biometric->>Radiant: Initialize identity graph
+    Radiant->>Radiant: Calibrate personality mapping
+    Radiant-->>Biometric: ✅ Identity graph initialized
+    
+    Biometric-->>UI: ✅ Onboarding complete
+    UI-->>User: Ready to use NOOR
+    
+    Note over User,VectorDB: Future Assessment Verification
+    
+    User->>UI: Start assessment
+    UI->>Assessment: Request assessment session
+    Assessment->>Biometric: Verify identity
+    Biometric->>Device: Request biometric verification
+    Device->>User: Capture facial scan
+    User->>Device: Provide facial scan
+    Device->>Device: Generate embedding
+    Device->>Biometric: Send embedding
+    Biometric->>VectorDB: Compare with stored embedding
+    
+    alt Match Found (>95% confidence)
+        VectorDB-->>Biometric: ✅ Identity verified
+        Biometric-->>Assessment: ✅ Authentic user
+        Assessment-->>UI: Start assessment
+        UI-->>User: Begin assessment
+        Biometric->>Audit: Log successful verification
+    else No Match (<95% confidence)
+        VectorDB-->>Biometric: ❌ Identity mismatch
+        Biometric-->>Assessment: ❌ Verification failed
+        Assessment-->>UI: Verification failed
+        UI-->>User: ❌ Identity verification failed
+        Biometric->>Audit: Log failed verification (fraud attempt)
+    end
+    
+    Note over Device,VectorDB: Security & Privacy:<br/>- Biometric data processed locally<br/>- Only embeddings transmitted<br/>- No raw biometric data stored<br/>- AES-256 encryption<br/>- User-scoped keys (L1)<br/>- Audit trails for all access
+

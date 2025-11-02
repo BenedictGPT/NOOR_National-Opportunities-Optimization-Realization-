@@ -1,0 +1,57 @@
+graph TB
+    subgraph "L1 - Personal Zone (Data Islands)"
+        L1_DATA[Biometric Embeddings<br/>Allergies, Chronic Conditions<br/>Blood Type, Medications<br/>Emergency Contacts<br/>Work-Life Balance Scores<br/>Radiant AI Guidance]
+        L1_ENC[User-Scoped<br/>Encryption Keys]
+        L1_CONSENT[Consent Lives Here]
+    end
+    
+    subgraph "L2 - Institutional Zone (Data Archipelagos)"
+        L2_DATA[Payroll, Leave Approvals<br/>Relocation Management<br/>Performance Appraisals<br/>Competency Frameworks<br/>EQI for Entity<br/>Onboarding Analytics]
+        L2_ENC[Company-Scoped<br/>Encryption Keys]
+        L2_ISOLATION[No Cross-Company<br/>Data Bleed]
+    end
+    
+    subgraph "L3 - Federal Zone (Aggregates)"
+        L3_DATA[Aggregated + Anonymized<br/>Analytics ONLY<br/><br/>NO PII<br/>NO Biometrics<br/>NO Payroll-line Data<br/>NO Medical Data]
+        L3_PRIVACY[Differential Privacy<br/>ε ≤ 1.0<br/>K-Anonymity k ≥ 100]
+        L3_SAFE[Statistically Safe<br/>Aggregates]
+    end
+    
+    L1_DATA --> L1_ENC
+    L1_ENC --> L1_CONSENT
+    
+    L2_DATA --> L2_ENC
+    L2_ENC --> L2_ISOLATION
+    
+    L3_DATA --> L3_PRIVACY
+    L3_PRIVACY --> L3_SAFE
+    
+    L1_DATA -.anonymize.-> L3_DATA
+    L2_DATA -.aggregate.-> L3_DATA
+    
+    L1_DATA -.consent.-> L2_DATA
+    
+    FIREWALL1[Network Firewall<br/>L1 ↔ L2]
+    FIREWALL2[Network Firewall<br/>L2 ↔ L3]
+    
+    L1_DATA -.firewall.-> FIREWALL1
+    FIREWALL1 -.firewall.-> L2_DATA
+    L2_DATA -.firewall.-> FIREWALL2
+    FIREWALL2 -.firewall.-> L3_DATA
+    
+    AUDIT[Audit Plane<br/>All Access Logged]
+    
+    L1_DATA -.audit.-> AUDIT
+    L2_DATA -.audit.-> AUDIT
+    L3_DATA -.audit.-> AUDIT
+    
+    style L1_DATA fill:#E8F4F8
+    style L2_DATA fill:#C0D8E6
+    style L3_DATA fill:#A0C0D0
+    style L1_ENC fill:#95E1D3
+    style L2_ENC fill:#95E1D3
+    style L3_PRIVACY fill:#FFE66D
+    style AUDIT fill:#FF6B6B
+    style FIREWALL1 fill:#FF6B6B
+    style FIREWALL2 fill:#FF6B6B
+

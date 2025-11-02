@@ -1,0 +1,47 @@
+sequenceDiagram
+    participant Employee
+    participant UI as Employee Lifecycle UI
+    participant API as Institutional API Gateway
+    participant Service as Employee Lifecycle Service
+    participant Agent as Culture & Engagement Agent
+    participant SEHA as SEHA/DHA/MOHAP APIs
+    participant DB as PostgreSQL
+    participant Kafka
+    participant HR as HR Dashboard
+    
+    Employee->>UI: Upload Sick Leave Request
+    UI->>API: POST /leave/sick-leave
+    API->>Service: Create sick leave request
+    Service->>Agent: Validate medical certificate (MCP)
+    
+    Agent->>SEHA: Verify certificate authenticity
+    SEHA-->>Agent: Certificate valid + fit/not fit status
+    
+    Agent->>Agent: Check abuse patterns<br/>(frequency, timing, duplicates)
+    
+    alt Certificate Valid
+        Agent-->>Service: VALID - Fit/Not Fit status
+        Service->>DB: Write leave record (approved)
+        Service->>Kafka: Emit payroll event
+        Service-->>API: 200 OK - Leave approved
+        API-->>UI: Leave approved [Certified]
+        UI-->>Employee: ✅ Sick leave approved
+        Kafka-->>HR: Update dashboard
+    else Suspicious Pattern
+        Agent-->>Service: SUSPICIOUS - Manual review required
+        Service->>DB: Write leave record (pending review)
+        Service-->>API: 202 Accepted - Pending review
+        API-->>UI: Pending manual review
+        UI-->>Employee: ⚠️ Under review
+        Service->>HR: Flag for manual review
+    else Certificate Invalid
+        Agent-->>Service: INVALID - Certificate not verified
+        Service-->>API: 400 Bad Request
+        API-->>UI: Certificate invalid
+        UI-->>Employee: ❌ Invalid certificate
+    end
+    
+    Note over Agent,SEHA: Agent sees ONLY:<br/>- Fit/Not Fit status<br/>- Certificate validity<br/><br/>NOT:<br/>- Full diagnosis<br/>- Prescriptions<br/>- Allergies<br/>- Medical history
+    
+    Note over DB: L2 Institutional Zone:<br/>- Leave status<br/>- Fit/Not Fit<br/>- Certification flag<br/><br/>L1 Personal Zone (separate):<br/>- Allergies<br/>- Chronic conditions<br/>- Medications<br/>- Full medical history
+

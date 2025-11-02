@@ -1,0 +1,66 @@
+graph TD
+    subgraph "L1 - Personal"
+        U1[Individual Users<br/>Emirati / Expatriate]
+        D1[Profile, Skills Passport,<br/>Learning Pathways,<br/>Health & Biometric Data]
+        A1[Self-only Access<br/>UAE Pass Authentication]
+    end
+    
+    subgraph "L2 - Institutional Restricted"
+        U2[HR Managers<br/>L&D Heads<br/>Emiratization Officers]
+        D2[Workforce Analytics,<br/>Performance, Payroll/Pension,<br/>Leave & Lifecycle]
+        A2[Team/Entity Scope<br/>CHRO + Orchestrator Approval]
+    end
+    
+    subgraph "L3 - Institutional Executive"
+        U3[CXOs<br/>Compliance Officers]
+        D3[Organization-wide Metrics,<br/>EQI, ESG Dashboards]
+        A3[Entity-wide Aggregates<br/>CEO + Orchestrator Approval]
+    end
+    
+    subgraph "L4 - Federal Analysts"
+        U4[FAHR, MOHRE, NAFIS<br/>National Statistics Centers]
+        D4[Aggregated Workforce Intelligence,<br/>Policy Simulations,<br/>ESG Impact Data]
+        A4[National Aggregates<br/>Cabinet Office Approval<br/>Differential Privacy ε ≤ 1.0, k ≥ 100]
+    end
+    
+    subgraph "L5 - Supervised AI Agents"
+        U5[Radiant AI<br/>Federal Intelligence Agent<br/>Master Orchestrator]
+        D5[Specific Data Feeds<br/>Required for Core Functions]
+        A5[Task-scoped Temporary Access<br/>Founders / Ministers Authorization]
+    end
+    
+    U1 --> D1
+    D1 --> A1
+    
+    U2 --> D2
+    D2 --> A2
+    
+    U3 --> D3
+    D3 --> A3
+    
+    U4 --> D4
+    D4 --> A4
+    
+    U5 --> D5
+    D5 --> A5
+    
+    A1 -.consent.-> CONSENT[Consent Ledger<br/>Blockchain]
+    A2 -.audit.-> AUDIT[Audit Trails<br/>Immutable Logs]
+    A3 -.audit.-> AUDIT
+    A4 -.audit.-> AUDIT
+    A5 -.audit.-> AUDIT
+    
+    A2 -.MFA.-> MFA[Multi-Factor<br/>Authentication<br/>99.9% Target]
+    A3 -.MFA.-> MFA
+    A4 -.MFA.-> MFA
+    A5 -.MFA.-> MFA
+    
+    style U1 fill:#E8F4F8
+    style U2 fill:#C0D8E6
+    style U3 fill:#A0C0D0
+    style U4 fill:#80A8C0
+    style U5 fill:#6090B0
+    style CONSENT fill:#95E1D3
+    style AUDIT fill:#FFE66D
+    style MFA fill:#FF6B6B
+

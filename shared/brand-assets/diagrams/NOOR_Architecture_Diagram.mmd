@@ -1,0 +1,84 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#2C5F8D','primaryTextColor':'#fff','primaryBorderColor':'#1E3A5F','lineColor':'#4A90C4','secondaryColor':'#8B4513','tertiaryColor':'#D4AF37'}}}%%
+graph TB
+    subgraph Layer3["🏛️ Layer 3: Federal Canvas"]
+        FC[National Intelligence Dashboard]
+        FC1[National Talent Overview]
+        FC2[Sectoral Analytics]
+        FC3[Skills Intelligence]
+        FC4[Predictive Analytics]
+    end
+    
+    subgraph Layer2["🏢 Layer 2: Institutional Layer"]
+        II[Institutional Interface<br/>Public-Facing]
+        HCM[HCM Suite<br/>Private Backend]
+        OB[Opportunities Board]
+    end
+    
+    subgraph Layer1["👤 Layer 1: Individual Layer"]
+        SP[Skills Passport<br/>11 Sub-Pages]
+        SP1[Home Dashboard]
+        SP2[Profile]
+        SP3[Mentor Matching]
+        SP4[Guilds]
+        SP5[Projects]
+        SP6[Rankings]
+        SP7[Assessments]
+        SP8[Analytics]
+        SP9[Achievements]
+        SP10[Library]
+        SP11[Token Management]
+    end
+    
+    %% Connections
+    SP --> II
+    SP --> HCM
+    SP --> OB
+    
+    II --> FC
+    HCM --> FC
+    OB --> FC
+    
+    SP --> SP1
+    SP --> SP2
+    SP --> SP3
+    SP --> SP4
+    SP --> SP5
+    SP --> SP6
+    SP --> SP7
+    SP --> SP8
+    SP --> SP9
+    SP --> SP10
+    SP --> SP11
+    
+    FC --> FC1
+    FC --> FC2
+    FC --> FC3
+    FC --> FC4
+    
+    style Layer3 fill:#1E3A5F,stroke:#2C5F8D,stroke-width:3px,color:#fff
+    style Layer2 fill:#2C5F8D,stroke:#4A90C4,stroke-width:3px,color:#fff
+    style Layer1 fill:#4A90C4,stroke:#6BB6E8,stroke-width:3px,color:#fff
+    
+    style FC fill:#D4AF37,stroke:#B8941F,stroke-width:2px,color:#1E3A5F
+    style FC1 fill:#E8C76F,stroke:#D4AF37,stroke-width:1px,color:#1E3A5F
+    style FC2 fill:#E8C76F,stroke:#D4AF37,stroke-width:1px,color:#1E3A5F
+    style FC3 fill:#E8C76F,stroke:#D4AF37,stroke-width:1px,color:#1E3A5F
+    style FC4 fill:#E8C76F,stroke:#D4AF37,stroke-width:1px,color:#1E3A5F
+    
+    style II fill:#8B4513,stroke:#A0522D,stroke-width:2px,color:#fff
+    style HCM fill:#8B4513,stroke:#A0522D,stroke-width:2px,color:#fff
+    style OB fill:#8B4513,stroke:#A0522D,stroke-width:2px,color:#fff
+    
+    style SP fill:#2E8B57,stroke:#3CB371,stroke-width:2px,color:#fff
+    style SP1 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP2 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP3 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP4 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP5 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP6 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP7 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP8 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP9 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP10 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+    style SP11 fill:#90EE90,stroke:#2E8B57,stroke-width:1px,color:#1E3A5F
+

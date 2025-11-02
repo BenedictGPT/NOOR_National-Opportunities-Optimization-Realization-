@@ -1,0 +1,94 @@
+graph TB
+    subgraph "Kubernetes Cluster"
+        subgraph "General-Purpose Pool"
+            GP1[FastAPI Services<br/>Employee Lifecycle<br/>Learning & Assessment<br/>Emiratization Compliance]
+            GP2[Kafka Brokers<br/>Event Streaming]
+            GP3[Redis Cache<br/>Session Management]
+            GP4[API Gateway<br/>Load Balancer]
+            GP5[Frontend Services<br/>React Web/Mobile]
+        end
+        
+        subgraph "GPU-Enabled Inference Pool"
+            GPU1[Radiant AI Agent<br/>Career Guidance]
+            GPU2[Mentor Matching Agent<br/>Intelligence]
+            GPU3[Predictive Analytics Agent<br/>Forecasting]
+            GPU4[Vector Database<br/>Pinecone/Weaviate<br/>Embeddings]
+            GPU5[Scholar AI Agent<br/>Research]
+        end
+        
+        subgraph "High-Sensitivity Pool"
+            HS1[Payroll & Pensions Service<br/>GPSSA/ADPF/GCC]
+            HS2[Health Certification Service<br/>SEHA/DHA/MOHAP]
+            HS3[Biometric Identity Service<br/>Facial + Voice]
+            HS4[Security Agent<br/>Audit & Compliance]
+            HS5[Federal Intelligence Agent<br/>DORMANT]
+        end
+    end
+    
+    subgraph "Network Policies"
+        NP1[Policy: General → GPU<br/>✅ Allowed]
+        NP2[Policy: General → High-Sensitivity<br/>❌ Blocked]
+        NP3[Policy: GPU → High-Sensitivity<br/>❌ Blocked]
+        NP4[Policy: High-Sensitivity → External<br/>✅ Allowed via Secure Gateway]
+    end
+    
+    subgraph "External Integrations"
+        EXT1[SEHA/DHA/MOHAP<br/>Health APIs]
+        EXT2[GPSSA/ADPF<br/>Pension APIs]
+        EXT3[UAE Pass<br/>Authentication]
+        EXT4[Blockchain<br/>Consent Ledger]
+    end
+    
+    GP4 --> GP1
+    GP1 --> GP2
+    GP1 --> GP3
+    GP4 --> GP5
+    
+    GP1 -.allowed.-> GPU1
+    GP1 -.allowed.-> GPU2
+    GP1 -.allowed.-> GPU3
+    
+    GP1 -.blocked.-> HS1
+    GP1 -.blocked.-> HS2
+    GP1 -.blocked.-> HS3
+    
+    GPU1 -.blocked.-> HS1
+    GPU1 -.blocked.-> HS2
+    GPU1 -.blocked.-> HS3
+    
+    HS2 -.secure gateway.-> EXT1
+    HS1 -.secure gateway.-> EXT2
+    GP4 -.secure gateway.-> EXT3
+    HS4 -.secure gateway.-> EXT4
+    
+    NP1 -.enforces.-> GP1
+    NP2 -.enforces.-> HS1
+    NP3 -.enforces.-> GPU1
+    NP4 -.enforces.-> HS2
+    
+    style GP1 fill:#E8F4F8
+    style GP2 fill:#E8F4F8
+    style GP3 fill:#E8F4F8
+    style GP4 fill:#E8F4F8
+    style GP5 fill:#E8F4F8
+    
+    style GPU1 fill:#C0D8E6
+    style GPU2 fill:#C0D8E6
+    style GPU3 fill:#C0D8E6
+    style GPU4 fill:#C0D8E6
+    style GPU5 fill:#C0D8E6
+    
+    style HS1 fill:#FF6B6B
+    style HS2 fill:#FF6B6B
+    style HS3 fill:#FF6B6B
+    style HS4 fill:#FF6B6B
+    style HS5 fill:#FF6B6B
+    
+    style NP2 fill:#FFE66D
+    style NP3 fill:#FFE66D
+    
+    style EXT1 fill:#95E1D3
+    style EXT2 fill:#95E1D3
+    style EXT3 fill:#95E1D3
+    style EXT4 fill:#95E1D3
+

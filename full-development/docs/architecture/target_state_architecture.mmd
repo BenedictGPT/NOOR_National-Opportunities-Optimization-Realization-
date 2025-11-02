@@ -1,0 +1,107 @@
+graph TB
+    subgraph "Layer 1: Experience Layer (Interfaces)"
+        UI1[Individual<br/>Skills Passport, Radiant AI,<br/>Career Pathway, Token Wallet,<br/>Health & Wellness Dashboard]
+        UI2[Institutional<br/>HR Dashboards, Payroll & Pensions,<br/>Leave & Compliance, EQI,<br/>Learning & Development]
+        UI3[Federal<br/>Policy Simulator, ESG Impact,<br/>National Workforce View,<br/>Labor Market Analytics]
+    end
+    
+    subgraph "Layer 2: Orchestration & Policy Layer (Agent Mesh)"
+        MO[Master Orchestrator]
+        CO1[Al-Kindi<br/>Development]
+        CO2[Al-Farabi<br/>Infrastructure]
+        CO3[Ibn Sina<br/>Intelligence]
+        CO4[Ibn Rushd<br/>Content]
+        CO5[Al-Ghazali<br/>Specialized]
+        CO6[Ibn Khaldun<br/>Strategic]
+        MCP[Model Context Protocol<br/>MCP]
+    end
+    
+    subgraph "Layer 3: Service Layer (Deterministic Microservices)"
+        S1[Payroll & Pensions Service]
+        S2[Employee Lifecycle Service]
+        S3[Learning & Assessment Service]
+        S4[Emiratization Compliance Service]
+        S5[Health Certification Service]
+        S6[Biometric Identity Service]
+    end
+    
+    subgraph "Layer 4: Data Layer (Sovereign Data Fabric)"
+        DB1[(PostgreSQL<br/>Payroll, Leave, Pension)]
+        DB2[(MongoDB<br/>Engagement, Appraisals)]
+        DB3[(Neo4j<br/>Competency Graph)]
+        DB4[(Redis<br/>Cache)]
+        DB5[(Vector DB<br/>Embeddings)]
+        DB6[(Kafka<br/>Event Streaming)]
+    end
+    
+    subgraph "Audit / Governance Plane"
+        A1[Consent Ledger<br/>Blockchain]
+        A2[RBAC/ABAC<br/>Policy Store]
+        A3[Immutable<br/>Access Logs]
+        A4[Human Approval<br/>Checkpoints]
+    end
+    
+    UI1 --> MO
+    UI2 --> MO
+    UI3 --> MO
+    
+    MO --> CO1
+    MO --> CO2
+    MO --> CO3
+    MO --> CO4
+    MO --> CO5
+    MO --> CO6
+    
+    CO1 -.MCP.-> MCP
+    CO2 -.MCP.-> MCP
+    CO3 -.MCP.-> MCP
+    CO4 -.MCP.-> MCP
+    CO5 -.MCP.-> MCP
+    CO6 -.MCP.-> MCP
+    
+    MCP --> S1
+    MCP --> S2
+    MCP --> S3
+    MCP --> S4
+    MCP --> S5
+    MCP --> S6
+    
+    S1 --> DB1
+    S2 --> DB1
+    S2 --> DB2
+    S3 --> DB3
+    S3 --> DB5
+    S4 --> DB1
+    S5 --> DB1
+    S5 --> DB2
+    S6 --> DB5
+    
+    DB1 --> DB6
+    DB2 --> DB6
+    DB3 --> DB6
+    
+    S1 -.audit.-> A3
+    S2 -.audit.-> A3
+    S3 -.audit.-> A3
+    S4 -.audit.-> A3
+    S5 -.audit.-> A3
+    S6 -.audit.-> A3
+    
+    MCP -.consent.-> A1
+    MCP -.policy.-> A2
+    S1 -.approval.-> A4
+    S5 -.approval.-> A4
+    
+    style MO fill:#FF6B6B
+    style CO1 fill:#4ECDC4
+    style CO2 fill:#4ECDC4
+    style CO3 fill:#4ECDC4
+    style CO4 fill:#4ECDC4
+    style CO5 fill:#4ECDC4
+    style CO6 fill:#4ECDC4
+    style MCP fill:#FFE66D
+    style A1 fill:#95E1D3
+    style A2 fill:#95E1D3
+    style A3 fill:#95E1D3
+    style A4 fill:#95E1D3
+

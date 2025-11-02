@@ -1,0 +1,81 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4A90C4','primaryTextColor':'#fff','primaryBorderColor':'#2C5F8D','lineColor':'#2C5F8D','secondaryColor':'#2E8B57','tertiaryColor':'#D4AF37'}}}%%
+flowchart LR
+    subgraph Users["👥 5M+ Users"]
+        U1[Individual Citizens]
+        U2[Employees]
+        U3[Job Seekers]
+    end
+    
+    subgraph L1["Layer 1: Skills Passport"]
+        SP[Personal Data Island<br/>- 8 Faculties<br/>- 96 Competencies<br/>- Wellness Metrics<br/>- Projects & Achievements]
+    end
+    
+    subgraph Orgs["🏢 10K+ Organizations"]
+        O1[Private Sector]
+        O2[Government]
+        O3[Education]
+    end
+    
+    subgraph L2["Layer 2: Institutional"]
+        DA[Data Archipelago<br/>- Aggregate Employee Data<br/>- Team Competencies<br/>- Culture Metrics]
+        II[Public Interface]
+        HCM[HCM Suite]
+        OB[Opportunities Board]
+    end
+    
+    subgraph L3["Layer 3: Federal Canvas"]
+        DW[Data Warehouse<br/>Anonymized & Aggregated]
+        AN[Analytics Engine<br/>- National Insights<br/>- Sectoral Analysis<br/>- Predictive Models]
+        FD[Federal Dashboard<br/>Policy & Planning]
+    end
+    
+    subgraph Gov["🏛️ Federal Government"]
+        G1[National Leadership]
+        G2[Ministry Officials]
+        G3[Policy Analysts]
+    end
+    
+    %% Data Flow
+    U1 --> SP
+    U2 --> SP
+    U3 --> SP
+    
+    SP -->|Individual Data| L2
+    
+    O1 --> DA
+    O2 --> DA
+    O3 --> DA
+    
+    DA --> II
+    DA --> HCM
+    DA --> OB
+    
+    SP -->|Anonymized| DW
+    DA -->|Aggregated| DW
+    
+    DW --> AN
+    AN --> FD
+    
+    FD --> G1
+    FD --> G2
+    FD --> G3
+    
+    II -->|Public View| U3
+    OB -->|Job Matching| U3
+    
+    style Users fill:#4A90C4,stroke:#2C5F8D,stroke-width:2px,color:#fff
+    style L1 fill:#2E8B57,stroke:#228B22,stroke-width:3px,color:#fff
+    style Orgs fill:#8B4513,stroke:#A0522D,stroke-width:2px,color:#fff
+    style L2 fill:#8B4513,stroke:#A0522D,stroke-width:3px,color:#fff
+    style L3 fill:#1E3A5F,stroke:#2C5F8D,stroke-width:3px,color:#fff
+    style Gov fill:#D4AF37,stroke:#B8941F,stroke-width:2px,color:#1E3A5F
+    
+    style SP fill:#90EE90,stroke:#2E8B57,stroke-width:2px,color:#1E3A5F
+    style DA fill:#CD853F,stroke:#8B4513,stroke-width:2px,color:#fff
+    style II fill:#CD853F,stroke:#8B4513,stroke-width:2px,color:#fff
+    style HCM fill:#CD853F,stroke:#8B4513,stroke-width:2px,color:#fff
+    style OB fill:#CD853F,stroke:#8B4513,stroke-width:2px,color:#fff
+    style DW fill:#6BB6E8,stroke:#4A90C4,stroke-width:2px,color:#1E3A5F
+    style AN fill:#6BB6E8,stroke:#4A90C4,stroke-width:2px,color:#1E3A5F
+    style FD fill:#E8C76F,stroke:#D4AF37,stroke-width:2px,color:#1E3A5F
+

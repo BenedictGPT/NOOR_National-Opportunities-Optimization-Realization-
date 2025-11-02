@@ -1,0 +1,56 @@
+/* NOOR CSS Framework v1.0 */
+
+/* Color Palette System */
+:root {
+  /* Platform Palette (Layer 1) */
+  --noor-blue: #4A90C4;
+  --deep-ocean: #2C5F8D;
+  --sky-blue: #6BB6E8;
+  --success-green: #2E8B57;
+  --light-green: #90EE90;
+  --warm-amber: #F5A623;
+  --soft-coral: #FF6B6B;
+  --charcoal: #2D3748;
+  --medium-gray: #718096;
+  --light-gray: #E2E8F0;
+  --off-white: #F7FAFC;
+
+  /* Institutional Palette (Layer 2) */
+  --corporate-blue: #2C5F8D;
+  --steel-gray: #4A5568;
+  --slate: #1E3A5F;
+  --bronze: #8B4513;
+  --copper: #CD853F;
+  --gold: #D4AF37;
+  --silver: #C0C0C0;
+
+  /* Federal Palette (Layer 3) */
+  --government-blue: #1E3A5F;
+  --deep-navy: #0F1E3D;
+  --royal-blue: #2C5F8D;
+  --uae-gold: #D4AF37;
+  --rich-gold: #B8941F;
+  --platinum: #E5E4E2;
+
+  /* Typography */
+  --font-family-headings: 'Hammersmith One', sans-serif;
+  --font-family-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-mono: 'Space Mono', monospace;
+  --font-family-arabic: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* Typography Scale */
+h1, .h1 { font-size: 2.25rem; line-height: 1.3; font-family: var(--font-family-headings); }
+h2, .h2 { font-size: 1.75rem; line-height: 1.4; font-family: var(--font-family-headings); }
+h3, .h3 { font-size: 1.5rem; line-height: 1.4; font-family: var(--font-family-headings); }
+h4, .h4 { font-size: 1.25rem; line-height: 1.5; font-family: var(--font-family-headings); }
+.body-large { font-size: 1.125rem; line-height: 1.6; }
+body { font-size: 1rem; line-height: 1.6; font-family: var(--font-family-body); color: var(--charcoal); background-color: var(--off-white); }
+.body-small { font-size: 0.875rem; line-height: 1.5; }
+.caption { font-size: 0.75rem; line-height: 1.4; }
+
+/* RTL Support */
+[dir="rtl"] body {
+  font-family: var(--font-family-arabic);
+}
+
