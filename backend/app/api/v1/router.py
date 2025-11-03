@@ -18,7 +18,10 @@ from app.api.v1.endpoints import (
     jobs,
     applications,
     ai_agents,
-    ai_features
+    ai_features,
+    eight_faculty,
+    gamification,
+    learning
 )
 
 api_router = APIRouter()
@@ -110,5 +113,26 @@ api_router.include_router(
 api_router.include_router(
     ai_features.router,
     tags=["AI Features"]
+)
+
+# Eight-Faculty Model
+api_router.include_router(
+    eight_faculty.router,
+    prefix="/eight-faculty",
+    tags=["Eight-Faculty Model"]
+)
+
+# Gamification
+api_router.include_router(
+    gamification.router,
+    prefix="/gamification",
+    tags=["Gamification"]
+)
+
+# Learning Center
+api_router.include_router(
+    learning.router,
+    prefix="/learning",
+    tags=["Learning Center"]
 )
 
