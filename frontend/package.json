@@ -29,6 +29,8 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "clsx": "^2.0.0",
+    "tailwind-merge": "^2.2.0",
+    "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.294.0",
     "date-fns": "^3.0.0",
     "recharts": "^2.10.3",
