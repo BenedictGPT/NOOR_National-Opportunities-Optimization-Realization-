@@ -21,7 +21,8 @@ from app.api.v1.endpoints import (
     ai_features,
     eight_faculty,
     gamification,
-    learning
+    learning,
+    payments
 )
 
 api_router = APIRouter()
@@ -134,5 +135,12 @@ api_router.include_router(
     learning.router,
     prefix="/learning",
     tags=["Learning Center"]
+)
+
+# Payments
+api_router.include_router(
+    payments.router,
+    prefix="/payments",
+    tags=["Payments"]
 )
 
