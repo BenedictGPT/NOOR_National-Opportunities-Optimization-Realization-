@@ -111,5 +111,9 @@ const CardFooter = React.forwardRef<
 
 CardFooter.displayName = 'CardFooter';
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
+// CardBody is an alias for CardContent for backwards compatibility
+const CardBody = CardContent;
+CardBody.displayName = 'CardBody';
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardBody };
 
