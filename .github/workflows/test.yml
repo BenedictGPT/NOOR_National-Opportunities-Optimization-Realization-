@@ -1,0 +1,36 @@
+name: NOOR Platform Test Suite
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: cd frontend && npm install
+      - name: Run linter
+        run: cd frontend && npm run lint || true
+      - name: Build frontend
+        run: cd frontend && npm run build
+
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: cd backend && pip install -r requirements.txt
+      - name: Run linter
+        run: cd backend && flake8 app || true
+      - name: Check imports
+        run: cd backend && python -c "from app.api.v1 import router; print('✅ Imports successful')"
