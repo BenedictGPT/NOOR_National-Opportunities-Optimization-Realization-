@@ -1,0 +1,4617 @@
+{
+  "designSystem": {
+    "name": "UI Component Design System",
+    "version": "1.0.0",
+    "description": "A comprehensive design system for common UI components",
+    
+    "tokens": {
+      "colors": {
+        "primary": {
+          "50": "#eff6ff",
+          "100": "#dbeafe",
+          "200": "#bfdbfe",
+          "300": "#93c5fd",
+          "400": "#60a5fa",
+          "500": "#3b82f6",
+          "600": "#2563eb",
+          "700": "#1d4ed8",
+          "800": "#1e40af",
+          "900": "#1e3a8a"
+        },
+        "secondary": {
+          "50": "#f8fafc",
+          "100": "#f1f5f9",
+          "200": "#e2e8f0",
+          "300": "#cbd5e1",
+          "400": "#94a3b8",
+          "500": "#64748b",
+          "600": "#475569",
+          "700": "#334155",
+          "800": "#1e293b",
+          "900": "#0f172a"
+        },
+        "success": {
+          "50": "#f0fdf4",
+          "100": "#dcfce7",
+          "500": "#22c55e",
+          "700": "#15803d",
+          "900": "#14532d"
+        },
+        "warning": {
+          "50": "#fffbeb",
+          "100": "#fef3c7",
+          "500": "#f59e0b",
+          "700": "#b45309",
+          "900": "#78350f"
+        },
+        "error": {
+          "50": "#fef2f2",
+          "100": "#fee2e2",
+          "500": "#ef4444",
+          "700": "#b91c1c",
+          "900": "#7f1d1d"
+        },
+        "info": {
+          "50": "#eff6ff",
+          "100": "#dbeafe",
+          "500": "#3b82f6",
+          "700": "#1d4ed8",
+          "900": "#1e3a8a"
+        },
+        "neutral": {
+          "50": "#fafafa",
+          "100": "#f5f5f5",
+          "200": "#e5e5e5",
+          "300": "#d4d4d4",
+          "400": "#a3a3a3",
+          "500": "#737373",
+          "600": "#525252",
+          "700": "#404040",
+          "800": "#262626",
+          "900": "#171717",
+          "950": "#0a0a0a"
+        },
+        "white": "#ffffff",
+        "black": "#000000",
+        "transparent": "transparent"
+      },
+      
+      "spacing": {
+        "0": "0px",
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "20px",
+        "6": "24px",
+        "8": "32px",
+        "10": "40px",
+        "12": "48px",
+        "16": "64px",
+        "20": "80px",
+        "24": "96px"
+      },
+      
+      "borderRadius": {
+        "none": "0px",
+        "sm": "4px",
+        "md": "8px",
+        "lg": "12px",
+        "xl": "16px",
+        "2xl": "24px",
+        "full": "9999px"
+      },
+      
+      "fontSize": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px",
+        "3xl": "30px",
+        "4xl": "36px"
+      },
+      
+      "fontWeight": {
+        "normal": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700"
+      },
+      
+      "lineHeight": {
+        "tight": "1.25",
+        "normal": "1.5",
+        "relaxed": "1.75"
+      },
+      
+      "shadows": {
+        "sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        "inner": "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
+        "none": "none"
+      },
+      
+      "transitions": {
+        "fast": "150ms",
+        "base": "250ms",
+        "slow": "350ms",
+        "easing": "cubic-bezier(0.4, 0, 0.2, 1)"
+      },
+      
+      "zIndex": {
+        "dropdown": "1000",
+        "sticky": "1020",
+        "fixed": "1030",
+        "modalBackdrop": "1040",
+        "modal": "1050",
+        "popover": "1060",
+        "tooltip": "1070"
+      }
+    },
+    
+    "components": {
+      "modal": {
+        "description": "Modal/Dialog component for overlay content with backdrop variants, placement options, and state management",
+        "variants": {
+          "default": {
+            "wrapper": {
+              "position": "fixed",
+              "top": "0",
+              "left": "0",
+              "right": "0",
+              "bottom": "0",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "zIndex": "$zIndex.modal",
+              "padding": "$spacing.4"
+            },
+            "backdrop": {
+              "position": "fixed",
+              "top": "0",
+              "left": "0",
+              "right": "0",
+              "bottom": "0",
+              "backgroundColor": "rgba(0, 0, 0, 0.5)",
+              "zIndex": "$zIndex.modalBackdrop",
+              "transition": "$transitions.base",
+              "animation": "fadeIn $transitions.base $transitions.easing"
+            },
+            "container": {
+              "position": "relative",
+              "backgroundColor": "$colors.white",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.2xl",
+              "maxWidth": "500px",
+              "width": "100%",
+              "maxHeight": "calc(100vh - 32px)",
+              "display": "flex",
+              "flexDirection": "column",
+              "overflow": "hidden",
+              "zIndex": "$zIndex.modal",
+              "animation": "modalSlideIn $transitions.base $transitions.easing"
+            },
+            "header": {
+              "padding": "$spacing.6 $spacing.6 $spacing.4",
+              "fontSize": "$fontSize.xl",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.900",
+              "borderBottom": "1px solid $colors.neutral.200",
+              "flexShrink": "0"
+            },
+            "body": {
+              "padding": "$spacing.6",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.700",
+              "lineHeight": "$lineHeight.relaxed",
+              "overflowY": "auto",
+              "flex": "1"
+            },
+            "footer": {
+              "padding": "$spacing.4 $spacing.6 $spacing.6",
+              "display": "flex",
+              "justifyContent": "flex-end",
+              "gap": "$spacing.3",
+              "borderTop": "1px solid $colors.neutral.200",
+              "flexShrink": "0"
+            },
+            "closeButton": {
+              "position": "absolute",
+              "top": "$spacing.4",
+              "right": "$spacing.4",
+              "padding": "$spacing.2",
+              "color": "$colors.neutral.500",
+              "hoverColor": "$colors.neutral.700",
+              "backgroundColor": "transparent",
+              "hoverBackgroundColor": "$colors.neutral.100",
+              "borderRadius": "$borderRadius.md",
+              "transition": "$transitions.fast",
+              "cursor": "pointer",
+              "zIndex": "10"
+            }
+          },
+          "backdrop": {
+            "opaque": {
+              "backgroundColor": "rgba(0, 0, 0, 0.5)"
+            },
+            "blur": {
+              "backgroundColor": "rgba(0, 0, 0, 0.3)",
+              "backdropFilter": "blur(8px)"
+            },
+            "transparent": {
+              "backgroundColor": "transparent"
+            }
+          },
+          "placement": {
+            "center": {
+              "wrapper": {
+                "alignItems": "center",
+                "justifyContent": "center"
+              }
+            },
+            "topCenter": {
+              "wrapper": {
+                "alignItems": "flex-start",
+                "justifyContent": "center",
+                "paddingTop": "$spacing.16"
+              }
+            },
+            "top": {
+              "wrapper": {
+                "alignItems": "flex-start",
+                "paddingTop": "$spacing.8"
+              }
+            },
+            "bottom": {
+              "wrapper": {
+                "alignItems": "flex-end",
+                "paddingBottom": "$spacing.8"
+              }
+            },
+            "bottomCenter": {
+              "wrapper": {
+                "alignItems": "flex-end",
+                "justifyContent": "center",
+                "paddingBottom": "$spacing.16"
+              }
+            }
+          },
+          "size": {
+            "xs": {
+              "container": {
+                "maxWidth": "320px"
+              }
+            },
+            "sm": {
+              "container": {
+                "maxWidth": "400px"
+              }
+            },
+            "md": {
+              "container": {
+                "maxWidth": "500px"
+              }
+            },
+            "lg": {
+              "container": {
+                "maxWidth": "640px"
+              }
+            },
+            "xl": {
+              "container": {
+                "maxWidth": "768px"
+              }
+            },
+            "2xl": {
+              "container": {
+                "maxWidth": "896px"
+              }
+            },
+            "3xl": {
+              "container": {
+                "maxWidth": "1024px"
+              }
+            },
+            "4xl": {
+              "container": {
+                "maxWidth": "1280px"
+              }
+            },
+            "5xl": {
+              "container": {
+                "maxWidth": "1536px"
+              }
+            },
+            "full": {
+              "container": {
+                "maxWidth": "calc(100vw - 32px)",
+                "maxHeight": "calc(100vh - 32px)"
+              }
+            }
+          },
+          "scrollBehavior": {
+            "inside": {
+              "container": {
+                "maxHeight": "calc(100vh - 32px)"
+              },
+              "body": {
+                "overflowY": "auto"
+              }
+            },
+            "outside": {
+              "wrapper": {
+                "overflowY": "auto"
+              },
+              "body": {
+                "overflowY": "visible"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "hooks": {
+            "useDisclosure": {
+              "description": "React hook for managing modal open/close state",
+              "returns": {
+                "isOpen": "boolean - Current open state",
+                "onOpen": "() => void - Function to open modal",
+                "onClose": "() => void - Function to close modal",
+                "onOpenChange": "(isOpen: boolean) => void - Function to toggle modal",
+                "onToggle": "() => void - Function to toggle open/close"
+              }
+            }
+          },
+          "structure": "Modal (wrapper + backdrop) → ModalContent → ModalHeader + ModalBody + ModalFooter",
+          "notes": "Use render prop pattern with onClose callback for flexibility. Backdrop click and ESC key should close modal by default."
+        }
+      },
+      
+      "select": {
+        "description": "Select/Dropdown component for choosing options",
+        "variants": {
+          "default": {
+            "trigger": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "space-between",
+              "padding": "$spacing.2 $spacing.3",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.md",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "hoverBorderColor": "$colors.neutral.400",
+              "focusBorderColor": "$colors.primary.500",
+              "focusBoxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "dropdown": {
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.md",
+              "boxShadow": "$shadows.lg",
+              "marginTop": "$spacing.2",
+              "padding": "$spacing.1",
+              "maxHeight": "300px",
+              "overflowY": "auto",
+              "zIndex": "$zIndex.dropdown"
+            },
+            "option": {
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "borderRadius": "$borderRadius.sm",
+              "transition": "$transitions.fast",
+              "hoverBackgroundColor": "$colors.neutral.100",
+              "selectedBackgroundColor": "$colors.primary.50",
+              "selectedColor": "$colors.primary.700",
+              "disabledColor": "$colors.neutral.400",
+              "disabledCursor": "not-allowed"
+            },
+            "icon": {
+              "size": "20px",
+              "color": "$colors.neutral.500"
+            }
+          },
+          "small": {
+            "trigger": {
+              "padding": "$spacing.1 $spacing.2",
+              "fontSize": "$fontSize.sm"
+            },
+            "option": {
+              "padding": "$spacing.1 $spacing.2",
+              "fontSize": "$fontSize.sm"
+            }
+          },
+          "large": {
+            "trigger": {
+              "padding": "$spacing.3 $spacing.4",
+              "fontSize": "$fontSize.lg"
+            },
+            "option": {
+              "padding": "$spacing.3 $spacing.4",
+              "fontSize": "$fontSize.lg"
+            }
+          }
+        }
+      },
+      
+      "badge": {
+        "description": "Badge component for labels, status indicators, and notification counts",
+        "variants": {
+          "default": {
+            "standalone": {
+              "padding": "$spacing.1 $spacing.2",
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.medium",
+              "borderRadius": "$borderRadius.md",
+              "display": "inline-flex",
+              "alignItems": "center",
+              "gap": "$spacing.1",
+              "backgroundColor": "$colors.neutral.100",
+              "color": "$colors.neutral.700"
+            },
+            "overlay": {
+              "position": "absolute",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "minWidth": "20px",
+              "height": "20px",
+              "padding": "$spacing.0 $spacing.1",
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "borderRadius": "$borderRadius.full",
+              "backgroundColor": "$colors.neutral.500",
+              "color": "$colors.white",
+              "border": "2px solid $colors.white",
+              "zIndex": "10"
+            },
+            "wrapper": {
+              "position": "relative",
+              "display": "inline-flex"
+            }
+          },
+          "placement": {
+            "topRight": {
+              "top": "0",
+              "right": "0",
+              "transform": "translate(50%, -50%)"
+            },
+            "topLeft": {
+              "top": "0",
+              "left": "0",
+              "transform": "translate(-50%, -50%)"
+            },
+            "bottomRight": {
+              "bottom": "0",
+              "right": "0",
+              "transform": "translate(50%, 50%)"
+            },
+            "bottomLeft": {
+              "bottom": "0",
+              "left": "0",
+              "transform": "translate(-50%, 50%)"
+            }
+          },
+          "primary": {
+            "standalone": {
+              "backgroundColor": "$colors.primary.100",
+              "color": "$colors.primary.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.primary.500"
+            }
+          },
+          "success": {
+            "standalone": {
+              "backgroundColor": "$colors.success.100",
+              "color": "$colors.success.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.success.500"
+            }
+          },
+          "warning": {
+            "standalone": {
+              "backgroundColor": "$colors.warning.100",
+              "color": "$colors.warning.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.warning.500"
+            }
+          },
+          "danger": {
+            "standalone": {
+              "backgroundColor": "$colors.error.100",
+              "color": "$colors.error.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.error.500"
+            }
+          },
+          "error": {
+            "standalone": {
+              "backgroundColor": "$colors.error.100",
+              "color": "$colors.error.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.error.500"
+            }
+          },
+          "info": {
+            "standalone": {
+              "backgroundColor": "$colors.info.100",
+              "color": "$colors.info.700"
+            },
+            "overlay": {
+              "backgroundColor": "$colors.info.500"
+            }
+          },
+          "outline": {
+            "backgroundColor": "$colors.transparent",
+            "border": "1px solid $colors.neutral.300",
+            "color": "$colors.neutral.700"
+          },
+          "solid": {
+            "backgroundColor": "$colors.primary.500",
+            "color": "$colors.white"
+          },
+          "dot": {
+            "overlay": {
+              "minWidth": "8px",
+              "height": "8px",
+              "padding": "0",
+              "border": "2px solid $colors.white"
+            }
+          }
+        },
+        "implementation": {
+          "structure": "Wrapper (relative) → Content (e.g., Avatar) + Badge (absolute with placement)",
+          "notes": "For overlay badges, wrap target element in relative container and position badge absolutely using placement values"
+        }
+      },
+      
+      "tag": {
+        "description": "Tag component for removable labels",
+        "variants": {
+          "default": {
+            "padding": "$spacing.1 $spacing.3",
+            "fontSize": "$fontSize.sm",
+            "fontWeight": "$fontWeight.medium",
+            "borderRadius": "$borderRadius.full",
+            "display": "inline-flex",
+            "alignItems": "center",
+            "gap": "$spacing.2",
+            "backgroundColor": "$colors.neutral.100",
+            "color": "$colors.neutral.700",
+            "border": "1px solid $colors.neutral.200"
+          },
+          "removable": {
+            "removeButton": {
+              "padding": "$spacing.1",
+              "marginLeft": "$spacing.1",
+              "color": "$colors.neutral.500",
+              "hoverColor": "$colors.neutral.700",
+              "cursor": "pointer",
+              "borderRadius": "$borderRadius.full",
+              "hoverBackgroundColor": "$colors.neutral.200"
+            }
+          },
+          "primary": {
+            "backgroundColor": "$colors.primary.100",
+            "color": "$colors.primary.700",
+            "border": "1px solid $colors.primary.200"
+          },
+          "success": {
+            "backgroundColor": "$colors.success.100",
+            "color": "$colors.success.700",
+            "border": "1px solid $colors.success.200"
+          }
+        }
+      },
+      
+      "alert": {
+        "description": "Alert/Notification component for messages",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "flex",
+              "padding": "$spacing.4",
+              "borderRadius": "$borderRadius.md",
+              "border": "1px solid",
+              "gap": "$spacing.3",
+              "backgroundColor": "$colors.neutral.50",
+              "borderColor": "$colors.neutral.200",
+              "color": "$colors.neutral.900"
+            },
+            "icon": {
+              "size": "20px",
+              "flexShrink": "0"
+            },
+            "content": {
+              "flex": "1"
+            },
+            "title": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.semibold",
+              "marginBottom": "$spacing.1"
+            },
+            "description": {
+              "fontSize": "$fontSize.sm",
+              "lineHeight": "$lineHeight.normal"
+            },
+            "closeButton": {
+              "padding": "$spacing.1",
+              "color": "$colors.neutral.500",
+              "hoverColor": "$colors.neutral.700",
+              "cursor": "pointer"
+            }
+          },
+          "success": {
+            "container": {
+              "backgroundColor": "$colors.success.50",
+              "borderColor": "$colors.success.200",
+              "color": "$colors.success.900"
+            },
+            "icon": {
+              "color": "$colors.success.500"
+            }
+          },
+          "warning": {
+            "container": {
+              "backgroundColor": "$colors.warning.50",
+              "borderColor": "$colors.warning.200",
+              "color": "$colors.warning.900"
+            },
+            "icon": {
+              "color": "$colors.warning.500"
+            }
+          },
+          "error": {
+            "container": {
+              "backgroundColor": "$colors.error.50",
+              "borderColor": "$colors.error.200",
+              "color": "$colors.error.900"
+            },
+            "icon": {
+              "color": "$colors.error.500"
+            }
+          },
+          "info": {
+            "container": {
+              "backgroundColor": "$colors.info.50",
+              "borderColor": "$colors.info.200",
+              "color": "$colors.info.900"
+            },
+            "icon": {
+              "color": "$colors.info.500"
+            }
+          }
+        }
+      },
+      
+      "notification": {
+        "description": "Toast notification component",
+        "variants": {
+          "default": {
+            "container": {
+              "minWidth": "300px",
+              "maxWidth": "420px",
+              "padding": "$spacing.4",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.xl",
+              "display": "flex",
+              "gap": "$spacing.3",
+              "animation": "slideIn $transitions.base $transitions.easing"
+            },
+            "position": {
+              "topRight": {
+                "top": "$spacing.4",
+                "right": "$spacing.4"
+              },
+              "topLeft": {
+                "top": "$spacing.4",
+                "left": "$spacing.4"
+              },
+              "bottomRight": {
+                "bottom": "$spacing.4",
+                "right": "$spacing.4"
+              },
+              "bottomLeft": {
+                "bottom": "$spacing.4",
+                "left": "$spacing.4"
+              },
+              "topCenter": {
+                "top": "$spacing.4",
+                "left": "50%",
+                "transform": "translateX(-50%)"
+              }
+            },
+            "zIndex": "$zIndex.popover"
+          }
+        }
+      },
+      
+      "loading": {
+        "description": "Loading spinner component",
+        "variants": {
+          "spinner": {
+            "size": "40px",
+            "borderWidth": "4px",
+            "borderColor": "$colors.neutral.200",
+            "borderTopColor": "$colors.primary.500",
+            "borderRadius": "$borderRadius.full",
+            "animation": "spin 1s linear infinite"
+          },
+          "dots": {
+            "dot": {
+              "size": "8px",
+              "backgroundColor": "$colors.primary.500",
+              "borderRadius": "$borderRadius.full",
+              "margin": "$spacing.1",
+              "animation": "bounce 1.4s infinite ease-in-out"
+            }
+          },
+          "bar": {
+            "container": {
+              "width": "100%",
+              "height": "4px",
+              "backgroundColor": "$colors.neutral.200",
+              "borderRadius": "$borderRadius.full",
+              "overflow": "hidden"
+            },
+            "progress": {
+              "height": "100%",
+              "backgroundColor": "$colors.primary.500",
+              "animation": "progress 1.5s ease-in-out infinite"
+            }
+          },
+          "small": {
+            "size": "24px",
+            "borderWidth": "2px"
+          },
+          "large": {
+            "size": "64px",
+            "borderWidth": "6px"
+          }
+        }
+      },
+      
+      "skeleton": {
+        "description": "Skeleton loading component with state-based visibility",
+        "variants": {
+          "default": {
+            "base": {
+              "backgroundColor": "$colors.neutral.200",
+              "borderRadius": "$borderRadius.md",
+              "animation": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "position": "relative",
+              "overflow": "hidden"
+            },
+            "shimmer": {
+              "position": "absolute",
+              "top": "0",
+              "left": "0",
+              "right": "0",
+              "bottom": "0",
+              "background": "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)",
+              "animation": "shimmer 2s infinite"
+            },
+            "loaded": {
+              "animation": "none",
+              "backgroundColor": "transparent"
+            }
+          },
+          "text": {
+            "height": "16px",
+            "borderRadius": "$borderRadius.sm",
+            "marginBottom": "$spacing.2"
+          },
+          "title": {
+            "height": "24px",
+            "borderRadius": "$borderRadius.md",
+            "marginBottom": "$spacing.3"
+          },
+          "avatar": {
+            "width": "40px",
+            "height": "40px",
+            "borderRadius": "$borderRadius.full"
+          },
+          "circle": {
+            "borderRadius": "$borderRadius.full"
+          },
+          "image": {
+            "width": "100%",
+            "paddingTop": "56.25%",
+            "borderRadius": "$borderRadius.lg"
+          },
+          "card": {
+            "padding": "$spacing.4",
+            "borderRadius": "$borderRadius.lg"
+          },
+          "rectangle": {
+            "width": "100%",
+            "height": "96px",
+            "borderRadius": "$borderRadius.lg"
+          }
+        },
+        "implementation": {
+          "structure": "Skeleton wrapper with isLoaded prop to toggle between skeleton and actual content",
+          "notes": "Use isLoaded prop to control visibility. When true, shows children; when false, shows skeleton placeholder."
+        }
+      },
+      
+      "card": {
+        "description": "Container component for grouping related content",
+        "variants": {
+          "default": {
+            "base": {
+              "backgroundColor": "$colors.white",
+              "borderRadius": "$borderRadius.lg",
+              "border": "1px solid $colors.neutral.200",
+              "padding": "$spacing.4",
+              "boxShadow": "$shadows.sm",
+              "transition": "$transitions.base"
+            },
+            "header": {
+              "padding": "$spacing.4 $spacing.4 $spacing.3",
+              "borderBottom": "1px solid $colors.neutral.200",
+              "fontWeight": "$fontWeight.semibold",
+              "fontSize": "$fontSize.lg"
+            },
+            "body": {
+              "padding": "$spacing.4"
+            },
+            "footer": {
+              "padding": "$spacing.3 $spacing.4 $spacing.4",
+              "borderTop": "1px solid $colors.neutral.200"
+            }
+          },
+          "shadow": {
+            "none": {
+              "boxShadow": "$shadows.none"
+            },
+            "sm": {
+              "boxShadow": "$shadows.sm"
+            },
+            "md": {
+              "boxShadow": "$shadows.md"
+            },
+            "lg": {
+              "boxShadow": "$shadows.lg"
+            }
+          },
+          "radius": {
+            "none": {
+              "borderRadius": "$borderRadius.none"
+            },
+            "sm": {
+              "borderRadius": "$borderRadius.sm"
+            },
+            "md": {
+              "borderRadius": "$borderRadius.md"
+            },
+            "lg": {
+              "borderRadius": "$borderRadius.lg"
+            },
+            "xl": {
+              "borderRadius": "$borderRadius.xl"
+            },
+            "2xl": {
+              "borderRadius": "$borderRadius.2xl"
+            },
+            "full": {
+              "borderRadius": "$borderRadius.full"
+            }
+          },
+          "bordered": {
+            "border": "2px solid $colors.neutral.300"
+          },
+          "flat": {
+            "boxShadow": "$shadows.none",
+            "border": "none",
+            "backgroundColor": "$colors.neutral.50"
+          },
+          "hoverable": {
+            "cursor": "pointer",
+            "hoverBoxShadow": "$shadows.lg",
+            "hoverTransform": "translateY(-2px)"
+          },
+          "pressable": {
+            "cursor": "pointer",
+            "activeTransform": "scale(0.98)"
+          }
+        }
+      },
+      
+      "tooltip": {
+        "description": "Tooltip component for contextual information",
+        "variants": {
+          "default": {
+            "container": {
+              "padding": "$spacing.2 $spacing.3",
+              "backgroundColor": "$colors.neutral.900",
+              "color": "$colors.white",
+              "fontSize": "$fontSize.sm",
+              "borderRadius": "$borderRadius.md",
+              "boxShadow": "$shadows.lg",
+              "maxWidth": "250px",
+              "zIndex": "$zIndex.tooltip",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "arrow": {
+              "size": "6px",
+              "color": "$colors.neutral.900"
+            },
+            "position": {
+              "top": {
+                "marginBottom": "$spacing.2"
+              },
+              "bottom": {
+                "marginTop": "$spacing.2"
+              },
+              "left": {
+                "marginRight": "$spacing.2"
+              },
+              "right": {
+                "marginLeft": "$spacing.2"
+              }
+            }
+          },
+          "light": {
+            "container": {
+              "backgroundColor": "$colors.white",
+              "color": "$colors.neutral.900",
+              "border": "1px solid $colors.neutral.200"
+            },
+            "arrow": {
+              "color": "$colors.white"
+            }
+          }
+        }
+      },
+      
+      "checkbox": {
+        "description": "Checkbox input component",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "cursor": "pointer"
+            },
+            "input": {
+              "width": "20px",
+              "height": "20px",
+              "border": "2px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.sm",
+              "backgroundColor": "$colors.white",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "hoverBorderColor": "$colors.neutral.400",
+              "checkedBackgroundColor": "$colors.primary.500",
+              "checkedBorderColor": "$colors.primary.500",
+              "focusBoxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "checkmark": {
+              "size": "12px",
+              "color": "$colors.white",
+              "strokeWidth": "2px"
+            },
+            "label": {
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "userSelect": "none"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "small": {
+            "input": {
+              "width": "16px",
+              "height": "16px"
+            },
+            "checkmark": {
+              "size": "10px"
+            },
+            "label": {
+              "fontSize": "$fontSize.sm"
+            }
+          },
+          "large": {
+            "input": {
+              "width": "24px",
+              "height": "24px"
+            },
+            "checkmark": {
+              "size": "14px"
+            },
+            "label": {
+              "fontSize": "$fontSize.lg"
+            }
+          }
+        }
+      },
+      
+      "radio": {
+        "description": "Radio button input component with group container support",
+        "variants": {
+          "default": {
+            "group": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.3"
+            },
+            "groupHorizontal": {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "gap": "$spacing.4"
+            },
+            "label": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.900",
+              "marginBottom": "$spacing.2",
+              "display": "block"
+            },
+            "description": {
+              "fontSize": "$fontSize.sm",
+              "color": "$colors.neutral.600",
+              "marginTop": "$spacing.1"
+            },
+            "container": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "cursor": "pointer"
+            },
+            "input": {
+              "width": "20px",
+              "height": "20px",
+              "border": "2px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.full",
+              "backgroundColor": "$colors.white",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "hoverBorderColor": "$colors.neutral.400",
+              "checkedBorderColor": "$colors.primary.500",
+              "focusBoxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "dot": {
+              "size": "10px",
+              "backgroundColor": "$colors.primary.500",
+              "borderRadius": "$borderRadius.full",
+              "transform": "scale(0)",
+              "transition": "$transitions.fast",
+              "checkedTransform": "scale(1)"
+            },
+            "radioLabel": {
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "userSelect": "none"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "small": {
+            "input": {
+              "width": "16px",
+              "height": "16px"
+            },
+            "dot": {
+              "size": "8px"
+            },
+            "radioLabel": {
+              "fontSize": "$fontSize.sm"
+            }
+          },
+          "large": {
+            "input": {
+              "width": "24px",
+              "height": "24px"
+            },
+            "dot": {
+              "size": "12px"
+            },
+            "radioLabel": {
+              "fontSize": "$fontSize.lg"
+            }
+          },
+          "primary": {
+            "input": {
+              "checkedBorderColor": "$colors.primary.500"
+            },
+            "dot": {
+              "backgroundColor": "$colors.primary.500"
+            }
+          },
+          "success": {
+            "input": {
+              "checkedBorderColor": "$colors.success.500"
+            },
+            "dot": {
+              "backgroundColor": "$colors.success.500"
+            }
+          },
+          "error": {
+            "input": {
+              "checkedBorderColor": "$colors.error.500"
+            },
+            "dot": {
+              "backgroundColor": "$colors.error.500"
+            }
+          }
+        },
+        "implementation": {
+          "structure": "RadioGroup → Label + Description (optional) + Radio items container → Individual Radio components",
+          "notes": "Use flexDirection to control horizontal vs vertical layout. Group handles state management for all radio buttons."
+        }
+      },
+      
+      "table": {
+        "description": "Data table component",
+        "variants": {
+          "default": {
+            "container": {
+              "width": "100%",
+              "borderRadius": "$borderRadius.lg",
+              "border": "1px solid $colors.neutral.200",
+              "overflow": "hidden"
+            },
+            "table": {
+              "width": "100%",
+              "borderCollapse": "collapse"
+            },
+            "header": {
+              "backgroundColor": "$colors.neutral.50",
+              "borderBottom": "2px solid $colors.neutral.200"
+            },
+            "headerCell": {
+              "padding": "$spacing.3 $spacing.4",
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.700",
+              "textAlign": "left",
+              "textTransform": "uppercase",
+              "letterSpacing": "0.5px"
+            },
+            "row": {
+              "borderBottom": "1px solid $colors.neutral.200",
+              "transition": "$transitions.fast",
+              "hoverBackgroundColor": "$colors.neutral.50"
+            },
+            "cell": {
+              "padding": "$spacing.3 $spacing.4",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900"
+            },
+            "footer": {
+              "backgroundColor": "$colors.neutral.50",
+              "borderTop": "2px solid $colors.neutral.200",
+              "padding": "$spacing.3 $spacing.4"
+            }
+          },
+          "striped": {
+            "row": {
+              "evenBackgroundColor": "$colors.neutral.50"
+            }
+          },
+          "compact": {
+            "headerCell": {
+              "padding": "$spacing.2 $spacing.3"
+            },
+            "cell": {
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.sm"
+            }
+          },
+          "bordered": {
+            "cell": {
+              "border": "1px solid $colors.neutral.200"
+            }
+          }
+        }
+      },
+      
+      "spotlightCard": {
+        "description": "Interactive card with mouse-tracking spotlight effect",
+        "variants": {
+          "default": {
+            "container": {
+              "position": "relative",
+              "overflow": "hidden",
+              "borderRadius": "$borderRadius.lg",
+              "backgroundColor": "$colors.neutral.900",
+              "padding": "$spacing.6",
+              "cursor": "pointer",
+              "transition": "$transitions.base"
+            },
+            "spotlight": {
+              "cssVariables": {
+                "mouseX": "0px",
+                "mouseY": "0px",
+                "spotlightColor": "rgba(255, 255, 255, 0.25)"
+              },
+              "background": "radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 40%)",
+              "zIndex": "1"
+            },
+            "content": {
+              "position": "relative",
+              "zIndex": "2"
+            }
+          },
+          "subtle": {
+            "spotlight": {
+              "spotlightColor": "rgba(255, 255, 255, 0.15)"
+            }
+          },
+          "vibrant": {
+            "spotlight": {
+              "spotlightColor": "rgba(255, 255, 255, 0.35)"
+            }
+          },
+          "colored": {
+            "primary": {
+              "spotlightColor": "rgba(59, 130, 246, 0.3)"
+            },
+            "success": {
+              "spotlightColor": "rgba(34, 197, 94, 0.3)"
+            },
+            "warning": {
+              "spotlightColor": "rgba(245, 158, 11, 0.3)"
+            },
+            "error": {
+              "spotlightColor": "rgba(239, 68, 68, 0.3)"
+            }
+          }
+        },
+        "implementation": {
+          "cssCustomProperties": [
+            "--mouse-x",
+            "--mouse-y",
+            "--spotlight-color"
+          ],
+          "notes": "Use CSS custom properties to track mouse position and apply radial gradient. Background should use: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 40%)"
+        }
+      },
+      
+      "slider": {
+        "description": "Range slider input component with value indicator",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "flex",
+              "flexDirection": "column",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "gap": "$spacing.4",
+              "width": "12rem"
+            },
+            "wrapper": {
+              "display": "flex",
+              "width": "100%",
+              "touchAction": "none",
+              "userSelect": "none",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "gap": "$spacing.4"
+            },
+            "root": {
+              "position": "relative",
+              "display": "flex",
+              "width": "100%",
+              "maxWidth": "200px",
+              "flexGrow": "1",
+              "cursor": "grab",
+              "touchAction": "none",
+              "userSelect": "none",
+              "alignItems": "center",
+              "padding": "$spacing.4 0",
+              "activeCursor": "grabbing"
+            },
+            "trackWrapper": {
+              "display": "flex",
+              "flexGrow": "1"
+            },
+            "track": {
+              "position": "relative",
+              "height": "8px",
+              "flexGrow": "1",
+              "overflow": "hidden",
+              "borderRadius": "$borderRadius.full",
+              "backgroundColor": "rgba(128, 128, 128, 0.4)"
+            },
+            "range": {
+              "position": "absolute",
+              "height": "100%",
+              "backgroundColor": "$colors.neutral.500",
+              "borderRadius": "$borderRadius.full",
+              "transition": "$transitions.fast"
+            },
+            "thumb": {
+              "position": "absolute",
+              "width": "20px",
+              "height": "20px",
+              "backgroundColor": "$colors.white",
+              "border": "2px solid $colors.neutral.500",
+              "borderRadius": "$borderRadius.full",
+              "boxShadow": "$shadows.md",
+              "cursor": "grab",
+              "transition": "$transitions.fast",
+              "hoverTransform": "scale(1.1)",
+              "activeTransform": "scale(0.95)"
+            },
+            "valueIndicator": {
+              "color": "$colors.neutral.500",
+              "position": "absolute",
+              "transform": "translateY(-1rem)",
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.medium",
+              "letterSpacing": "0.05em",
+              "backgroundColor": "$colors.neutral.900",
+              "padding": "$spacing.1 $spacing.2",
+              "borderRadius": "$borderRadius.sm",
+              "whiteSpace": "nowrap"
+            },
+            "icon": {
+              "width": "24px",
+              "height": "24px",
+              "color": "$colors.neutral.500",
+              "darkColor": "$colors.neutral.300"
+            }
+          },
+          "primary": {
+            "range": {
+              "backgroundColor": "$colors.primary.500"
+            },
+            "thumb": {
+              "border": "2px solid $colors.primary.500"
+            },
+            "valueIndicator": {
+              "color": "$colors.primary.500"
+            },
+            "icon": {
+              "color": "$colors.primary.500"
+            }
+          },
+          "success": {
+            "range": {
+              "backgroundColor": "$colors.success.500"
+            },
+            "thumb": {
+              "border": "2px solid $colors.success.500"
+            },
+            "valueIndicator": {
+              "color": "$colors.success.500"
+            },
+            "icon": {
+              "color": "$colors.success.500"
+            }
+          },
+          "small": {
+            "track": {
+              "height": "4px"
+            },
+            "thumb": {
+              "width": "16px",
+              "height": "16px"
+            },
+            "icon": {
+              "width": "20px",
+              "height": "20px"
+            }
+          },
+          "large": {
+            "track": {
+              "height": "12px"
+            },
+            "thumb": {
+              "width": "24px",
+              "height": "24px"
+            },
+            "icon": {
+              "width": "28px",
+              "height": "28px"
+            }
+          }
+        }
+      },
+      
+      "spacer": {
+        "description": "Flexible spacing component for layout",
+        "variants": {
+          "default": {
+            "display": "block",
+            "flex": "1",
+            "width": "auto",
+            "height": "auto"
+          },
+          "horizontal": {
+            "x": {
+              "1": { "width": "4px" },
+              "2": { "width": "8px" },
+              "3": { "width": "12px" },
+              "4": { "width": "16px" },
+              "5": { "width": "20px" },
+              "6": { "width": "24px" },
+              "8": { "width": "32px" },
+              "10": { "width": "40px" },
+              "12": { "width": "48px" },
+              "16": { "width": "64px" }
+            }
+          },
+          "vertical": {
+            "y": {
+              "1": { "height": "4px" },
+              "2": { "height": "8px" },
+              "3": { "height": "12px" },
+              "4": { "height": "16px" },
+              "5": { "height": "20px" },
+              "6": { "height": "24px" },
+              "8": { "height": "32px" },
+              "10": { "height": "40px" },
+              "12": { "height": "48px" },
+              "16": { "height": "64px" }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Use x prop for horizontal spacing, y prop for vertical spacing. Without props, spacer takes up available space (flex: 1)"
+        }
+      },
+      
+      "switch": {
+        "description": "Toggle switch component for binary on/off states",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "cursor": "pointer"
+            },
+            "track": {
+              "position": "relative",
+              "width": "44px",
+              "height": "24px",
+              "backgroundColor": "$colors.neutral.300",
+              "borderRadius": "$borderRadius.full",
+              "transition": "$transitions.base",
+              "cursor": "pointer",
+              "checkedBackgroundColor": "$colors.neutral.900"
+            },
+            "thumb": {
+              "position": "absolute",
+              "top": "2px",
+              "left": "2px",
+              "width": "20px",
+              "height": "20px",
+              "backgroundColor": "$colors.white",
+              "borderRadius": "$borderRadius.full",
+              "boxShadow": "$shadows.sm",
+              "transition": "$transitions.base",
+              "checkedTransform": "translateX(20px)"
+            },
+            "label": {
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "userSelect": "none"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "color": {
+            "default": {
+              "track": {
+                "checkedBackgroundColor": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "track": {
+                "checkedBackgroundColor": "$colors.primary.500"
+              }
+            },
+            "secondary": {
+              "track": {
+                "checkedBackgroundColor": "$colors.secondary.600"
+              }
+            },
+            "success": {
+              "track": {
+                "checkedBackgroundColor": "$colors.success.500"
+              }
+            },
+            "warning": {
+              "track": {
+                "checkedBackgroundColor": "$colors.warning.500"
+              }
+            },
+            "danger": {
+              "track": {
+                "checkedBackgroundColor": "$colors.error.500"
+              }
+            }
+          },
+          "size": {
+            "small": {
+              "track": {
+                "width": "36px",
+                "height": "20px"
+              },
+              "thumb": {
+                "width": "16px",
+                "height": "16px",
+                "checkedTransform": "translateX(16px)"
+              },
+              "label": {
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "default": {
+              "track": {
+                "width": "44px",
+                "height": "24px"
+              },
+              "thumb": {
+                "width": "20px",
+                "height": "20px",
+                "checkedTransform": "translateX(20px)"
+              }
+            },
+            "large": {
+              "track": {
+                "width": "52px",
+                "height": "28px"
+              },
+              "thumb": {
+                "width": "24px",
+                "height": "24px",
+                "checkedTransform": "translateX(24px)"
+              },
+              "label": {
+                "fontSize": "$fontSize.lg"
+              }
+            }
+          }
+        }
+      },
+      
+      "progress": {
+        "description": "Progress bar component for displaying completion status",
+        "variants": {
+          "default": {
+            "container": {
+              "width": "100%",
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.2"
+            },
+            "labelWrapper": {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "alignItems": "center",
+              "marginBottom": "$spacing.1"
+            },
+            "label": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700"
+            },
+            "value": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700"
+            },
+            "track": {
+              "width": "100%",
+              "height": "12px",
+              "backgroundColor": "$colors.neutral.200",
+              "borderRadius": "$borderRadius.full",
+              "overflow": "hidden",
+              "position": "relative"
+            },
+            "indicator": {
+              "height": "100%",
+              "backgroundColor": "$colors.primary.500",
+              "borderRadius": "$borderRadius.full",
+              "transition": "width 300ms ease-in-out"
+            }
+          },
+          "size": {
+            "sm": {
+              "track": {
+                "height": "8px"
+              },
+              "label": {
+                "fontSize": "$fontSize.xs"
+              },
+              "value": {
+                "fontSize": "$fontSize.xs"
+              }
+            },
+            "md": {
+              "track": {
+                "height": "12px"
+              },
+              "label": {
+                "fontSize": "$fontSize.sm"
+              },
+              "value": {
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "lg": {
+              "track": {
+                "height": "16px"
+              },
+              "label": {
+                "fontSize": "$fontSize.base"
+              },
+              "value": {
+                "fontSize": "$fontSize.base"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "indicator": {
+                "backgroundColor": "$colors.neutral.600"
+              }
+            },
+            "primary": {
+              "indicator": {
+                "backgroundColor": "$colors.primary.500"
+              }
+            },
+            "secondary": {
+              "indicator": {
+                "backgroundColor": "$colors.secondary.600"
+              }
+            },
+            "success": {
+              "indicator": {
+                "backgroundColor": "$colors.success.500"
+              }
+            },
+            "warning": {
+              "indicator": {
+                "backgroundColor": "$colors.warning.500"
+              }
+            },
+            "danger": {
+              "indicator": {
+                "backgroundColor": "$colors.error.500"
+              }
+            }
+          },
+          "striped": {
+            "indicator": {
+              "backgroundImage": "linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent)",
+              "backgroundSize": "1rem 1rem",
+              "animation": "progressStripes 1s linear infinite"
+            }
+          },
+          "indeterminate": {
+            "indicator": {
+              "width": "40%",
+              "animation": "progressIndeterminate 1.5s ease-in-out infinite"
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Use value prop (0-100) for determinate progress. For indeterminate, animate the indicator. showValueLabel prop displays percentage or formatted value."
+        }
+      },
+      
+      "textarea": {
+        "description": "Multi-line text input component with auto-resize support",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "flex",
+              "flexDirection": "column",
+              "width": "100%",
+              "position": "relative"
+            },
+            "label": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700",
+              "marginBottom": "$spacing.2",
+              "display": "block"
+            },
+            "labelOutside": {
+              "marginBottom": "$spacing.2"
+            },
+            "labelInside": {
+              "position": "absolute",
+              "top": "$spacing.3",
+              "left": "$spacing.3",
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500"
+            },
+            "textarea": {
+              "width": "100%",
+              "padding": "$spacing.3",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "backgroundColor": "$colors.white",
+              "border": "2px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.md",
+              "outline": "none",
+              "transition": "$transitions.fast",
+              "resize": "vertical",
+              "fontFamily": "inherit",
+              "lineHeight": "$lineHeight.normal",
+              "minHeight": "80px"
+            },
+            "textareaFocus": {
+              "borderColor": "$colors.primary.500",
+              "boxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "placeholder": {
+              "color": "$colors.neutral.400"
+            },
+            "description": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.600",
+              "marginTop": "$spacing.1"
+            },
+            "errorMessage": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.error.500",
+              "marginTop": "$spacing.1"
+            },
+            "required": {
+              "color": "$colors.error.500"
+            }
+          },
+          "variant": {
+            "flat": {
+              "textarea": {
+                "backgroundColor": "$colors.neutral.100",
+                "border": "none",
+                "hoverBackgroundColor": "$colors.neutral.200"
+              }
+            },
+            "faded": {
+              "textarea": {
+                "backgroundColor": "$colors.neutral.50",
+                "border": "2px solid $colors.neutral.200",
+                "hoverBorderColor": "$colors.neutral.300"
+              }
+            },
+            "bordered": {
+              "textarea": {
+                "backgroundColor": "transparent",
+                "border": "2px solid $colors.neutral.300",
+                "hoverBorderColor": "$colors.neutral.400"
+              }
+            },
+            "underlined": {
+              "textarea": {
+                "backgroundColor": "transparent",
+                "border": "none",
+                "borderBottom": "2px solid $colors.neutral.300",
+                "borderRadius": "0",
+                "paddingLeft": "0",
+                "paddingRight": "0",
+                "hoverBorderBottomColor": "$colors.neutral.400"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "textarea": {
+                "padding": "$spacing.2",
+                "fontSize": "$fontSize.sm",
+                "minHeight": "60px"
+              }
+            },
+            "md": {
+              "textarea": {
+                "padding": "$spacing.3",
+                "fontSize": "$fontSize.base",
+                "minHeight": "80px"
+              }
+            },
+            "lg": {
+              "textarea": {
+                "padding": "$spacing.4",
+                "fontSize": "$fontSize.lg",
+                "minHeight": "100px"
+              }
+            }
+          },
+          "disabled": {
+            "textarea": {
+              "backgroundColor": "$colors.neutral.100",
+              "color": "$colors.neutral.400",
+              "cursor": "not-allowed",
+              "opacity": "0.6"
+            }
+          },
+          "invalid": {
+            "textarea": {
+              "borderColor": "$colors.error.500"
+            },
+            "textareaFocus": {
+              "borderColor": "$colors.error.500",
+              "boxShadow": "0 0 0 3px rgba(239, 68, 68, 0.1)"
+            }
+          }
+        },
+        "implementation": {
+          "autoResize": {
+            "notes": "Use minRows and maxRows props to control auto-resize behavior. Calculate height based on scrollHeight."
+          },
+          "labelPlacement": {
+            "inside": "Label appears inside the textarea",
+            "outside": "Label appears above the textarea (default)"
+          }
+        }
+      },
+      
+      "listbox": {
+        "description": "List component for displaying selectable items with sections and multi-select support",
+        "variants": {
+          "default": {
+            "base": {
+              "width": "100%",
+              "maxWidth": "260px",
+              "border": "1px solid $colors.neutral.200",
+              "padding": "$spacing.1 $spacing.2",
+              "borderRadius": "$borderRadius.md",
+              "backgroundColor": "$colors.white"
+            },
+            "list": {
+              "padding": "0",
+              "margin": "0",
+              "listStyle": "none"
+            },
+            "item": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.3",
+              "borderRadius": "$borderRadius.sm",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "outline": "none"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemFocused": {
+              "backgroundColor": "$colors.neutral.100",
+              "outline": "2px solid $colors.primary.500",
+              "outlineOffset": "-2px"
+            },
+            "itemSelected": {
+              "backgroundColor": "$colors.primary.50",
+              "color": "$colors.primary.700",
+              "fontWeight": "$fontWeight.medium"
+            },
+            "itemDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "startContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "flexShrink": "0"
+            },
+            "endContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "marginLeft": "auto",
+              "flexShrink": "0"
+            },
+            "title": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.medium"
+            },
+            "description": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500",
+              "marginTop": "$spacing.1"
+            },
+            "section": {
+              "marginBottom": "$spacing.4"
+            },
+            "sectionTitle": {
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.600",
+              "textTransform": "uppercase",
+              "letterSpacing": "0.05em"
+            },
+            "divider": {
+              "height": "1px",
+              "backgroundColor": "$colors.neutral.200",
+              "margin": "$spacing.2 0"
+            }
+          },
+          "variant": {
+            "solid": {
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "bordered": {
+              "item": {
+                "border": "1px solid transparent"
+              },
+              "itemHover": {
+                "border": "1px solid $colors.neutral.300",
+                "backgroundColor": "transparent"
+              },
+              "itemSelected": {
+                "border": "1px solid $colors.primary.500",
+                "backgroundColor": "transparent",
+                "color": "$colors.primary.700"
+              }
+            },
+            "light": {
+              "itemSelected": {
+                "backgroundColor": "transparent",
+                "color": "$colors.primary.500"
+              }
+            },
+            "flat": {
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "faded": {
+              "base": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "shadow": {
+              "item": {
+                "boxShadow": "none"
+              },
+              "itemHover": {
+                "boxShadow": "$shadows.sm"
+              },
+              "itemSelected": {
+                "boxShadow": "$shadows.md",
+                "backgroundColor": "$colors.primary.50",
+                "color": "$colors.primary.700"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "itemSelected": {
+                "backgroundColor": "$colors.neutral.100",
+                "color": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "secondary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.secondary.600",
+                "color": "$colors.white"
+              }
+            },
+            "success": {
+              "itemSelected": {
+                "backgroundColor": "$colors.success.500",
+                "color": "$colors.white"
+              }
+            },
+            "warning": {
+              "itemSelected": {
+                "backgroundColor": "$colors.warning.500",
+                "color": "$colors.white"
+              }
+            },
+            "danger": {
+              "itemSelected": {
+                "backgroundColor": "$colors.error.500",
+                "color": "$colors.white"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "selectionMode": {
+            "none": "No selection allowed",
+            "single": "Single item selection (default)",
+            "multiple": "Multiple item selection with checkboxes"
+          },
+          "notes": "Support for icons (startContent/endContent), descriptions, sections with titles, dividers, and dynamic rendering"
+        }
+      },
+      
+      "popover": {
+        "description": "Floating content container positioned relative to a trigger element",
+        "variants": {
+          "default": {
+            "trigger": {
+              "display": "inline-flex",
+              "cursor": "pointer"
+            },
+            "content": {
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.xl",
+              "padding": "$spacing.4",
+              "zIndex": "$zIndex.popover",
+              "maxWidth": "320px",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "arrow": {
+              "size": "8px",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200"
+            },
+            "backdrop": {
+              "backgroundColor": "rgba(0, 0, 0, 0.1)",
+              "zIndex": "$zIndex.popover - 1"
+            }
+          },
+          "placement": {
+            "top": {
+              "marginBottom": "$spacing.2"
+            },
+            "topStart": {
+              "marginBottom": "$spacing.2"
+            },
+            "topEnd": {
+              "marginBottom": "$spacing.2"
+            },
+            "bottom": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomStart": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomEnd": {
+              "marginTop": "$spacing.2"
+            },
+            "left": {
+              "marginRight": "$spacing.2"
+            },
+            "leftStart": {
+              "marginRight": "$spacing.2"
+            },
+            "leftEnd": {
+              "marginRight": "$spacing.2"
+            },
+            "right": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightStart": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightEnd": {
+              "marginLeft": "$spacing.2"
+            }
+          },
+          "size": {
+            "sm": {
+              "content": {
+                "padding": "$spacing.2",
+                "maxWidth": "240px"
+              }
+            },
+            "md": {
+              "content": {
+                "padding": "$spacing.4",
+                "maxWidth": "320px"
+              }
+            },
+            "lg": {
+              "content": {
+                "padding": "$spacing.6",
+                "maxWidth": "480px"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "content": {
+                "backgroundColor": "$colors.white",
+                "border": "1px solid $colors.neutral.200"
+              }
+            },
+            "primary": {
+              "content": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white",
+                "border": "none"
+              }
+            },
+            "success": {
+              "content": {
+                "backgroundColor": "$colors.success.500",
+                "color": "$colors.white",
+                "border": "none"
+              }
+            },
+            "warning": {
+              "content": {
+                "backgroundColor": "$colors.warning.500",
+                "color": "$colors.white",
+                "border": "none"
+              }
+            },
+            "danger": {
+              "content": {
+                "backgroundColor": "$colors.error.500",
+                "color": "$colors.white",
+                "border": "none"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "structure": "PopoverTrigger → PopoverContent",
+          "notes": "Use floating-ui or similar for positioning. Support backdrop, arrow, and auto-positioning with collision detection."
+        }
+      },
+      
+      "rangeCalendar": {
+        "description": "Date range picker calendar component",
+        "variants": {
+          "default": {
+            "container": {
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "padding": "$spacing.4",
+              "boxShadow": "$shadows.md"
+            },
+            "header": {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "alignItems": "center",
+              "marginBottom": "$spacing.4",
+              "padding": "$spacing.2 0"
+            },
+            "title": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.900"
+            },
+            "navButton": {
+              "padding": "$spacing.2",
+              "borderRadius": "$borderRadius.md",
+              "backgroundColor": "transparent",
+              "color": "$colors.neutral.600",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "hoverBackgroundColor": "$colors.neutral.100"
+            },
+            "grid": {
+              "display": "grid",
+              "gridTemplateColumns": "repeat(7, 1fr)",
+              "gap": "$spacing.1"
+            },
+            "weekday": {
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.600",
+              "textAlign": "center",
+              "padding": "$spacing.2"
+            },
+            "cell": {
+              "padding": "$spacing.2",
+              "textAlign": "center",
+              "fontSize": "$fontSize.sm",
+              "borderRadius": "$borderRadius.md",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "minWidth": "40px",
+              "minHeight": "40px",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center"
+            },
+            "cellHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "cellToday": {
+              "fontWeight": "$fontWeight.semibold",
+              "border": "1px solid $colors.primary.500"
+            },
+            "cellSelected": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "fontWeight": "$fontWeight.medium"
+            },
+            "cellInRange": {
+              "backgroundColor": "$colors.primary.100",
+              "color": "$colors.primary.700"
+            },
+            "cellRangeStart": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "borderTopRightRadius": "0",
+              "borderBottomRightRadius": "0"
+            },
+            "cellRangeEnd": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "borderTopLeftRadius": "0",
+              "borderBottomLeftRadius": "0"
+            },
+            "cellDisabled": {
+              "opacity": "0.4",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "cellOutsideMonth": {
+              "color": "$colors.neutral.400"
+            }
+          },
+          "color": {
+            "primary": {
+              "cellSelected": {
+                "backgroundColor": "$colors.primary.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "secondary": {
+              "cellSelected": {
+                "backgroundColor": "$colors.secondary.600"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.secondary.100",
+                "color": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "cellSelected": {
+                "backgroundColor": "$colors.success.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.success.100",
+                "color": "$colors.success.700"
+              }
+            },
+            "warning": {
+              "cellSelected": {
+                "backgroundColor": "$colors.warning.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.warning.100",
+                "color": "$colors.warning.700"
+              }
+            },
+            "danger": {
+              "cellSelected": {
+                "backgroundColor": "$colors.error.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.error.100",
+                "color": "$colors.error.700"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "cell": {
+                "minWidth": "32px",
+                "minHeight": "32px",
+                "fontSize": "$fontSize.xs"
+              }
+            },
+            "md": {
+              "cell": {
+                "minWidth": "40px",
+                "minHeight": "40px",
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "lg": {
+              "cell": {
+                "minWidth": "48px",
+                "minHeight": "48px",
+                "fontSize": "$fontSize.base"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Use @internationalized/date for date handling. Support range selection with start and end dates. Include visual feedback for hover, in-range, and selected states."
+        }
+      },
+      
+      "dropdown": {
+        "description": "Dropdown menu component with keyboard shortcuts, sections, and rich content support",
+        "variants": {
+          "default": {
+            "trigger": {
+              "display": "inline-flex",
+              "cursor": "pointer"
+            },
+            "menu": {
+              "minWidth": "200px",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.xl",
+              "padding": "$spacing.2",
+              "zIndex": "$zIndex.dropdown",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "item": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.3",
+              "borderRadius": "$borderRadius.sm",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "outline": "none",
+              "userSelect": "none"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemFocused": {
+              "backgroundColor": "$colors.neutral.100",
+              "outline": "2px solid $colors.primary.500",
+              "outlineOffset": "-2px"
+            },
+            "itemDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "startContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "flexShrink": "0"
+            },
+            "endContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "marginLeft": "auto",
+              "flexShrink": "0"
+            },
+            "title": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.medium"
+            },
+            "description": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500",
+              "marginTop": "$spacing.1"
+            },
+            "shortcut": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500",
+              "marginLeft": "auto",
+              "padding": "$spacing.1 $spacing.2",
+              "backgroundColor": "$colors.neutral.100",
+              "borderRadius": "$borderRadius.sm",
+              "fontFamily": "monospace"
+            },
+            "section": {
+              "marginBottom": "$spacing.2"
+            },
+            "sectionTitle": {
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.600",
+              "textTransform": "uppercase",
+              "letterSpacing": "0.05em"
+            },
+            "divider": {
+              "height": "1px",
+              "backgroundColor": "$colors.neutral.200",
+              "margin": "$spacing.2 0"
+            }
+          },
+          "variant": {
+            "solid": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.100"
+              }
+            },
+            "bordered": {
+              "item": {
+                "border": "1px solid transparent"
+              },
+              "itemHover": {
+                "border": "1px solid $colors.neutral.300",
+                "backgroundColor": "transparent"
+              }
+            },
+            "light": {
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.50"
+              }
+            },
+            "flat": {
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.100"
+              }
+            },
+            "faded": {
+              "menu": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.100"
+              }
+            },
+            "shadow": {
+              "item": {
+                "boxShadow": "none"
+              },
+              "itemHover": {
+                "boxShadow": "$shadows.sm"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "item": {
+                "color": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "itemHover": {
+                "backgroundColor": "$colors.primary.50",
+                "color": "$colors.primary.700"
+              }
+            },
+            "secondary": {
+              "itemHover": {
+                "backgroundColor": "$colors.secondary.50",
+                "color": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "itemHover": {
+                "backgroundColor": "$colors.success.50",
+                "color": "$colors.success.700"
+              }
+            },
+            "warning": {
+              "itemHover": {
+                "backgroundColor": "$colors.warning.50",
+                "color": "$colors.warning.700"
+              }
+            },
+            "danger": {
+              "item": {
+                "color": "$colors.error.500"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.error.50",
+                "color": "$colors.error.700"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "structure": "Dropdown → DropdownTrigger + DropdownMenu (with DropdownItem/DropdownSection)",
+          "notes": "Support for keyboard shortcuts, icons, descriptions, sections, dividers, and dynamic rendering. Uses Popover/Listbox patterns."
+        }
+      },
+      
+      "avatar": {
+        "description": "Avatar component for user profile images with fallbacks and status indicators",
+        "variants": {
+          "default": {
+            "base": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "overflow": "hidden",
+              "backgroundColor": "$colors.neutral.200",
+              "color": "$colors.neutral.700",
+              "fontWeight": "$fontWeight.semibold",
+              "borderRadius": "$borderRadius.full",
+              "position": "relative"
+            },
+            "image": {
+              "width": "100%",
+              "height": "100%",
+              "objectFit": "cover"
+            },
+            "fallback": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "width": "100%",
+              "height": "100%",
+              "fontSize": "$fontSize.base",
+              "textTransform": "uppercase"
+            },
+            "icon": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "width": "60%",
+              "height": "60%"
+            }
+          },
+          "size": {
+            "xs": {
+              "base": {
+                "width": "24px",
+                "height": "24px"
+              },
+              "fallback": {
+                "fontSize": "$fontSize.xs"
+              }
+            },
+            "sm": {
+              "base": {
+                "width": "32px",
+                "height": "32px"
+              },
+              "fallback": {
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "md": {
+              "base": {
+                "width": "40px",
+                "height": "40px"
+              },
+              "fallback": {
+                "fontSize": "$fontSize.base"
+              }
+            },
+            "lg": {
+              "base": {
+                "width": "56px",
+                "height": "56px"
+              },
+              "fallback": {
+                "fontSize": "$fontSize.lg"
+              }
+            },
+            "xl": {
+              "base": {
+                "width": "80px",
+                "height": "80px"
+              },
+              "fallback": {
+                "fontSize": "$fontSize.xl"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "backgroundColor": "$colors.neutral.200",
+              "color": "$colors.neutral.700"
+            },
+            "primary": {
+              "backgroundColor": "$colors.primary.100",
+              "color": "$colors.primary.700"
+            },
+            "secondary": {
+              "backgroundColor": "$colors.secondary.100",
+              "color": "$colors.secondary.700"
+            },
+            "success": {
+              "backgroundColor": "$colors.success.100",
+              "color": "$colors.success.700"
+            },
+            "warning": {
+              "backgroundColor": "$colors.warning.100",
+              "color": "$colors.warning.700"
+            },
+            "danger": {
+              "backgroundColor": "$colors.error.100",
+              "color": "$colors.error.700"
+            }
+          },
+          "bordered": {
+            "border": "2px solid $colors.white",
+            "boxShadow": "0 0 0 1px $colors.neutral.200"
+          },
+          "radius": {
+            "none": {
+              "borderRadius": "$borderRadius.none"
+            },
+            "sm": {
+              "borderRadius": "$borderRadius.sm"
+            },
+            "md": {
+              "borderRadius": "$borderRadius.md"
+            },
+            "lg": {
+              "borderRadius": "$borderRadius.lg"
+            },
+            "full": {
+              "borderRadius": "$borderRadius.full"
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Support for image src, name fallback (initials), custom fallback icons, and showFallback prop for error handling"
+        }
+      },
+      
+      "button": {
+        "description": "Button component with variants, colors, sizes, and icon support",
+        "variants": {
+          "default": {
+            "base": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.4",
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.medium",
+              "borderRadius": "$borderRadius.md",
+              "border": "none",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "outline": "none",
+              "userSelect": "none",
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white"
+            },
+            "hover": {
+              "backgroundColor": "$colors.primary.600"
+            },
+            "active": {
+              "transform": "scale(0.97)"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(59, 130, 246, 0.2)"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "loading": {
+              "opacity": "0.8",
+              "cursor": "wait"
+            },
+            "startContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "flexShrink": "0"
+            },
+            "endContent": {
+              "display": "flex",
+              "alignItems": "center",
+              "flexShrink": "0"
+            }
+          },
+          "variant": {
+            "solid": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "hoverBackgroundColor": "$colors.primary.600"
+            },
+            "bordered": {
+              "backgroundColor": "transparent",
+              "color": "$colors.primary.500",
+              "border": "2px solid $colors.primary.500",
+              "hoverBackgroundColor": "$colors.primary.50"
+            },
+            "light": {
+              "backgroundColor": "transparent",
+              "color": "$colors.primary.500",
+              "hoverBackgroundColor": "$colors.primary.50"
+            },
+            "flat": {
+              "backgroundColor": "$colors.primary.100",
+              "color": "$colors.primary.700",
+              "hoverBackgroundColor": "$colors.primary.200"
+            },
+            "faded": {
+              "backgroundColor": "$colors.neutral.100",
+              "color": "$colors.neutral.700",
+              "hoverBackgroundColor": "$colors.neutral.200"
+            },
+            "shadow": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "boxShadow": "$shadows.lg",
+              "hoverBoxShadow": "$shadows.xl"
+            },
+            "ghost": {
+              "backgroundColor": "transparent",
+              "color": "$colors.neutral.700",
+              "border": "2px solid transparent",
+              "hoverBorder": "2px solid $colors.neutral.300"
+            }
+          },
+          "color": {
+            "default": {
+              "solid": {
+                "backgroundColor": "$colors.neutral.900",
+                "hoverBackgroundColor": "$colors.neutral.800"
+              }
+            },
+            "primary": {
+              "solid": {
+                "backgroundColor": "$colors.primary.500",
+                "hoverBackgroundColor": "$colors.primary.600"
+              }
+            },
+            "secondary": {
+              "solid": {
+                "backgroundColor": "$colors.secondary.600",
+                "hoverBackgroundColor": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "solid": {
+                "backgroundColor": "$colors.success.500",
+                "hoverBackgroundColor": "$colors.success.600"
+              }
+            },
+            "warning": {
+              "solid": {
+                "backgroundColor": "$colors.warning.500",
+                "hoverBackgroundColor": "$colors.warning.600"
+              }
+            },
+            "danger": {
+              "solid": {
+                "backgroundColor": "$colors.error.500",
+                "hoverBackgroundColor": "$colors.error.600"
+              }
+            }
+          },
+          "size": {
+            "xs": {
+              "padding": "$spacing.1 $spacing.2",
+              "fontSize": "$fontSize.xs",
+              "minHeight": "24px"
+            },
+            "sm": {
+              "padding": "$spacing.1 $spacing.3",
+              "fontSize": "$fontSize.sm",
+              "minHeight": "32px"
+            },
+            "md": {
+              "padding": "$spacing.2 $spacing.4",
+              "fontSize": "$fontSize.base",
+              "minHeight": "40px"
+            },
+            "lg": {
+              "padding": "$spacing.3 $spacing.6",
+              "fontSize": "$fontSize.lg",
+              "minHeight": "48px"
+            },
+            "xl": {
+              "padding": "$spacing.4 $spacing.8",
+              "fontSize": "$fontSize.xl",
+              "minHeight": "56px"
+            }
+          },
+          "radius": {
+            "none": {
+              "borderRadius": "$borderRadius.none"
+            },
+            "sm": {
+              "borderRadius": "$borderRadius.sm"
+            },
+            "md": {
+              "borderRadius": "$borderRadius.md"
+            },
+            "lg": {
+              "borderRadius": "$borderRadius.lg"
+            },
+            "full": {
+              "borderRadius": "$borderRadius.full"
+            }
+          },
+          "fullWidth": {
+            "width": "100%"
+          },
+          "iconOnly": {
+            "padding": "$spacing.2",
+            "minWidth": "40px"
+          }
+        }
+      },
+      
+      "buttonGroup": {
+        "description": "Container for grouping related buttons together",
+        "variants": {
+          "default": {
+            "base": {
+              "display": "inline-flex",
+              "alignItems": "center",
+              "gap": "0"
+            },
+            "button": {
+              "borderRadius": "0"
+            },
+            "firstButton": {
+              "borderTopLeftRadius": "$borderRadius.md",
+              "borderBottomLeftRadius": "$borderRadius.md"
+            },
+            "lastButton": {
+              "borderTopRightRadius": "$borderRadius.md",
+              "borderBottomRightRadius": "$borderRadius.md"
+            },
+            "middleButton": {
+              "borderRadius": "0"
+            }
+          },
+          "variant": {
+            "solid": {
+              "button": {
+                "borderLeft": "1px solid rgba(255, 255, 255, 0.2)"
+              },
+              "firstButton": {
+                "borderLeft": "none"
+              }
+            },
+            "bordered": {
+              "button": {
+                "marginLeft": "-2px"
+              },
+              "firstButton": {
+                "marginLeft": "0"
+              }
+            }
+          },
+          "fullWidth": {
+            "base": {
+              "width": "100%"
+            },
+            "button": {
+              "flex": "1"
+            }
+          }
+        }
+      },
+      
+      "autocomplete": {
+        "description": "Searchable select component with filtering and custom value support",
+        "variants": {
+          "default": {
+            "container": {
+              "position": "relative",
+              "width": "100%"
+            },
+            "input": {
+              "width": "100%",
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "backgroundColor": "$colors.white",
+              "border": "2px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.md",
+              "outline": "none",
+              "transition": "$transitions.fast"
+            },
+            "inputFocus": {
+              "borderColor": "$colors.primary.500",
+              "boxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "label": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700",
+              "marginBottom": "$spacing.2",
+              "display": "block"
+            },
+            "startContent": {
+              "position": "absolute",
+              "left": "$spacing.3",
+              "top": "50%",
+              "transform": "translateY(-50%)",
+              "display": "flex",
+              "alignItems": "center",
+              "pointerEvents": "none"
+            },
+            "endContent": {
+              "position": "absolute",
+              "right": "$spacing.3",
+              "top": "50%",
+              "transform": "translateY(-50%)",
+              "display": "flex",
+              "alignItems": "center"
+            },
+            "dropdown": {
+              "position": "absolute",
+              "top": "calc(100% + 4px)",
+              "left": "0",
+              "right": "0",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.md",
+              "boxShadow": "$shadows.lg",
+              "maxHeight": "300px",
+              "overflowY": "auto",
+              "zIndex": "$zIndex.dropdown",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "item": {
+              "padding": "$spacing.2 $spacing.3",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "cursor": "pointer",
+              "transition": "$transitions.fast"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemSelected": {
+              "backgroundColor": "$colors.primary.50",
+              "color": "$colors.primary.700",
+              "fontWeight": "$fontWeight.medium"
+            },
+            "itemDescription": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500",
+              "marginTop": "$spacing.1"
+            },
+            "noResults": {
+              "padding": "$spacing.4",
+              "textAlign": "center",
+              "color": "$colors.neutral.500",
+              "fontSize": "$fontSize.sm"
+            },
+            "clearButton": {
+              "padding": "$spacing.1",
+              "color": "$colors.neutral.500",
+              "cursor": "pointer",
+              "hoverColor": "$colors.neutral.700"
+            }
+          },
+          "variant": {
+            "flat": {
+              "input": {
+                "backgroundColor": "$colors.neutral.100",
+                "border": "none"
+              }
+            },
+            "faded": {
+              "input": {
+                "backgroundColor": "$colors.neutral.50",
+                "border": "2px solid $colors.neutral.200"
+              }
+            },
+            "bordered": {
+              "input": {
+                "backgroundColor": "transparent",
+                "border": "2px solid $colors.neutral.300"
+              }
+            },
+            "underlined": {
+              "input": {
+                "backgroundColor": "transparent",
+                "border": "none",
+                "borderBottom": "2px solid $colors.neutral.300",
+                "borderRadius": "0",
+                "paddingLeft": "0"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Support for filtering, custom values (allowsCustomValue), async loading, sections, and keyboard navigation. Combine input field with dropdown menu."
+        }
+      },
+      
+      "numberInput": {
+        "description": "Numeric input component with step controls and min/max validation",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "flex",
+              "flexDirection": "column",
+              "width": "100%",
+              "position": "relative"
+            },
+            "label": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700",
+              "marginBottom": "$spacing.2",
+              "display": "block"
+            },
+            "inputWrapper": {
+              "position": "relative",
+              "display": "flex",
+              "alignItems": "center",
+              "width": "100%"
+            },
+            "input": {
+              "width": "100%",
+              "padding": "$spacing.2 $spacing.3",
+              "paddingRight": "$spacing.12",
+              "fontSize": "$fontSize.base",
+              "color": "$colors.neutral.900",
+              "backgroundColor": "$colors.white",
+              "border": "2px solid $colors.neutral.300",
+              "borderRadius": "$borderRadius.md",
+              "outline": "none",
+              "transition": "$transitions.fast",
+              "appearance": "none",
+              "MozAppearance": "textfield"
+            },
+            "inputFocus": {
+              "borderColor": "$colors.primary.500",
+              "boxShadow": "0 0 0 3px rgba(59, 130, 246, 0.1)"
+            },
+            "stepperContainer": {
+              "position": "absolute",
+              "right": "$spacing.1",
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "1px"
+            },
+            "stepButton": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "width": "24px",
+              "height": "18px",
+              "backgroundColor": "transparent",
+              "border": "none",
+              "borderRadius": "$borderRadius.sm",
+              "color": "$colors.neutral.600",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "fontSize": "$fontSize.xs"
+            },
+            "stepButtonHover": {
+              "backgroundColor": "$colors.neutral.100",
+              "color": "$colors.neutral.900"
+            },
+            "stepButtonDisabled": {
+              "opacity": "0.4",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "placeholder": {
+              "color": "$colors.neutral.400"
+            },
+            "description": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.600",
+              "marginTop": "$spacing.1"
+            },
+            "errorMessage": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.error.500",
+              "marginTop": "$spacing.1"
+            },
+            "required": {
+              "color": "$colors.error.500"
+            }
+          },
+          "variant": {
+            "flat": {
+              "input": {
+                "backgroundColor": "$colors.neutral.100",
+                "border": "none"
+              },
+              "stepButton": {
+                "hoverBackgroundColor": "$colors.neutral.200"
+              }
+            },
+            "faded": {
+              "input": {
+                "backgroundColor": "$colors.neutral.50",
+                "border": "2px solid $colors.neutral.200"
+              }
+            },
+            "bordered": {
+              "input": {
+                "backgroundColor": "transparent",
+                "border": "2px solid $colors.neutral.300"
+              }
+            },
+            "underlined": {
+              "input": {
+                "backgroundColor": "transparent",
+                "border": "none",
+                "borderBottom": "2px solid $colors.neutral.300",
+                "borderRadius": "0",
+                "paddingLeft": "0"
+              },
+              "stepperContainer": {
+                "right": "0"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "input": {
+                "padding": "$spacing.1 $spacing.2",
+                "paddingRight": "$spacing.10",
+                "fontSize": "$fontSize.sm",
+                "minHeight": "32px"
+              },
+              "stepButton": {
+                "width": "20px",
+                "height": "16px",
+                "fontSize": "10px"
+              }
+            },
+            "md": {
+              "input": {
+                "padding": "$spacing.2 $spacing.3",
+                "paddingRight": "$spacing.12",
+                "fontSize": "$fontSize.base",
+                "minHeight": "40px"
+              },
+              "stepButton": {
+                "width": "24px",
+                "height": "18px",
+                "fontSize": "$fontSize.xs"
+              }
+            },
+            "lg": {
+              "input": {
+                "padding": "$spacing.3 $spacing.4",
+                "paddingRight": "$spacing.14",
+                "fontSize": "$fontSize.lg",
+                "minHeight": "48px"
+              },
+              "stepButton": {
+                "width": "28px",
+                "height": "22px",
+                "fontSize": "$fontSize.sm"
+              }
+            }
+          },
+          "disabled": {
+            "input": {
+              "backgroundColor": "$colors.neutral.100",
+              "color": "$colors.neutral.400",
+              "cursor": "not-allowed",
+              "opacity": "0.6"
+            },
+            "stepButton": {
+              "opacity": "0.4",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            }
+          },
+          "invalid": {
+            "input": {
+              "borderColor": "$colors.error.500"
+            },
+            "inputFocus": {
+              "borderColor": "$colors.error.500",
+              "boxShadow": "0 0 0 3px rgba(239, 68, 68, 0.1)"
+            }
+          },
+          "readOnly": {
+            "input": {
+              "backgroundColor": "$colors.neutral.50",
+              "cursor": "default"
+            },
+            "stepButton": {
+              "display": "none"
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Support for min, max, step, formatOptions (currency, percent, etc.), increment/decrement buttons, keyboard navigation (arrow keys), and locale-aware number formatting"
+        }
+      },
+      
+      "tabs": {
+        "description": "Tab navigation component for organizing content into separate views",
+        "variants": {
+          "default": {
+            "base": {
+              "display": "flex",
+              "flexDirection": "column",
+              "width": "100%"
+            },
+            "tabList": {
+              "display": "flex",
+              "gap": "$spacing.1",
+              "position": "relative",
+              "borderBottom": "2px solid $colors.neutral.200"
+            },
+            "tab": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.4",
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.600",
+              "backgroundColor": "transparent",
+              "border": "none",
+              "borderBottom": "2px solid transparent",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "outline": "none",
+              "position": "relative",
+              "whiteSpace": "nowrap"
+            },
+            "tabHover": {
+              "color": "$colors.neutral.900"
+            },
+            "tabSelected": {
+              "color": "$colors.primary.500",
+              "borderBottomColor": "$colors.primary.500"
+            },
+            "tabDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "cursor": {
+              "position": "absolute",
+              "bottom": "-2px",
+              "height": "2px",
+              "backgroundColor": "$colors.primary.500",
+              "transition": "$transitions.normal"
+            },
+            "panel": {
+              "padding": "$spacing.4 0",
+              "outline": "none"
+            }
+          },
+          "variant": {
+            "solid": {
+              "tabList": {
+                "backgroundColor": "$colors.neutral.100",
+                "borderRadius": "$borderRadius.md",
+                "padding": "$spacing.1",
+                "borderBottom": "none"
+              },
+              "tab": {
+                "borderRadius": "$borderRadius.sm",
+                "borderBottom": "none"
+              },
+              "tabSelected": {
+                "backgroundColor": "$colors.white",
+                "color": "$colors.primary.500",
+                "boxShadow": "$shadows.sm"
+              }
+            },
+            "underlined": {
+              "tabList": {
+                "borderBottom": "2px solid $colors.neutral.200"
+              },
+              "tab": {
+                "borderBottom": "2px solid transparent"
+              },
+              "tabSelected": {
+                "borderBottomColor": "$colors.primary.500"
+              }
+            },
+            "bordered": {
+              "tabList": {
+                "border": "2px solid $colors.neutral.200",
+                "borderRadius": "$borderRadius.md",
+                "padding": "$spacing.1",
+                "borderBottom": "2px solid $colors.neutral.200"
+              },
+              "tab": {
+                "border": "2px solid transparent",
+                "borderRadius": "$borderRadius.sm"
+              },
+              "tabSelected": {
+                "borderColor": "$colors.primary.500",
+                "backgroundColor": "$colors.primary.50"
+              }
+            },
+            "light": {
+              "tabList": {
+                "borderBottom": "none"
+              },
+              "tab": {
+                "borderBottom": "none"
+              },
+              "tabSelected": {
+                "backgroundColor": "$colors.primary.50"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "tabSelected": {
+                "color": "$colors.neutral.900",
+                "borderBottomColor": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "tabSelected": {
+                "color": "$colors.primary.500",
+                "borderBottomColor": "$colors.primary.500"
+              }
+            },
+            "secondary": {
+              "tabSelected": {
+                "color": "$colors.secondary.600",
+                "borderBottomColor": "$colors.secondary.600"
+              }
+            },
+            "success": {
+              "tabSelected": {
+                "color": "$colors.success.500",
+                "borderBottomColor": "$colors.success.500"
+              }
+            },
+            "warning": {
+              "tabSelected": {
+                "color": "$colors.warning.500",
+                "borderBottomColor": "$colors.warning.500"
+              }
+            },
+            "danger": {
+              "tabSelected": {
+                "color": "$colors.error.500",
+                "borderBottomColor": "$colors.error.500"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "tab": {
+                "padding": "$spacing.1 $spacing.3",
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "md": {
+              "tab": {
+                "padding": "$spacing.2 $spacing.4",
+                "fontSize": "$fontSize.base"
+              }
+            },
+            "lg": {
+              "tab": {
+                "padding": "$spacing.3 $spacing.6",
+                "fontSize": "$fontSize.lg"
+              }
+            }
+          },
+          "fullWidth": {
+            "tab": {
+              "flex": "1"
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Support for keyboard navigation (arrow keys), controlled/uncontrolled state, icons in tabs, and animated cursor indicator"
+        }
+      },
+      
+      "form": {
+        "description": "Form wrapper component with validation and submission handling",
+        "variants": {
+          "default": {
+            "form": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.4",
+              "width": "100%"
+            },
+            "fieldset": {
+              "border": "none",
+              "padding": "0",
+              "margin": "0"
+            },
+            "legend": {
+              "fontSize": "$fontSize.lg",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.900",
+              "marginBottom": "$spacing.3"
+            },
+            "field": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.2"
+            },
+            "errorSummary": {
+              "padding": "$spacing.3",
+              "backgroundColor": "$colors.error.50",
+              "border": "1px solid $colors.error.200",
+              "borderRadius": "$borderRadius.md",
+              "color": "$colors.error.700",
+              "fontSize": "$fontSize.sm"
+            },
+            "successMessage": {
+              "padding": "$spacing.3",
+              "backgroundColor": "$colors.success.50",
+              "border": "1px solid $colors.success.200",
+              "borderRadius": "$borderRadius.md",
+              "color": "$colors.success.700",
+              "fontSize": "$fontSize.sm"
+            }
+          }
+        },
+        "implementation": {
+          "notes": "HTML form element wrapper that handles validation, submission, and provides context for form fields. Use with native form validation or custom validate functions."
+        }
+      },
+      
+      "pagination": {
+        "description": "Pagination component for navigating through pages of content",
+        "variants": {
+          "default": {
+            "base": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "$spacing.1",
+              "userSelect": "none"
+            },
+            "item": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "minWidth": "32px",
+              "minHeight": "32px",
+              "padding": "$spacing.1 $spacing.2",
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.700",
+              "backgroundColor": "transparent",
+              "border": "none",
+              "borderRadius": "$borderRadius.md",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "outline": "none"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemActive": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white"
+            },
+            "itemDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed",
+              "pointerEvents": "none"
+            },
+            "dots": {
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "minWidth": "32px",
+              "minHeight": "32px",
+              "color": "$colors.neutral.500"
+            },
+            "prev": {
+              "marginRight": "$spacing.1"
+            },
+            "next": {
+              "marginLeft": "$spacing.1"
+            }
+          },
+          "variant": {
+            "flat": {
+              "item": {
+                "backgroundColor": "$colors.neutral.100"
+              },
+              "itemActive": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "bordered": {
+              "item": {
+                "border": "1px solid $colors.neutral.300"
+              },
+              "itemActive": {
+                "borderColor": "$colors.primary.500",
+                "backgroundColor": "$colors.primary.50",
+                "color": "$colors.primary.700"
+              }
+            },
+            "light": {
+              "itemActive": {
+                "backgroundColor": "$colors.primary.50",
+                "color": "$colors.primary.700"
+              }
+            },
+            "faded": {
+              "item": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemActive": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "itemActive": {
+                "backgroundColor": "$colors.neutral.900",
+                "color": "$colors.white"
+              }
+            },
+            "primary": {
+              "itemActive": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "secondary": {
+              "itemActive": {
+                "backgroundColor": "$colors.secondary.600",
+                "color": "$colors.white"
+              }
+            },
+            "success": {
+              "itemActive": {
+                "backgroundColor": "$colors.success.500",
+                "color": "$colors.white"
+              }
+            },
+            "warning": {
+              "itemActive": {
+                "backgroundColor": "$colors.warning.500",
+                "color": "$colors.white"
+              }
+            },
+            "danger": {
+              "itemActive": {
+                "backgroundColor": "$colors.error.500",
+                "color": "$colors.white"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "item": {
+                "minWidth": "24px",
+                "minHeight": "24px",
+                "fontSize": "$fontSize.xs"
+              }
+            },
+            "md": {
+              "item": {
+                "minWidth": "32px",
+                "minHeight": "32px",
+                "fontSize": "$fontSize.sm"
+              }
+            },
+            "lg": {
+              "item": {
+                "minWidth": "40px",
+                "minHeight": "40px",
+                "fontSize": "$fontSize.base"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Support for controlled/uncontrolled state, siblings (number of pages shown), boundaries, keyboard navigation, and custom page rendering"
+        }
+      },
+      
+      "scrollShadow": {
+        "description": "Container that displays shadows to indicate scrollable content",
+        "variants": {
+          "default": {
+            "container": {
+              "position": "relative",
+              "overflow": "hidden"
+            },
+            "wrapper": {
+              "overflow": "auto",
+              "height": "100%",
+              "width": "100%"
+            },
+            "shadowTop": {
+              "position": "absolute",
+              "top": "0",
+              "left": "0",
+              "right": "0",
+              "height": "40px",
+              "background": "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 100%)",
+              "pointerEvents": "none",
+              "opacity": "0",
+              "transition": "$transitions.normal",
+              "zIndex": "1"
+            },
+            "shadowBottom": {
+              "position": "absolute",
+              "bottom": "0",
+              "left": "0",
+              "right": "0",
+              "height": "40px",
+              "background": "linear-gradient(to top, rgba(0,0,0,0.1) 0%, transparent 100%)",
+              "pointerEvents": "none",
+              "opacity": "0",
+              "transition": "$transitions.normal",
+              "zIndex": "1"
+            },
+            "shadowLeft": {
+              "position": "absolute",
+              "top": "0",
+              "bottom": "0",
+              "left": "0",
+              "width": "40px",
+              "background": "linear-gradient(to right, rgba(0,0,0,0.1) 0%, transparent 100%)",
+              "pointerEvents": "none",
+              "opacity": "0",
+              "transition": "$transitions.normal",
+              "zIndex": "1"
+            },
+            "shadowRight": {
+              "position": "absolute",
+              "top": "0",
+              "bottom": "0",
+              "right": "0",
+              "width": "40px",
+              "background": "linear-gradient(to left, rgba(0,0,0,0.1) 0%, transparent 100%)",
+              "pointerEvents": "none",
+              "opacity": "0",
+              "transition": "$transitions.normal",
+              "zIndex": "1"
+            },
+            "shadowVisible": {
+              "opacity": "1"
+            }
+          },
+          "orientation": {
+            "vertical": {
+              "wrapper": {
+                "overflowX": "hidden",
+                "overflowY": "auto"
+              }
+            },
+            "horizontal": {
+              "wrapper": {
+                "overflowX": "auto",
+                "overflowY": "hidden"
+              }
+            },
+            "both": {
+              "wrapper": {
+                "overflowX": "auto",
+                "overflowY": "auto"
+              }
+            }
+          },
+          "size": {
+            "sm": {
+              "shadowTop": {
+                "height": "20px"
+              },
+              "shadowBottom": {
+                "height": "20px"
+              },
+              "shadowLeft": {
+                "width": "20px"
+              },
+              "shadowRight": {
+                "width": "20px"
+              }
+            },
+            "md": {
+              "shadowTop": {
+                "height": "40px"
+              },
+              "shadowBottom": {
+                "height": "40px"
+              },
+              "shadowLeft": {
+                "width": "40px"
+              },
+              "shadowRight": {
+                "width": "40px"
+              }
+            },
+            "lg": {
+              "shadowTop": {
+                "height": "60px"
+              },
+              "shadowBottom": {
+                "height": "60px"
+              },
+              "shadowLeft": {
+                "width": "60px"
+              },
+              "shadowRight": {
+                "width": "60px"
+              }
+            }
+          },
+          "hideScrollBar": {
+            "wrapper": {
+              "scrollbarWidth": "none",
+              "msOverflowStyle": "none",
+              "WebkitScrollbar": {
+                "display": "none"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Use scroll event listeners to detect scroll position and show/hide shadows accordingly. Support for vertical, horizontal, or both orientations."
+        }
+      }
+      
+      "listbox": {
+        "description": "List component for displaying selectable items with sections, icons, and descriptions",
+        "variants": {
+          "default": {
+            "container": {
+              "width": "100%",
+              "maxWidth": "260px",
+              "border": "1px solid $colors.neutral.200",
+              "padding": "$spacing.1 $spacing.1",
+              "borderRadius": "$borderRadius.md",
+              "backgroundColor": "$colors.white"
+            },
+            "list": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.1",
+              "padding": "0",
+              "margin": "0",
+              "listStyle": "none"
+            },
+            "item": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.3",
+              "borderRadius": "$borderRadius.sm",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "fontSize": "$fontSize.sm",
+              "color": "$colors.neutral.900",
+              "outline": "none"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemFocused": {
+              "backgroundColor": "$colors.neutral.100",
+              "boxShadow": "0 0 0 2px $colors.primary.500"
+            },
+            "itemSelected": {
+              "backgroundColor": "$colors.primary.50",
+              "color": "$colors.primary.700"
+            },
+            "itemDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            },
+            "itemContent": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.1",
+              "flex": "1"
+            },
+            "itemLabel": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.normal",
+              "color": "inherit"
+            },
+            "itemDescription": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500"
+            },
+            "startContent": {
+              "flexShrink": "0",
+              "display": "flex",
+              "alignItems": "center"
+            },
+            "endContent": {
+              "flexShrink": "0",
+              "display": "flex",
+              "alignItems": "center",
+              "marginLeft": "auto"
+            },
+            "divider": {
+              "height": "1px",
+              "backgroundColor": "$colors.neutral.200",
+              "margin": "$spacing.2 0"
+            },
+            "section": {
+              "marginTop": "$spacing.3",
+              "marginBottom": "$spacing.2"
+            },
+            "sectionTitle": {
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.500",
+              "textTransform": "uppercase",
+              "letterSpacing": "0.05em",
+              "padding": "$spacing.2 $spacing.3",
+              "marginBottom": "$spacing.1"
+            },
+            "topContent": {
+              "marginBottom": "$spacing.2",
+              "paddingBottom": "$spacing.2",
+              "borderBottom": "1px solid $colors.neutral.200"
+            }
+          },
+          "variant": {
+            "solid": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "bordered": {
+              "item": {
+                "border": "1px solid $colors.neutral.300",
+                "backgroundColor": "transparent"
+              },
+              "itemSelected": {
+                "borderColor": "$colors.primary.500",
+                "backgroundColor": "$colors.primary.50"
+              }
+            },
+            "light": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemSelected": {
+                "backgroundColor": "transparent",
+                "color": "$colors.primary.500"
+              }
+            },
+            "flat": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.100"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "faded": {
+              "item": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "shadow": {
+              "item": {
+                "backgroundColor": "$colors.white",
+                "boxShadow": "$shadows.sm"
+              },
+              "itemSelected": {
+                "boxShadow": "$shadows.md",
+                "backgroundColor": "$colors.primary.50"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "itemSelected": {
+                "backgroundColor": "$colors.neutral.100",
+                "color": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "secondary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.secondary.100",
+                "color": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "itemSelected": {
+                "backgroundColor": "$colors.success.100",
+                "color": "$colors.success.700"
+              }
+            },
+            "warning": {
+              "itemSelected": {
+                "backgroundColor": "$colors.warning.100",
+                "color": "$colors.warning.700"
+              }
+            },
+            "danger": {
+              "itemSelected": {
+                "backgroundColor": "$colors.error.100",
+                "color": "$colors.error.700"
+              }
+            }
+          },
+          "selectionMode": {
+            "single": {
+              "notes": "Only one item can be selected at a time"
+            },
+            "multiple": {
+              "notes": "Multiple items can be selected, shows checkmarks"
+            },
+            "none": {
+              "notes": "Items cannot be selected, only trigger actions"
+            }
+          }
+        },
+        "implementation": {
+          "structure": "Listbox → ListboxSection (optional) → ListboxItem",
+          "notes": "Support for icons (startContent/endContent), descriptions, sections with titles, dividers, and top content area. Use onAction for click handlers, onSelectionChange for selection."
+        }
+      },
+      
+      "popover": {
+        "description": "Floating content container triggered by user interaction",
+        "variants": {
+          "default": {
+            "trigger": {
+              "display": "inline-flex",
+              "cursor": "pointer"
+            },
+            "content": {
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.lg",
+              "padding": "$spacing.4",
+              "maxWidth": "320px",
+              "zIndex": "$zIndex.popover",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "arrow": {
+              "width": "12px",
+              "height": "12px",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "transform": "rotate(45deg)"
+            },
+            "backdrop": {
+              "backgroundColor": "transparent"
+            }
+          },
+          "placement": {
+            "top": {
+              "marginBottom": "$spacing.2"
+            },
+            "topStart": {
+              "marginBottom": "$spacing.2"
+            },
+            "topEnd": {
+              "marginBottom": "$spacing.2"
+            },
+            "bottom": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomStart": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomEnd": {
+              "marginTop": "$spacing.2"
+            },
+            "left": {
+              "marginRight": "$spacing.2"
+            },
+            "leftStart": {
+              "marginRight": "$spacing.2"
+            },
+            "leftEnd": {
+              "marginRight": "$spacing.2"
+            },
+            "right": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightStart": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightEnd": {
+              "marginLeft": "$spacing.2"
+            }
+          },
+          "backdrop": {
+            "transparent": {
+              "backgroundColor": "transparent"
+            },
+            "opaque": {
+              "backgroundColor": "rgba(0, 0, 0, 0.5)"
+            },
+            "blur": {
+              "backgroundColor": "rgba(0, 0, 0, 0.3)",
+              "backdropFilter": "blur(8px)"
+            }
+          },
+          "size": {
+            "sm": {
+              "content": {
+                "maxWidth": "240px",
+                "padding": "$spacing.3"
+              }
+            },
+            "md": {
+              "content": {
+                "maxWidth": "320px",
+                "padding": "$spacing.4"
+              }
+            },
+            "lg": {
+              "content": {
+                "maxWidth": "480px",
+                "padding": "$spacing.5"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "structure": "PopoverTrigger → Trigger Element + PopoverContent",
+          "notes": "Use placement prop for positioning. Supports backdrop variants. Auto-closes on outside click or ESC key."
+        }
+      },
+      
+      "rangeCalendar": {
+        "description": "Calendar component for selecting date ranges",
+        "variants": {
+          "default": {
+            "container": {
+              "display": "inline-flex",
+              "flexDirection": "column",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "padding": "$spacing.4",
+              "boxShadow": "$shadows.sm"
+            },
+            "header": {
+              "display": "flex",
+              "justifyContent": "space-between",
+              "alignItems": "center",
+              "marginBottom": "$spacing.4",
+              "padding": "0 $spacing.2"
+            },
+            "title": {
+              "fontSize": "$fontSize.base",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.900"
+            },
+            "navButton": {
+              "width": "32px",
+              "height": "32px",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "borderRadius": "$borderRadius.md",
+              "backgroundColor": "transparent",
+              "border": "none",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "color": "$colors.neutral.600",
+              "hoverBackgroundColor": "$colors.neutral.100",
+              "disabledOpacity": "0.3",
+              "disabledCursor": "not-allowed"
+            },
+            "grid": {
+              "display": "grid",
+              "gridTemplateColumns": "repeat(7, 1fr)",
+              "gap": "$spacing.1"
+            },
+            "weekday": {
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.medium",
+              "color": "$colors.neutral.500",
+              "textAlign": "center",
+              "padding": "$spacing.2",
+              "textTransform": "uppercase"
+            },
+            "cell": {
+              "width": "40px",
+              "height": "40px",
+              "display": "flex",
+              "alignItems": "center",
+              "justifyContent": "center",
+              "fontSize": "$fontSize.sm",
+              "borderRadius": "$borderRadius.md",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "color": "$colors.neutral.900",
+              "hoverBackgroundColor": "$colors.neutral.100"
+            },
+            "cellSelected": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "hoverBackgroundColor": "$colors.primary.600"
+            },
+            "cellInRange": {
+              "backgroundColor": "$colors.primary.100",
+              "color": "$colors.primary.700"
+            },
+            "cellRangeStart": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "borderTopRightRadius": "0",
+              "borderBottomRightRadius": "0"
+            },
+            "cellRangeEnd": {
+              "backgroundColor": "$colors.primary.500",
+              "color": "$colors.white",
+              "borderTopLeftRadius": "0",
+              "borderBottomLeftRadius": "0"
+            },
+            "cellDisabled": {
+              "color": "$colors.neutral.300",
+              "cursor": "not-allowed",
+              "hoverBackgroundColor": "transparent"
+            },
+            "cellOutsideMonth": {
+              "color": "$colors.neutral.400"
+            },
+            "cellToday": {
+              "fontWeight": "$fontWeight.semibold",
+              "border": "2px solid $colors.primary.500"
+            }
+          },
+          "color": {
+            "primary": {
+              "cellSelected": {
+                "backgroundColor": "$colors.primary.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "secondary": {
+              "cellSelected": {
+                "backgroundColor": "$colors.secondary.600"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.secondary.100",
+                "color": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "cellSelected": {
+                "backgroundColor": "$colors.success.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.success.100",
+                "color": "$colors.success.700"
+              }
+            },
+            "warning": {
+              "cellSelected": {
+                "backgroundColor": "$colors.warning.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.warning.100",
+                "color": "$colors.warning.700"
+              }
+            },
+            "danger": {
+              "cellSelected": {
+                "backgroundColor": "$colors.error.500"
+              },
+              "cellInRange": {
+                "backgroundColor": "$colors.error.100",
+                "color": "$colors.error.700"
+              }
+            }
+          }
+        },
+        "implementation": {
+          "notes": "Uses @internationalized/date for date handling. Support for controlled/uncontrolled state, min/max dates, disabled dates, locale support."
+        }
+      },
+      
+      "dropdown": {
+        "description": "Dropdown menu component combining trigger and positioned menu content",
+        "variants": {
+          "default": {
+            "trigger": {
+              "display": "inline-flex",
+              "cursor": "pointer"
+            },
+            "menu": {
+              "minWidth": "200px",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "borderRadius": "$borderRadius.lg",
+              "boxShadow": "$shadows.lg",
+              "padding": "$spacing.2",
+              "zIndex": "$zIndex.dropdown",
+              "animation": "fadeIn $transitions.fast $transitions.easing"
+            },
+            "arrow": {
+              "width": "12px",
+              "height": "12px",
+              "backgroundColor": "$colors.white",
+              "border": "1px solid $colors.neutral.200",
+              "transform": "rotate(45deg)"
+            },
+            "item": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "$spacing.2",
+              "padding": "$spacing.2 $spacing.3",
+              "borderRadius": "$borderRadius.sm",
+              "cursor": "pointer",
+              "transition": "$transitions.fast",
+              "fontSize": "$fontSize.sm",
+              "color": "$colors.neutral.900",
+              "outline": "none"
+            },
+            "itemHover": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemFocused": {
+              "backgroundColor": "$colors.neutral.100"
+            },
+            "itemSelected": {
+              "backgroundColor": "$colors.primary.50",
+              "color": "$colors.primary.700"
+            },
+            "itemDisabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            },
+            "itemContent": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "$spacing.1",
+              "flex": "1"
+            },
+            "itemTitle": {
+              "fontSize": "$fontSize.sm",
+              "fontWeight": "$fontWeight.normal",
+              "color": "inherit"
+            },
+            "itemDescription": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500"
+            },
+            "startContent": {
+              "flexShrink": "0",
+              "display": "flex",
+              "alignItems": "center"
+            },
+            "endContent": {
+              "flexShrink": "0",
+              "display": "flex",
+              "alignItems": "center",
+              "marginLeft": "auto"
+            },
+            "shortcut": {
+              "fontSize": "$fontSize.xs",
+              "color": "$colors.neutral.500",
+              "marginLeft": "auto",
+              "fontFamily": "monospace"
+            },
+            "divider": {
+              "height": "1px",
+              "backgroundColor": "$colors.neutral.200",
+              "margin": "$spacing.2 0"
+            },
+            "section": {
+              "marginTop": "$spacing.2",
+              "marginBottom": "$spacing.2"
+            },
+            "sectionTitle": {
+              "fontSize": "$fontSize.xs",
+              "fontWeight": "$fontWeight.semibold",
+              "color": "$colors.neutral.500",
+              "textTransform": "uppercase",
+              "letterSpacing": "0.05em",
+              "padding": "$spacing.2 $spacing.3",
+              "marginBottom": "$spacing.1"
+            }
+          },
+          "variant": {
+            "solid": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.500",
+                "color": "$colors.white"
+              }
+            },
+            "bordered": {
+              "item": {
+                "border": "1px solid $colors.neutral.300",
+                "backgroundColor": "transparent"
+              },
+              "itemSelected": {
+                "borderColor": "$colors.primary.500",
+                "backgroundColor": "$colors.primary.50"
+              }
+            },
+            "light": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemSelected": {
+                "backgroundColor": "transparent",
+                "color": "$colors.primary.500"
+              }
+            },
+            "flat": {
+              "item": {
+                "backgroundColor": "transparent"
+              },
+              "itemHover": {
+                "backgroundColor": "$colors.neutral.100"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "faded": {
+              "item": {
+                "backgroundColor": "$colors.neutral.50"
+              },
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "shadow": {
+              "item": {
+                "backgroundColor": "$colors.white",
+                "boxShadow": "$shadows.sm"
+              },
+              "itemSelected": {
+                "boxShadow": "$shadows.md",
+                "backgroundColor": "$colors.primary.50"
+              }
+            }
+          },
+          "color": {
+            "default": {
+              "itemSelected": {
+                "backgroundColor": "$colors.neutral.100",
+                "color": "$colors.neutral.900"
+              }
+            },
+            "primary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.primary.100",
+                "color": "$colors.primary.700"
+              }
+            },
+            "secondary": {
+              "itemSelected": {
+                "backgroundColor": "$colors.secondary.100",
+                "color": "$colors.secondary.700"
+              }
+            },
+            "success": {
+              "itemSelected": {
+                "backgroundColor": "$colors.success.100",
+                "color": "$colors.success.700"
+              }
+            },
+            "warning": {
+              "itemSelected": {
+                "backgroundColor": "$colors.warning.100",
+                "color": "$colors.warning.700"
+              }
+            },
+            "danger": {
+              "itemSelected": {
+                "backgroundColor": "$colors.error.100",
+                "color": "$colors.error.700"
+              }
+            }
+          },
+          "placement": {
+            "top": {
+              "marginBottom": "$spacing.2"
+            },
+            "topStart": {
+              "marginBottom": "$spacing.2"
+            },
+            "topEnd": {
+              "marginBottom": "$spacing.2"
+            },
+            "bottom": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomStart": {
+              "marginTop": "$spacing.2"
+            },
+            "bottomEnd": {
+              "marginTop": "$spacing.2"
+            },
+            "left": {
+              "marginRight": "$spacing.2"
+            },
+            "leftStart": {
+              "marginRight": "$spacing.2"
+            },
+            "leftEnd": {
+              "marginRight": "$spacing.2"
+            },
+            "right": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightStart": {
+              "marginLeft": "$spacing.2"
+            },
+            "rightEnd": {
+              "marginLeft": "$spacing.2"
+            }
+          }
+        },
+        "implementation": {
+          "structure": "Dropdown → DropdownTrigger + DropdownMenu → DropdownSection (optional) → DropdownItem",
+          "notes": "Positioned menu triggered by button/element click. Supports icons (startContent/endContent), descriptions, keyboard shortcuts, sections with titles, dividers. Closes on outside click, ESC key, or item selection. Inherits most styling from Listbox component."
+        }
+      }
+    },
+    
+    "animations": {
+      "fadeIn": {
+        "keyframes": {
+          "from": {
+            "opacity": "0"
+          },
+          "to": {
+            "opacity": "1"
+          }
+        }
+      },
+      "slideIn": {
+        "keyframes": {
+          "from": {
+            "transform": "translateY(-20px)",
+            "opacity": "0"
+          },
+          "to": {
+            "transform": "translateY(0)",
+            "opacity": "1"
+          }
+        }
+      },
+      "modalSlideIn": {
+        "keyframes": {
+          "from": {
+            "transform": "scale(0.95)",
+            "opacity": "0"
+          },
+          "to": {
+            "transform": "scale(1)",
+            "opacity": "1"
+          }
+        }
+      },
+      "spin": {
+        "keyframes": {
+          "from": {
+            "transform": "rotate(0deg)"
+          },
+          "to": {
+            "transform": "rotate(360deg)"
+          }
+        }
+      },
+      "pulse": {
+        "keyframes": {
+          "0%, 100%": {
+            "opacity": "1"
+          },
+          "50%": {
+            "opacity": "0.5"
+          }
+        }
+      },
+      "shimmer": {
+        "keyframes": {
+          "0%": {
+            "transform": "translateX(-100%)"
+          },
+          "100%": {
+            "transform": "translateX(100%)"
+          }
+        }
+      },
+      "bounce": {
+        "keyframes": {
+          "0%, 80%, 100%": {
+            "transform": "scale(0)"
+          },
+          "40%": {
+            "transform": "scale(1)"
+          }
+        }
+      },
+      "progress": {
+        "keyframes": {
+          "0%": {
+            "transform": "translateX(-100%)"
+          },
+          "100%": {
+            "transform": "translateX(400%)"
+          }
+        }
+      },
+      "progressStripes": {
+        "keyframes": {
+          "0%": {
+            "backgroundPosition": "1rem 0"
+          },
+          "100%": {
+            "backgroundPosition": "0 0"
+          }
+        }
+      },
+      "progressIndeterminate": {
+        "keyframes": {
+          "0%": {
+            "transform": "translateX(-100%)"
+          },
+          "50%": {
+            "transform": "translateX(250%)"
+          },
+          "100%": {
+            "transform": "translateX(-100%)"
+          }
+        }
+      }
+    }
+  }
+}
