@@ -13,6 +13,14 @@
     }
   ],
   "env": {
-    "PYTHON_VERSION": "3.11"
+    "PYTHON_VERSION": "3.11",
+    "SUPABASE_URL": "https://xrmlxpiyqptyysuzgvnr.supabase.co",
+    "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhybWx4cGl5cXB0eXlzdXpndm5yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNjUyMzQsImV4cCI6MjA3Nzc0MTIzNH0.57fxW0F0fU2cuLY4x9l8mpNKnNWPBpOowkwtb34H3_I",
+    "DATABASE_URL": "postgresql://postgres:o6MB1DoQSVQRfpYV@db.xrmlxpiyqptyysuzgvnr.supabase.co:5432/postgres",
+    "STRIPE_SECRET_KEY": "sb_secret_UTXcpkk5Zk4z7rnObCj-aA_jj7wfnD6",
+    "STRIPE_PUBLISHABLE_KEY": "sb_publishable_YwQj6LWi2hgNpUOg_bZ85g_6w6XUblC",
+    "SECRET_KEY": "noor-secret-2024-production",
+    "APP_ENV": "production",
+    "DEBUG": "false"
   }
 }
