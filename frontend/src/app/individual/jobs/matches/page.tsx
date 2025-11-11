@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { DashboardLayout } from '@/components/individual/layout';
 import { DashboardLayout } from '@/components/individual/DashboardLayout';
 import { Card, CardBody } from '@/components/individual/Card';
 import { Button } from '@/components/individual/Button';
