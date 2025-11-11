@@ -5,6 +5,8 @@ import { DashboardLayout } from '@/components/individual/layout';
 import { Button } from '@/components/individual/Button';
 import { Badge } from '@/components/individual/Badge';
 import { Input } from '@/components/individual/Input';
+
+
 export default function EventsPage() {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'registered' | 'past'>('upcoming');
   const [searchQuery, setSearchQuery] = useState('');

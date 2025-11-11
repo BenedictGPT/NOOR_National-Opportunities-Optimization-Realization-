@@ -8,6 +8,7 @@ import { Button } from '@/components/individual/Button';
 import { Badge } from '@/components/individual/Badge';
 import { Input } from '@/components/individual/Input';
 
+
 type ApplicationStatus = 'all' | 'pending' | 'under_review' | 'interview' | 'offer' | 'rejected' | 'accepted';
 
 interface Application {

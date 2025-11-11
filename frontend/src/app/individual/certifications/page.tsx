@@ -137,6 +137,8 @@ export default function CertificationsPage() {
     { id: 4, title: 'Knowledge Sharer', icon: '🤝', description: 'Helped 50+ peers with certifications' },
   ];
 
+
+
   const downloadCertificate = (cert: any) => {
     alert(`Downloading certificate: ${cert.title}`);
   };
