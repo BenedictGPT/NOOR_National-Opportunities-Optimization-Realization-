@@ -137,15 +137,6 @@ export default function CertificationsPage() {
     { id: 4, title: 'Knowledge Sharer', icon: '🤝', description: 'Helped 50+ peers with certifications' },
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-700 border-green-300';
-      case 'expiring': return 'bg-yellow-100 text-yellow-700 border-yellow-300';
-      case 'expired': return 'bg-red-100 text-red-700 border-red-300';
-      default: return 'bg-gray-100 text-gray-700 border-gray-300';
-    }
-  };
-
   const downloadCertificate = (cert: any) => {
     alert(`Downloading certificate: ${cert.title}`);
   };
