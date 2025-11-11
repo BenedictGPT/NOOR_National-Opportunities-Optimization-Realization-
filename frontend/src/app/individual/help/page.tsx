@@ -12,8 +12,6 @@ export default function HelpCenterPage() {
   const [activeTab, setActiveTab] = useState<'faq' | 'articles' | 'videos' | 'contact'>('faq');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [showContactForm, setShowContactForm] = useState(false);
-
   const user = {
     name: 'Fatima Al Hashimi',
     email: 'fatima.alhashimi@email.ae',
